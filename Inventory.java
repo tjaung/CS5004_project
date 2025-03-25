@@ -6,14 +6,14 @@ public class Inventory {
     private final String maxWeight;  // The maximum weight
     private String currWeight;       // The current weight of the items 
     private final List<Item> items;  // A list to hold Item objects
-    private String photoPath;        // The path to an image 
+    private String picture;        // The path to an image 
 
     // Constructor to initialize the Inventory object with specified values
     public Inventory(String maxWeight, String currWeight, String path) {
         this.maxWeight = maxWeight;     
         this.currWeight = currWeight;    
         this.items = new ArrayList<>();  
-        this.photoPath = path;           
+        this.picture = path;           
     }
 
     // Get the current weight
@@ -32,7 +32,7 @@ public class Inventory {
     }
 
     // Get the photo path
-    public String getPhotoPath() {
-        return photoPath;
+    public String getPicture() {
+        return picture;
     }
 }
