@@ -14,7 +14,7 @@ public class FixtureFactory {
 
   public static Fixture create(int weight,
                                Puzzle puzzle,
-                               State state,
+                               boolean state,
                                String description,
                                String picture) {
     // Assuming that puzzle and state will already be instantiated for construction
