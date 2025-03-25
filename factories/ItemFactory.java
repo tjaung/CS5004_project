@@ -1,6 +1,4 @@
-import gameelements.Item;
-
-class itemFactory {
+class ItemFactory {
 
   public itemClass create(String shapeProduct, int weight, int value, String name, int maxUses,
                           int usesRemaining, String whenUsed, String description,

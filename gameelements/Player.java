@@ -2,7 +2,7 @@ package gameelements;
 
 import java.awt.geom.Point2D;
 
-public class playerClass {
+public class Player {
   private String name;
   private int score;
   private int health;
@@ -10,7 +10,7 @@ public class playerClass {
   private Room currentRoom;
   private Inventory inventory;
 
-  public playerClass() {
+  public Player() {
   }
 
   public String getName() {
