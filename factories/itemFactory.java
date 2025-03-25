@@ -1,4 +1,4 @@
-import java.util.HashMap;
+import gameelements.Item;
 
 class itemFactory {
 

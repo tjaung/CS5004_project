@@ -1,5 +1,7 @@
+package gameelements;
+
 /**
- * Class for Room.
+ * Class for gameelements.Room.
  */
 public class Room {
     private String roomName;
@@ -15,23 +17,23 @@ public class Room {
     private String picture;
 
     /**
-     * Constructor for Room. Takes in a lot of parameters to construct it. 
+     * Constructor for gameelements.Room. Takes in a lot of parameters to construct it.
      */
     public Room(
         String roomName, 
-        int: roomNumber, 
-        String: description, 
-        int: N, 
-        int: S, 
-        int: E, 
-        int: W, 
-        Puzzle: puzzle,
-        Item: items, 
-        Fixture: fixtures, 
+        int roomNumber,
+        String description,
+        int N,
+        int S,
+        int E,
+        int W,
+        Puzzle puzzle,
+        Item items,
+        Fixture fixtures,
         String picture) {
             
         // Check parameters
-        this.checkParameters(roomName, roomNumber, description, N, S, E, W, puzzle, items, fixtures, picture)
+//        this.checkParameters(roomName, roomNumber, description, N, S, E, W, puzzle, items, fixtures, picture)
         this.roomName = roomName;
         this.description = description;
         this.N = N;

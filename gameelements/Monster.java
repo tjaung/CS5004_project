@@ -1,14 +1,16 @@
+package gameelements;
+
 public class Monster {
-    // The Monster class represents a monster.
+    // The gameelements.Monster class represents a monster.
 
     // Instance variables 
     private final String damage;        // The damage dealt by the monster
-    private int health;                 // Monster health (now mutable)
+    private int health;                 // gameelements.Monster health (now mutable)
     private final String canAttack;     // Whether the monster can attack
     private final String typeOfAttack;  // The type of attack
     private final String picture;          // The file path to the image
 
-    // Constructor to initialize the Monster object with specified values
+    // Constructor to initialize the gameelements.Monster object with specified values
     public Monster(String damage, int initialHealth, String canAttack, String typeOfAttack, String image) {
         this.damage = damage;  
         this.health = initialHealth;  // Assign the initial health value

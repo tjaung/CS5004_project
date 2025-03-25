@@ -1,3 +1,5 @@
+package gameelements;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +10,7 @@ public class Inventory {
     private final List<Item> items;  // A list to hold Item objects
     private String picture;        // The path to an image 
 
-    // Constructor to initialize the Inventory object with specified values
+    // Constructor to initialize the gameelements.Inventory object with specified values
     public Inventory(int maxWeight, int currWeight, String path) {
         this.maxWeight = maxWeight;     
         this.currWeight = currWeight;    

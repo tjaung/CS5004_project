@@ -26,16 +26,17 @@ public class RoomFactory {
                             Fixture fixtures,
                             String picture) {
     // Assuming that puzzle, Item, and Fixture will already be instantiated for construction
-    return new Room(String roomName,
-      int roomNumber,
-      String description,
-      int N,
-      int S,
-      int E,
-      int W,
-      Puzzle puzzle,
-      Item items,
-      Fixture fixtures,
-      String picture);
+    return new Room(
+            roomName,
+            roomNumber,
+            description,
+            N,
+            S,
+            E,
+            W,
+            puzzle,
+            items,
+            fixtures,
+            picture);
   }
 }
