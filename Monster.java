@@ -6,7 +6,7 @@ public class Monster {
     private int health;                 // Monster health (now mutable)
     private final String canAttack;     // Whether the monster can attack
     private final String typeOfAttack;  // The type of attack
-    private final String path;          // The file path to the image
+    private final String picture;          // The file path to the image
 
     // Constructor to initialize the Monster object with specified values
     public Monster(String damage, int initialHealth, String canAttack, String typeOfAttack, String image) {
@@ -14,7 +14,7 @@ public class Monster {
         this.health = initialHealth;  // Assign the initial health value
         this.canAttack = canAttack;     
         this.typeOfAttack = typeOfAttack; 
-        this.path = image;              
+        this.picture = image;              
     }
 
     // Method to get the damage 
@@ -38,8 +38,8 @@ public class Monster {
     }
 
     // Method to get the file path
-    public String getImage() {
-        return path; 
+    public String getPicture() {
+        return picture; 
     }
 
     // Method to get the type of attack
