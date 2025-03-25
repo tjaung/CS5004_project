@@ -1,13 +1,14 @@
+import gameelements.Puzzle;
 
 /**
  * Class for a Fixture concrete Object.
  */
 public class Fixture {
-    private int weight = null; //how much the fixture weighs. Fixtures are immovable, so anything greater than 200 is acceptable.
+    private int weight = 0; //how much the fixture weighs. Fixtures are immovable, so anything greater than 200 is acceptable.
     private Puzzle puzzle = null; //if there is a puzzle associated with the fixture. For this version of our engine, we do not process puzzles connected to a fixture.
     private State state = null; //a state model for the fixture. For this version of our engine, we do not process puzzles with state models
-    private String description = null;
-    private String picture = null; //a picture representing the fixture (not relevant for HW8; might be used for the graphical version in HW9)
+    private String description = '';
+    private String picture = ''; //a picture representing the fixture (not relevant for HW8; might be used for the graphical version in HW9)
 
     /**
      * Constructor for Fixture. takes in a weight, puzzle, state, desc, and picture.
@@ -18,12 +19,16 @@ public class Fixture {
      * @param description - a string desc of the fixture.
      * @param picture - a string path to the corresponding asset.
      */
-    public Fixture(int: weight, Puzzle: puzzle, State: state, String: description, Picture: picture) {
+    public Fixture(int weight,
+                   Puzzle puzzle,
+                   State state,
+                   String description,
+                   String picture) {
         // Check parameters for missingness
-        if (weight == NULL || weight < 0) {
+        if (weight <= 0) {
             throw new IllegalArgumentException("Weight must be non-null and greater than 0.");
         }
-        if (description == NULL || description.isEmpty()) {
+        if (description == null || description.isEmpty()) {
             throw new IllegalArgumentException("Description must not be empty.");
         }
 
