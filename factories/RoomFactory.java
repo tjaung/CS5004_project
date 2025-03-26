@@ -8,6 +8,7 @@ import gameelements.Puzzle;
 import gameelements.Fixture;
 import gameelements.Item;
 import gameelements.Room;
+import gameelements.Monster;
 
 /**
  * Factory for Fixture class.
@@ -21,6 +22,7 @@ public class RoomFactory {
                             int S,
                             int E,
                             int W,
+                            Monster monster,
                             Puzzle puzzle,
                             Item items,
                             Fixture fixtures,
@@ -34,6 +36,7 @@ public class RoomFactory {
             S,
             E,
             W,
+            monster,
             puzzle,
             items,
             fixtures,

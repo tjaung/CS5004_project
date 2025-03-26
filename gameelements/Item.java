@@ -1,6 +1,6 @@
 package gameelements;
 
-public abstract class Item  {
+public class Item  {
   private int weight;
   private int value;
   private String name;

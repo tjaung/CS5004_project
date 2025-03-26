@@ -11,6 +11,7 @@ public class Room {
     private int S;
     private int E;
     private int W;
+    private Monster monster;
     private Puzzle puzzle;
     private Item items;
     private Fixture fixtures;
@@ -27,6 +28,7 @@ public class Room {
         int S,
         int E,
         int W,
+        Monster monster,
         Puzzle puzzle,
         Item items,
         Fixture fixtures,
@@ -40,6 +42,7 @@ public class Room {
         this.S = S;
         this.E = E;
         this.W = W;
+        this.monster = monster;
         this.puzzle = puzzle;
         this.items = items;
         this.picture = picture;
@@ -89,5 +92,20 @@ public class Room {
     public int getW() {
         return W;
     }
-    
+
+    public Monster getMonster() {
+        return monster;
+    }
+
+    public Puzzle getPuzzle() {
+        return puzzle;
+    }
+
+    public Item getItems() {
+        return items;
+    }
+
+    public Fixture getFixtures() {
+        return fixtures;
+    }
 }
