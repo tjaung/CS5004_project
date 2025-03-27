@@ -18,6 +18,9 @@ public class RoomModel {
     String initialJSON = Parser.readJsonFile(gameFileName);
     JSONObject JSON = Parser.parseJsonString(initialJSON);
     this.roomList = Parser.parseRooms(JSON);
+//    for (Room room : roomList) {
+//      System.out.println(room.toString());
+//    }
   }
 
   public Room getCurrentRoom() {

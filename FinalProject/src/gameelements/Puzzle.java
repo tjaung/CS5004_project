@@ -1,10 +1,10 @@
 package gameelements;
 
-public class Puzzle {
+public class Puzzle implements IRoomElement{
   private String  name;
   private boolean active;
   private boolean affects_target;
-  private Item solution;
+  private IRoomElement solution;
   private int value;
   private String effects;
   private String description;
@@ -13,9 +13,9 @@ public class Puzzle {
   private boolean affects_player;
 
   public Puzzle(String name,
-      boolean affects_target,
-      boolean active,
-      Item solution, int value,
+                boolean affects_target,
+                boolean active,
+                IRoomElement solution, int value,
                 String effects, String description, String target, String picture, boolean affects_player) {
     this.name = name;
     this.affects_target = affects_target;
@@ -45,7 +45,7 @@ public class Puzzle {
     return affects_target;
   }
 
-  public Item getSolution() {
+  public IRoomElement getSolution() {
     return solution;
   }
 

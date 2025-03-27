@@ -11,23 +11,55 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gameelements.Fixture;
+import gameelements.IRoomElement;
 import gameelements.Item;
+import gameelements.Monster;
+import gameelements.Puzzle;
 import gameelements.Room;
 
+/**
+ * Parser class takes the JSON data and creates the game world
+ * by generating rooms and game elements based on the JSON data.
+ */
 public class Parser {
+
+  /**
+   * Reads the initial json file and converts to a string.
+   *
+   * @param filePath local json file path
+   * @return string of the json data
+   * @throws Exception any errors thrown
+   */
   public static String readJsonFile(String filePath) throws Exception {
     return Files.readString(Paths.get(filePath));
   }
 
+  /**
+   * Takes the string json data and converts to real json.
+   *
+   * @param jsonData string json data
+   * @return json data
+   * @throws Exception any errors thrown
+   */
   public static JSONObject parseJsonString(String jsonData) throws Exception {
     return new JSONObject(jsonData);
   }
 
-  public static List<Item> parseItems(JSONObject jsonObject){
-    List<Item> itemList = new ArrayList<>();
-    JSONArray itemsArray = jsonObject.getJSONArray("item");
+  /**
+   * Returns a list of all items in the game.
+   *
+   * @param itemsArray array from json data
+   * @return list of items
+   */
+  private static List<IRoomElement> parseItems(JSONArray itemsArray){
+    // init empty item array
+    List<IRoomElement> itemList = new ArrayList<>();
+
+    // loop parameter item array
     for(int i=0; i < itemsArray.length(); i++){
       JSONObject itemJson = itemsArray.getJSONObject(i);
+
+      // cast each value to proper data type
       String name = itemJson.getString("name");
       int weight = itemJson.getInt("weight");
       int maxUses = itemJson.getInt("max_uses");
@@ -35,27 +67,35 @@ public class Parser {
       int value = itemJson.getInt("value");
       String whenUsed = itemJson.getString("when_used");
       String description = itemJson.getString("description");
-      String picture = itemJson.getString("picture");
+      String picture = itemJson.isNull("picture") ? null : itemJson.getString("picture");
+
+      // create concrete item instance
       Item item = new Item(weight,value,name,maxUses,usesRemaining,whenUsed,description,picture);
+      // add item to output list
       itemList.add(item);
     }
     return itemList;
   }
 
-  public static List<gameelements.Monster> parseMonster(JSONObject jsonObject) {
-    List<gameelements.Monster> monsterList = new ArrayList<>();
-    JSONArray monsterArray = jsonObject.getJSONArray("monster");
+  /**
+   * returns a list of all monsters in the game.
+   *
+   * @param monsterArray array from json data
+   * @return list of all monsters
+   */
+  private static List<IRoomElement> parseMonster(JSONArray monsterArray) {
+    List<gameelements.IRoomElement> monsterList = new ArrayList<>();
+
+    // loop parameter monster array
     for (int i = 0; i < monsterArray.length(); i++) {
       JSONObject monsterJson = monsterArray.getJSONObject(i);
+
+      // cast to proper data types
       String name = monsterJson.getString("name");
       boolean active = monsterJson.getBoolean("active");
       boolean affectsTarget = monsterJson.getBoolean("affectsTarget");
       boolean affectsPlayer = monsterJson.getBoolean("affectsPlayer");
       Item solution = null;
-      if (monsterJson.has("solution")) {
-        JSONObject solutionJson = monsterJson.getJSONObject("solution");
-        solution = (Item) parseItems(solutionJson);
-      }
       int value = monsterJson.getInt("value");
       String description = monsterJson.optString("description");
       String effects = monsterJson.optString("effects");
@@ -63,72 +103,167 @@ public class Parser {
       String target = monsterJson.optString("target");
       boolean canAttack = monsterJson.getBoolean("canAttack");
       String attack = monsterJson.getString("attack");
-      String picture = monsterJson.getString("picture");
+      String picture = monsterJson.isNull("picture") ? null : monsterJson.getString("picture");
       int health = monsterJson.getInt("health");
+
+      // create concrete instance of monster
       gameelements.Monster monster = new gameelements.Monster(name, active, affectsTarget, affectsPlayer, solution, value, description,
-          effects, damage, target, canAttack, attack, picture, health);
+              effects, damage, target, canAttack, attack, picture, health);
       monsterList.add(monster);
     }
     return monsterList;
   }
-  public static List<gameelements.Puzzle> parsePuzzle(JSONObject jsonObject){
-    List<gameelements.Puzzle> puzzleList = new ArrayList<>();
-    JSONArray puzzleArray = jsonObject.getJSONArray("puzzles");
+
+  /**
+   * returns a list of all puzzles in the game.
+   *
+   * @param puzzleArray json array of puzzles
+   * @param itemList list of all items since some puzzles need items to solve
+   * @return list of all puzzles
+   */
+  private static List<IRoomElement> parsePuzzle(JSONArray puzzleArray, List<IRoomElement> itemList){
+    List<gameelements.IRoomElement> puzzleList = new ArrayList<>();
+
+    // loop parameter puzzle array
     for(int i=0; i < puzzleArray.length(); i++){
       JSONObject puzzleJson = puzzleArray.getJSONObject(i);
-       String name = puzzleJson.getString("name");
-       boolean active = puzzleJson.getBoolean("active");
-       boolean affects_targets = puzzleJson.getBoolean("affects_target");
+
+      // cast to proper data types
+      String name = puzzleJson.getString("name");
+      boolean active = puzzleJson.getBoolean("active");
+      boolean affects_targets = puzzleJson.getBoolean("affects_target");
       boolean affects_player = puzzleJson.getBoolean("affects_player");
-      Item solution = null;
+      IRoomElement solution = null;
+
+      // get the solution
       if (puzzleJson.has("solution")) {
-        JSONObject solutionJson = puzzleJson.getJSONObject("solution");
-        solution = (Item) parseItems(solutionJson);
+        String answer = puzzleJson.getString("solution").replace("\'", "");
+        // solution condition 1: it's a pw and needs a string solution
+        if(puzzleJson.getString("name").equalsIgnoreCase("PASSWORD")) {
+          // create a new empty item that holds the string solution
+          solution = new Item(0,0, answer, 1,1,"", "", "");
+          itemList.add(solution);
+        }
+        // solution condition 2: it's an item puzzle and it needs a specific item
+        else {
+          // query the item list
+          solution = itemList.stream()
+                  .filter(item -> item.getName().toLowerCase().equals(answer.toLowerCase()))
+                  .findFirst()
+                  .get();
+        }
       }
+
       int value = puzzleJson.getInt("value");
       String description = puzzleJson.getString("description");
       String effects = puzzleJson.getString("effects");
       String target = puzzleJson.getString("target");
-      String picture = puzzleJson.getString("picture");
+      String picture = puzzleJson.isNull("picture") ? null : puzzleJson.getString("picture");
       gameelements.Puzzle puzzle = new gameelements.Puzzle(
-          name,
-          affects_targets,
-          active,
-          solution,
-          value,
-          effects,
-          description,
-          target,
-          picture,
-          affects_player);
+              name,
+              affects_targets,
+              active,
+              solution,
+              value,
+              effects,
+              description,
+              target,
+              picture,
+              affects_player);
       puzzleList.add(puzzle);
     }
     return puzzleList;
   }
-  public static List<gameelements.Fixture> parseFixture(JSONObject jsonObject){
-    List<gameelements.Fixture> fixturesList = new ArrayList<>();
-    JSONArray fixtureArray = jsonObject.getJSONArray("fixtures");
+
+  /**
+   * returns list of all fixtures in game.
+   *
+   * @param fixtureArray json array of fixture data
+   * @param puzzleList list of puzzles since some fixtures have puzzles
+   * @return list of all fixtures
+   */
+  private static List<IRoomElement> parseFixture(JSONArray fixtureArray, List<IRoomElement> puzzleList){
+    List<gameelements.IRoomElement> fixturesList = new ArrayList<>();
+
+    // loop param array of fixtures
     for(int i=0; i < fixtureArray.length(); i++){
       JSONObject fixtureJson = fixtureArray.getJSONObject(i);
+
+      // cast to proper data types
       String name = fixtureJson.getString("name");
       int weight = fixtureJson.getInt("weight");
       String description = fixtureJson.getString("description");
-      String picture = fixtureJson.getString("picture");
-      boolean state = fixtureJson.getBoolean("states");
-      gameelements.Puzzle puzzle = null;
+      String picture = fixtureJson.isNull("picture") ? null : fixtureJson.getString("picture");
+      // states is set to boolean as placeholder for now
+      boolean state = fixtureJson.isNull("states") ? true : fixtureJson.getBoolean("states");
+      IRoomElement puzzle = null;
+
+      // query for correct puzzle
       if (fixtureJson.has("puzzle")) {
-        JSONObject puzzleJson =fixtureJson.getJSONObject("puzzle");
-        puzzle = (gameelements.Puzzle) parsePuzzle(puzzleJson);
+        String puzzleName = fixtureJson.isNull("puzzle") ? null : fixtureJson.getString("puzzle").toLowerCase();
+        if (puzzleName != null) {
+          puzzle = puzzleList.stream()
+                  .filter(p -> p.getName().toLowerCase().equalsIgnoreCase(puzzleName))
+                  .findFirst().get();
+        }
       }
-      gameelements.Fixture fixture = new gameelements.Fixture(name,weight,description,picture,state,puzzle);
+
+      // create fixture and add to list
+      gameelements.Fixture fixture = new Fixture(name,weight,description,picture,state,puzzle);
       fixturesList.add(fixture);
     }
     return fixturesList;
   }
 
+  /**
+   * helper function to query game elements for a game element.
+   * i.e. a given room has a fixture named "Computer". This queries
+   * the list of all fixtures for "Computer" and returns it.
+   *
+   * @param room room its in
+   * @param key key from json data
+   * @param elementArray list of objects corresponding to key
+   * @return single game object
+   */
+  private static IRoomElement getRoomGameElement(JSONObject room, String key, List<IRoomElement> elementArray) {
+    IRoomElement gameObject = null;
+    if (!room.isNull(key)) {
+      String roomEle = room.getString(key).toLowerCase();
+       gameObject = elementArray.stream()
+              .filter(e -> e.getName().toLowerCase().equalsIgnoreCase(roomEle))
+              .findFirst()
+              .orElse(null);
+    }
+    return gameObject;
+  }
+
+  /**
+   * Creates all the rooms and returns the list of rooms.
+   *
+   * @param jsonObject full json data
+   * @return list of all rooms with its game elements
+   */
   public static List<Room> parseRooms(JSONObject jsonObject){
     List<Room> roomList = new ArrayList<>();
     JSONArray roomArray = jsonObject.getJSONArray("rooms");
+
+    // create lists of game elements
+    JSONArray itemJson = jsonObject.getJSONArray("items");
+    List<IRoomElement> items = parseItems(itemJson);
+
+    // create list of puzzles
+    JSONArray puzzleJson = jsonObject.getJSONArray("puzzles");
+    List<IRoomElement> puzzles = parsePuzzle(puzzleJson, items);
+
+    // create list of fixtures
+    JSONArray fixtureJson = jsonObject.getJSONArray("fixtures");
+    List<IRoomElement> fixtures = parseFixture(fixtureJson, puzzles);
+
+    // create list of monsters
+    JSONArray monsterJson = jsonObject.isNull("monsters") ? null : jsonObject.getJSONArray("monsters");
+    List<IRoomElement> monsters = monsterJson == null ? null : parseMonster(monsterJson);
+
+    // create rooms
     for(int i=0; i < roomArray.length(); i++){
       JSONObject roomJson = roomArray.getJSONObject(i);
       String name = roomJson.getString("room_name");
@@ -138,34 +273,20 @@ public class Parser {
       int S = roomJson.getInt("S");
       int E = roomJson.getInt("E");
       int W = roomJson.getInt("W");
-      gameelements.Puzzle puzzle = null;
-      if (roomJson.has("puzzles")) {
-        JSONObject puzzleJson =roomJson.getJSONObject("puzzles");
-        puzzle = (gameelements.Puzzle) parsePuzzle(puzzleJson);
-      }
-      gameelements.Monster monster = null;
-      if(roomJson.has("monster")){
-        JSONObject monsterJson =roomJson.getJSONObject("monster");
-        monster= (gameelements.Monster) parseMonster(monsterJson);
-      }
-      Item solution = null;
-      if (roomJson.has("solution")) {
-        JSONObject solutionJson = roomJson.getJSONObject("solution");
-        solution = (Item) parseItems(solutionJson);
-      }
-      Fixture fixture = null;
-      if (roomJson.has("fixtures")) {
-        JSONObject fixtureJson = roomJson.getJSONObject("fixtures");
-         fixture = (Fixture) parseFixture(fixtureJson);
-      }
-      String picture = roomJson.getString("picture");
-      Room room = new Room(name,roomNumber,description,N,S,E,W,monster,puzzle,solution,fixture,picture);
+      String picture = roomJson.isNull("picture") ? null : roomJson.getString("picture");
+
+      // query correct game elements for each room
+      IRoomElement puzzle = getRoomGameElement(roomJson, "puzzle", puzzles);
+      IRoomElement item = getRoomGameElement(roomJson, "items", items);
+      IRoomElement fixture = getRoomGameElement(roomJson, "fixtures", fixtures);
+      IRoomElement monster = getRoomGameElement(roomJson, "monster", monsters);
+
+      // create new room instance
+      Room room = new Room(name,roomNumber,description,N,S,E,W,monster,puzzle, item, fixture, picture);
       roomList.add(room);
     }
     return roomList;
   }
-
-
 
 }
 
