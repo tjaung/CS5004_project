@@ -15,29 +15,6 @@ import gameelements.Item;
 import gameelements.Room;
 
 public class Parser {
-
-
-  public static JSONObject readJSON(String gameFileName) {
-    System.out.println(gameFileName);
-//    String filePath = "/resources/dummy.json"; // Replace with the actual path
-    try {
-      String content = new String(Files.readAllBytes(Paths.get(gameFileName)));
-      JSONObject jsonObject = new JSONObject(content);
-
-      // Access data from the JSON object
-//      System.out.println("Name: " + jsonObject.getString("name"));
-//      System.out.println("Age: " + jsonObject.getInt("age"));
-
-      return jsonObject;
-
-    } catch (IOException e) {
-      System.err.println("Error reading file: " + e.getMessage());
-    } catch (JSONException e) {
-      System.err.println("Error parsing JSON: " + e.getMessage());
-    }
-    return null;
-  }
-
   public static String readJsonFile(String filePath) throws Exception {
     return Files.readString(Paths.get(filePath));
   }

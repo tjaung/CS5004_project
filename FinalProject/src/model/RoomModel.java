@@ -15,8 +15,8 @@ public class RoomModel {
   Room currentRoom;
 
   public RoomModel(String gameFileName) throws Exception{
-//    String initialJSON = Parser.readJsonFile(gameFileName);
-    JSONObject JSON = Parser.readJSON(gameFileName);
+    String initialJSON = Parser.readJsonFile(gameFileName);
+    JSONObject JSON = Parser.parseJsonString(initialJSON);
     this.roomList = Parser.parseRooms(JSON);
   }
 
