@@ -1,3 +1,6 @@
+import gameelements.Fixture;
+import gameelements.Item;
+import gameelements.Room;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -83,14 +86,23 @@ public class Parser {
       String effects = puzzleJson.getString("effects");
       String target = puzzleJson.getString("target");
       String picture = puzzleJson.getString("picture");
-      gameelements.Puzzle puzzle = new gameelements.Puzzle(name,active,affects_targets,affects_player,solution,value,
-          description,effects,target,picture);
+      gameelements.Puzzle puzzle = new gameelements.Puzzle(
+          name,
+          affects_targets,
+          active,
+          solution,
+          value,
+          effects,
+          description,
+          target,
+          picture,
+          affects_player);
       puzzleList.add(puzzle);
     }
     return puzzleList;
   }
-  public static List<Fixture> parseFixture(JSONObject jsonObject){
-    List<Fixture> fixturesList = new ArrayList<>();
+  public static List<gameelements.Fixture> parseFixture(JSONObject jsonObject){
+    List<gameelements.Fixture> fixturesList = new ArrayList<>();
     JSONArray fixtureArray = jsonObject.getJSONArray("fixtures");
     for(int i=0; i < fixtureArray.length(); i++){
       JSONObject fixtureJson = fixtureArray.getJSONObject(i);
@@ -98,13 +110,13 @@ public class Parser {
       int weight = fixtureJson.getInt("weight");
       String description = fixtureJson.getString("description");
       String picture = fixtureJson.getString("picture");
-      boolean states = fixtureJson.getBoolean("states");
+      boolean state = fixtureJson.getBoolean("states");
       gameelements.Puzzle puzzle = null;
       if (fixtureJson.has("puzzle")) {
         JSONObject puzzleJson =fixtureJson.getJSONObject("puzzle");
         puzzle = (gameelements.Puzzle) parsePuzzle(puzzleJson);
       }
-      Fixture fixture = new Fixture(name,weight,puzzle,states,description,picture);
+      gameelements.Fixture fixture = new gameelements.Fixture(name,weight,description,picture,state,puzzle);
       fixturesList.add(fixture);
     }
     return fixturesList;
@@ -143,7 +155,7 @@ public class Parser {
          fixture = (Fixture) parseFixture(fixtureJson);
       }
       String picture = roomJson.getString("picture");
-      Room room = new Room(name,roomNumber,description,N,S,E,W,puzzle,solution,fixture,picture);
+      Room room = new Room(name,roomNumber,description,N,S,E,W,monster,puzzle,solution,fixture,picture);
       roomList.add(room);
     }
     return roomList;

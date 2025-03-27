@@ -4,12 +4,12 @@ package gameelements;
  * Class for a Fixture concrete Object.
  */
 public class Fixture {
+  private String name;
   private int weight;
-  private Puzzle puzzle = null;
-  private boolean state;
   private String description;
   private String picture;
-
+  private boolean state;
+  private Puzzle puzzle = null;
   /**
    * Constructor for Fixture. takes in a weight, puzzle, state, desc, and picture.
    *
@@ -19,7 +19,7 @@ public class Fixture {
    * @param description - a string desc of the fixture.
    * @param picture - a string path to the corresponding asset.
    */
-  public Fixture(int weight, Puzzle puzzle, boolean state, String description, String picture) {
+  public Fixture(String name, int weight, String description,String picture, boolean state, Puzzle puzzle) {
     // Check parameters for missingness
     if ( weight <= 0) {
       throw new IllegalArgumentException("Weight must be non-null and greater than 0.");
@@ -29,11 +29,12 @@ public class Fixture {
     }
 
     // instantiate attributes
+    this.name = name;
     this.weight = weight;
-    this.puzzle = puzzle;
-    this.state = state;
     this.description = description;
     this.picture = picture;
+    this.state = state;
+    this.puzzle = puzzle;
   }
 
   /**
@@ -43,6 +44,10 @@ public class Fixture {
    */
   public int getWeight() {
     return weight;
+  }
+
+  public String getName() {
+    return name;
   }
 
   /**

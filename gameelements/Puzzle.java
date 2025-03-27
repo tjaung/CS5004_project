@@ -1,21 +1,26 @@
 package gameelements;
 
 public class Puzzle {
+  private String  name;
   private boolean active;
   private boolean affects_target;
-  private boolean affects_player;
   private Item solution;
   private int value;
   private String effects;
   private String description;
-  private Object target;
+  private String target;
   private String picture;
+  private boolean affects_player;
 
-  public Puzzle(boolean affects_target, boolean affects_player, boolean active, Item solution, int value,
-                String effects, String description, Object target, String picture) {
-    this.affects_target = affects_target;
+  public Puzzle(String name,
+      boolean affects_target,
+      boolean active,
+      Item solution, int value,
+                String effects, String description, String target, String picture, boolean affects_player) {
+    this.name = name;
     this.affects_target = affects_target;
     this.active = active;
+    this.affects_player = affects_player;
     this.solution = solution;
     this.value = value;
     this.effects = effects;
@@ -24,8 +29,16 @@ public class Puzzle {
     this.picture = picture;
   }
 
+  public String getName() {
+    return name;
+  }
+
   public boolean isActive() {
     return active;
+  }
+
+  public boolean affects_player() {
+    return affects_player;
   }
 
   public boolean affects_target() {
