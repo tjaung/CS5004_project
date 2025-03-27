@@ -1,8 +1,10 @@
 package model;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -14,6 +16,27 @@ import gameelements.Room;
 
 public class Parser {
 
+
+  public static JSONObject readJSON(String gameFileName) {
+    System.out.println(gameFileName);
+//    String filePath = "/resources/dummy.json"; // Replace with the actual path
+    try {
+      String content = new String(Files.readAllBytes(Paths.get(gameFileName)));
+      JSONObject jsonObject = new JSONObject(content);
+
+      // Access data from the JSON object
+//      System.out.println("Name: " + jsonObject.getString("name"));
+//      System.out.println("Age: " + jsonObject.getInt("age"));
+
+      return jsonObject;
+
+    } catch (IOException e) {
+      System.err.println("Error reading file: " + e.getMessage());
+    } catch (JSONException e) {
+      System.err.println("Error parsing JSON: " + e.getMessage());
+    }
+    return null;
+  }
 
   public static String readJsonFile(String filePath) throws Exception {
     return Files.readString(Paths.get(filePath));
@@ -73,7 +96,7 @@ public class Parser {
   }
   public static List<gameelements.Puzzle> parsePuzzle(JSONObject jsonObject){
     List<gameelements.Puzzle> puzzleList = new ArrayList<>();
-    JSONArray puzzleArray = jsonObject.getJSONArray("puzzle");
+    JSONArray puzzleArray = jsonObject.getJSONArray("puzzles");
     for(int i=0; i < puzzleArray.length(); i++){
       JSONObject puzzleJson = puzzleArray.getJSONObject(i);
        String name = puzzleJson.getString("name");
@@ -139,8 +162,8 @@ public class Parser {
       int E = roomJson.getInt("E");
       int W = roomJson.getInt("W");
       gameelements.Puzzle puzzle = null;
-      if (roomJson.has("puzzle")) {
-        JSONObject puzzleJson =roomJson.getJSONObject("puzzle");
+      if (roomJson.has("puzzles")) {
+        JSONObject puzzleJson =roomJson.getJSONObject("puzzles");
         puzzle = (gameelements.Puzzle) parsePuzzle(puzzleJson);
       }
       gameelements.Monster monster = null;
