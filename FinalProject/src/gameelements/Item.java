@@ -1,6 +1,6 @@
 package gameelements;
 
-public class Item  {
+public class Item implements IRoomElement {
   private int weight;
   private int value;
   private String name;

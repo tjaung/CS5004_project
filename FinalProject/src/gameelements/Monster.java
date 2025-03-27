@@ -1,6 +1,6 @@
 package gameelements;
 
-public class Monster {
+public class Monster implements IRoomElement{
     // The gameelements.Monster class represents a monster.
 
     // Instance variables 

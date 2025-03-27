@@ -3,13 +3,13 @@ package gameelements;
 /**
  * Class for a Fixture concrete Object.
  */
-public class Fixture {
+public class Fixture implements IRoomElement {
   private String name;
   private int weight;
   private String description;
   private String picture;
   private boolean state;
-  private Puzzle puzzle = null;
+  private IRoomElement puzzle = null;
   /**
    * Constructor for Fixture. takes in a weight, puzzle, state, desc, and picture.
    *
@@ -19,7 +19,7 @@ public class Fixture {
    * @param description - a string desc of the fixture.
    * @param picture - a string path to the corresponding asset.
    */
-  public Fixture(String name, int weight, String description,String picture, boolean state, Puzzle puzzle) {
+  public Fixture(String name, int weight, String description, String picture, boolean state, IRoomElement puzzle) {
     // Check parameters for missingness
     if ( weight <= 0) {
       throw new IllegalArgumentException("Weight must be non-null and greater than 0.");
@@ -64,7 +64,7 @@ public class Fixture {
    *
    * @return puzzle associated with fixture.
    */
-  public Puzzle getPuzzle() {
+  public IRoomElement getPuzzle() {
     return puzzle;
   }
 

@@ -11,28 +11,28 @@ public class Room {
     private int S;
     private int E;
     private int W;
-    private Monster monster;
-    private Puzzle puzzle;
-    private Item items;
-    private Fixture fixtures;
+    private IRoomElement monster = null;
+    private IRoomElement puzzle = null;
+    private IRoomElement items = null;
+    private IRoomElement fixtures = null;
     private String picture;
 
     /**
      * Constructor for gameelements.Room. Takes in a lot of parameters to construct it.
      */
     public Room(
-        String roomName, 
-        int roomNumber,
-        String description,
-        int N,
-        int S,
-        int E,
-        int W,
-        Monster monster,
-        Puzzle puzzle,
-        Item items,
-        Fixture fixtures,
-        String picture) {
+            String roomName,
+            int roomNumber,
+            String description,
+            int N,
+            int S,
+            int E,
+            int W,
+            IRoomElement monster,
+            IRoomElement puzzle,
+            IRoomElement items,
+            IRoomElement fixtures,
+            String picture) {
             
         // Check parameters
 //        this.checkParameters(roomName, roomNumber, description, N, S, E, W, puzzle, items, fixtures, picture)
@@ -45,6 +45,7 @@ public class Room {
         this.monster = monster;
         this.puzzle = puzzle;
         this.items = items;
+        this.fixtures = fixtures;
         this.picture = picture;
     }
 
@@ -93,19 +94,38 @@ public class Room {
         return W;
     }
 
-    public Monster getMonster() {
+    public IRoomElement getMonster() {
         return monster;
     }
 
-    public Puzzle getPuzzle() {
+    public IRoomElement getPuzzle() {
         return puzzle;
     }
 
-    public Item getItems() {
+    public IRoomElement getItems() {
         return items;
     }
 
-    public Fixture getFixtures() {
+    public IRoomElement getFixtures() {
         return fixtures;
+    }
+
+    @Override
+    public String toString() {
+        String m = monster == null ? "none" : monster.getName();
+        String p = puzzle == null ? "none" : puzzle.getName();
+        String i = items == null ? "none" : items.getName();
+        String f = fixtures == null ? "none" : fixtures.getName();
+
+      return "Room: " + roomName + "\n"
+              + "Description: " + description + "\n"
+              + "N: " + N + "\n"
+              + "S: " + S + "\n"
+              + "E: " + E + "\n"
+              + "W: " + W + "\n"
+              + "Monster: " + m + "\n"
+              + "Puzzle: " + p + "\n"
+              + "Items: " + i + "\n"
+              + "Fixtures: " + f;
     }
 }
