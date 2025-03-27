@@ -1,12 +1,18 @@
 package enginedriver;
 
-import java.io.IOException;
+//import org.json.simple.JSONObject;
 
+import java.io.IOException;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import model.GameModel;
 
 public class GameEngineApp {
 
   public GameEngineApp(String gameFileName, Readable source, Appendable output) throws Exception {
+//    System.out.println(this.readJSON("../resources/dummy.json"));
     GameModel model = new GameModel(gameFileName);
 
   }
