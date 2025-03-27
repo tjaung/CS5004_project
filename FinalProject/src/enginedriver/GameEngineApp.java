@@ -12,7 +12,6 @@ import model.GameModel;
 public class GameEngineApp {
 
   public GameEngineApp(String gameFileName, Readable source, Appendable output) throws Exception {
-//    System.out.println(this.readJSON("../resources/dummy.json"));
     GameModel model = new GameModel(gameFileName);
 
   }

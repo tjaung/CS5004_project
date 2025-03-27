@@ -50,6 +50,15 @@ public class Room {
     }
 
     /**
+     * Getter for room number.
+     *
+     * @return int of room number
+     */
+    public int getRoomNumber() {
+        return roomNumber;
+    }
+
+    /**
      * Getter for the room description.
      * 
      * @return desc - string of the room desc.

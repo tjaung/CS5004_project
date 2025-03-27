@@ -15,12 +15,16 @@ public class RoomModel {
   Room currentRoom;
 
   public RoomModel(String gameFileName) throws Exception{
+    // parse local json file to create world
     String initialJSON = Parser.readJsonFile(gameFileName);
     JSONObject JSON = Parser.parseJsonString(initialJSON);
     this.roomList = Parser.parseRooms(JSON);
-//    for (Room room : roomList) {
-//      System.out.println(room.toString());
-//    }
+
+    // initialize current room as room 1
+    this.currentRoom = this.roomList.stream()
+            .filter(room -> room.getRoomNumber() == 1)
+            .findFirst()
+            .get();
   }
 
   public Room getCurrentRoom() {
