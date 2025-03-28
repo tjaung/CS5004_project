@@ -1,5 +1,8 @@
 package gameelements;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Class for gameelements.Room.
  */
@@ -16,6 +19,7 @@ public class Room {
     private IRoomElement items = null;
     private IRoomElement fixtures = null;
     private String picture;
+    private List<IRoomElement> elements;
 
     /**
      * Constructor for gameelements.Room. Takes in a lot of parameters to construct it.
@@ -35,7 +39,7 @@ public class Room {
             String picture) {
 
         // Check parameters
-//        this.checkParameters(roomName, roomNumber, description, N, S, E, W, puzzle, items, fixtures, picture)
+        //this.checkParameters(roomName, roomNumber, description, N, S, E, W, puzzle, items, fixtures, picture)
         this.roomName = roomName;
         this.description = description;
         this.N = N;
@@ -48,6 +52,10 @@ public class Room {
         this.fixtures = fixtures;
         this.picture = picture;
         this.roomNumber = roomNumber;
+    }
+
+    public String getRoomName() {
+        return roomName;
     }
 
     /**
@@ -137,5 +145,27 @@ public class Room {
               + "Puzzle: " + p + "\n"
               + "Items: " + i + "\n"
               + "Fixtures: " + f;
+    }
+
+    //COLLECTS IROOMELEMENTS
+    // SHOULDN't EACH TYPE BE A LIST IN ROOM??
+    public void addElements() {
+        this.elements = new ArrayList<IRoomElement>();
+        if (this.getFixtures() != null) {
+            this.elements.add(this.getFixtures());
+        }
+        if (this.getMonster() != null) {
+            this.elements.add(this.getMonster());
+        }
+        if (this.getPuzzle() != null) {
+            this.elements.add(this.getPuzzle());
+        }
+        if (this.getItems() != null) {
+            this.elements.add(this.getItems());
+        }
+    }
+
+    public List<IRoomElement> getElements() {
+        return elements;
     }
 }

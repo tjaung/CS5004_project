@@ -17,7 +17,33 @@ public class GameModel {
     this.player = new Player();
   }
 
-  public void addAnswer() {}
+  public Player getPlayer() {
+    return player;
+  }
+
+  public RoomModel getRoomModel() {
+    return roomModel;
+  }
+
+  public void move(String s) {
+    switch (s.toUpperCase()) {
+      case "N":
+        if (this.getRoomModel().getCurrentRoom().getN() > 0) {
+          this.getPlayer().setCurrentRoom(this.getRoomModel().queryRoom(this.getRoomModel().getCurrentRoom().getN()));
+          this.roomModel.setCurrentRoom(this.getRoomModel().queryRoom(this.getRoomModel().getCurrentRoom().getN()));
+        }
+        else if (this.getRoomModel().getCurrentRoom().getN() == 0) {
+          throw new IllegalArgumentException("There is no room to the north");
+        }
+        else {
+          // get specific of why path is blocked
+          throw new IllegalArgumentException("The path is blocked\n");
+        }
+        break;
+    }
+  }
+
+  public void answer() {}
 
   public boolean validTarget() {
     return true;

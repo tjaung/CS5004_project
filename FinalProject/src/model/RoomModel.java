@@ -31,6 +31,10 @@ public class RoomModel {
     return this.currentRoom;
   }
 
+  public void setCurrentRoom(Room currentRoom) {
+    this.currentRoom = currentRoom;
+  }
+
   public List<Room> getRoomList() {
     return this.roomList;
   }
@@ -43,6 +47,14 @@ public class RoomModel {
   public void remove(Room room) {
     // if room in roomList
     this.roomList.remove(room);
+  }
+
+
+  public Room queryRoom(int roomNumber) {
+    return this.roomList.stream()
+            .filter(room -> room.getRoomNumber() == 1)
+            .findFirst()
+            .get();
   }
 
 }
