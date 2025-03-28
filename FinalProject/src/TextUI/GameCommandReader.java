@@ -21,15 +21,22 @@ public class GameCommandReader {
 
   public boolean getOptionFromUser() {
     try {
-      this.data = new String[2];
       Scanner scanner = new Scanner(this.in);
-      for (int i = 0; i < this.data.length; i++) {
-        if (scanner.hasNext()) { // could have done NextLines
-          this.data[i] = scanner.next();
-          if (data[0].equalsIgnoreCase("Q")) {
-            return false;
-          }
-        }
+      int i = 0;
+      while (scanner.hasNext()) {
+        this.data[i] = scanner.next();
+        i++;
+      }
+//      for (int i = 0; i < this.data.length; i++) {
+//        if (scanner.hasNext()) { // could have done NextLines
+//          this.data[i] = scanner.next();
+//          if (data[0].equalsIgnoreCase("Q")) {
+//            return false;
+//          }
+//        }
+//      }
+      if (this.data[0].equalsIgnoreCase("Q")) {
+        return false;
       }
       return true;
     }
