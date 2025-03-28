@@ -57,9 +57,8 @@ public class RoomModel {
             .get();
   }
 
-  public void parseRoomsToJSON() {
-    List<String> roomStr = ReverseParser.readRoom(this.roomList);
-    System.out.println(roomStr);
+  public String parseRoomsToJSON() {
+    return ReverseParser.readRoom(this.roomList);
   }
 
 

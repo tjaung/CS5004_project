@@ -4,23 +4,25 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Saves json data to specified path.
+ */
 public class SaveFiles {
 
-  public static void saveToJSON(
-          String player,
-          List<String> roomList) {
-    try (FileWriter writer = new FileWriter("./resources/save.json"))
+  /**
+   * Takes in a json string of game data and writes to a json file.
+   *
+   * @param jsonStr string of game data
+   */
+  public static String saveToJSON(String jsonStr) {
+    String path = "../FinalProject/src/resources/save.json";
+    try (FileWriter writer = new FileWriter(path))
     {
-      writer.write(player);
-      writer.write("\nrooms: " + roomList + "\n");
-      System.out.println("Data written to the file successfully.");
+      writer.write(jsonStr);
+      return "Save data written to file successfully.";
+    } catch (IOException e) {
+      return "An error occurred while saving"
+              + " data to file: " + e.getMessage();
     }
-
-    // Exception Thrown
-      	catch (IOException e) {
-      System.out.println("An error occurred while writing"
-              + " to the file: " + e.getMessage());
-    }
-
   }
 }

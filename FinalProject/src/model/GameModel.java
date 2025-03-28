@@ -89,10 +89,18 @@ public class GameModel {
     return true;
   }
 
-  public void saveGame() {
+  public String saveGame() {
 //    this.roomModel.parseRoomsToJSON();
-    this.player.parsePlayerToJSON();
-    this.roomModel.parseRoomsToJSON();
+    String playerStr = this.player.parsePlayerToJSON();
+    String invStr = this.player.getInventory().parseInventoryToJSON();
+    String roomStr = this.roomModel.parseRoomsToJSON();
+    String jsonStr = "{" + playerStr + invStr + roomStr + "}";
+    String response = SaveFiles.saveToJSON(jsonStr);
+    return response;
+  }
+
+  public void loadGame() {
+
   }
   // should Model directly have methods for element interaction or should it call
   // the elements who have methods to interact with each other

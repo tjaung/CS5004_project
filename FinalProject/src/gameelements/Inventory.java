@@ -40,7 +40,7 @@ public class Inventory {
         return picture;
     }
 
-    public void parseInventoryToJSON() {
-        ReverseParser.readInventory(this);
+    public String parseInventoryToJSON() {
+        return ReverseParser.readInventory(this);
     }
 }

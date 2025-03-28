@@ -87,12 +87,12 @@ public class GameController {
           break;
         case "+":
           // reverse parse the rooms to json
-          this.model.saveGame();
+          String response = this.model.saveGame();
           // parse the player and inventory to json
           //
           //this.view.print("File name:\n");
           //this.in.
-          this.view.print("We should implement a save function...\n");
+          this.view.print(response + "\n");
           break;
         case "-":
           this.view.print("We should implement a load save function...\n");

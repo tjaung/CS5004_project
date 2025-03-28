@@ -57,7 +57,6 @@ public class Player {
 
   public String parsePlayerToJSON() {
     String playerStr = ReverseParser.readPlayer(this);
-    String invStr = ReverseParser.readInventory(this.inventory);
-    return "player: " + playerStr + "\ninventory: " + invStr;
+    return playerStr;
   }
 }
