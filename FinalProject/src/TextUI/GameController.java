@@ -25,8 +25,10 @@ public class GameController {
     this.view.showOptions();
     this.view.print("\n".concat(this.model.getRoomModel().getCurrentRoom().getRoomDescription()).concat("\n"));
 
-    while (this.in.getDataFromUser()) {
+    while (this.in.getOptionFromUser()) {
+      // check for monsters or puzzle effects
       switch (this.in.getCommand().toUpperCase()) {
+        // move any direction into one case
         case "N":
           try {
             this.model.move("N");
@@ -37,11 +39,31 @@ public class GameController {
           }
           break;
         case "S":
-          this.view.print("You pressed S.\n");
+          try {
+            this.model.move("S");
+            this.view.enterRoom(this.model.getRoomModel().getCurrentRoom().getRoomName(), this.model.getRoomModel().getCurrentRoom().getRoomDescription());
+          }
+          catch (IllegalArgumentException e) {
+            this.view.print(e.getMessage());
+          }
           break;
         case "E":
+          try {
+            this.model.move("E");
+            this.view.enterRoom(this.model.getRoomModel().getCurrentRoom().getRoomName(), this.model.getRoomModel().getCurrentRoom().getRoomDescription());
+          }
+          catch (IllegalArgumentException e) {
+            this.view.print(e.getMessage());
+          }
           break;
         case "W":
+          try {
+            this.model.move("W");
+            this.view.enterRoom(this.model.getRoomModel().getCurrentRoom().getRoomName(), this.model.getRoomModel().getCurrentRoom().getRoomDescription());
+          }
+          catch (IllegalArgumentException e) {
+            this.view.print(e.getMessage());
+          }
           break;
         case "I":
           break;
@@ -65,6 +87,12 @@ public class GameController {
         case "D":
           break;
         case "X":
+          try {
+            String elementName = this.in.getElement();
+          }
+          catch (Exception e) {
+            this.view.print(e.getMessage());
+          }
           break;
         case "A":
           break;
@@ -85,25 +113,20 @@ public class GameController {
           //TimeUnit.SECONDS.sleep(1);
           //this.view.showOptions();
       }
-      //else if (this.in.getCommand().equalsIgnoreCase("I"))
-        // push printInventory out to here since this is the view and the view needs logic of what to print
-        //this.in.out.append(this.model.getPlayer().getInventory().printInventory());
 
 
-        //this.in.out.append(this.model.look());
-
-      // THE FOLLOWING IS THE CORRECT IMPLEMENTATION ACCORDING TO TAs.
-      // USE EXCEPTIONS AND CATCH THEM HERE.
-      // the model throws the exception for invalidity and the controller catches it,
-      // printing an appropriate message.
-      //else if (this.in.getCommand().equalsIgnoreCase("A")) {
-        //this.dataReader.out.append(this.model.answer);
-        //boolean issolbed = gamemodel.answer(input);
-        //if issolved priny uou did it
-
-      //else if (this.in.getCommand().equalsIgnoreCase("Q")) {
 
     }
   }
 }
 
+// THE FOLLOWING IS THE CORRECT IMPLEMENTATION ACCORDING TO TAs.
+// USE EXCEPTIONS AND CATCH THEM HERE.
+// the model throws the exception for invalidity and the controller catches it,
+// printing an appropriate message.
+//else if (this.in.getCommand().equalsIgnoreCase("A")) {
+//this.dataReader.out.append(this.model.answer);
+//boolean issolbed = gamemodel.answer(input);
+//if issolved priny uou did it
+
+//else if (this.in.getCommand().equalsIgnoreCase("Q")) {

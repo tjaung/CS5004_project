@@ -1,6 +1,5 @@
 package TextUI;
 
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
@@ -10,7 +9,8 @@ public class GameCommandReader {
 
 
   public GameCommandReader() {
-    this.data = new String[1];
+    // STRING BUFFER LENGTH!!!!!
+    this.data = new String[2];
     this.in = new InputStreamReader(System.in);
   }
 
@@ -19,8 +19,9 @@ public class GameCommandReader {
     this.in = in;
   }
 
-  public boolean getDataFromUser() {
+  public boolean getOptionFromUser() {
     try {
+      this.data = new String[2];
       Scanner scanner = new Scanner(this.in);
       for (int i = 0; i < this.data.length; i++) {
         if (scanner.hasNext()) { // could have done NextLines
@@ -39,4 +40,18 @@ public class GameCommandReader {
   }
 
   public String getCommand() {return this.data[0];}
+
+  public String getElement() {
+    if (this.data[1].isEmpty()) {
+      throw new IllegalArgumentException("You need to include what element you wish to take the action on\n");
+    }
+    else {
+      return this.data[1];
+    }
+  }
+
+  //public String getStringFromUser() {
+    //Scanner scanner2 = new Scanner(this.in);
+    //return null;
+  //}
 }
