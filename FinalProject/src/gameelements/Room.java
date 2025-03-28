@@ -33,7 +33,7 @@ public class Room {
             IRoomElement items,
             IRoomElement fixtures,
             String picture) {
-            
+
         // Check parameters
 //        this.checkParameters(roomName, roomNumber, description, N, S, E, W, puzzle, items, fixtures, picture)
         this.roomName = roomName;
@@ -47,6 +47,7 @@ public class Room {
         this.items = items;
         this.fixtures = fixtures;
         this.picture = picture;
+        this.roomNumber = roomNumber;
     }
 
     /**
