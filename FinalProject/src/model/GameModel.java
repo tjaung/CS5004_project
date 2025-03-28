@@ -86,11 +86,11 @@ public class GameModel {
         }
         break;
       case "S":
-        if (this.getRoomModel().getCurrentRoom().getN() > 0) {
-          this.getPlayer().setCurrentRoom(this.getRoomModel().queryRoom(this.getRoomModel().getCurrentRoom().getN()));
-          this.roomModel.setCurrentRoom(this.getRoomModel().queryRoom(this.getRoomModel().getCurrentRoom().getN()));
+        if (this.getRoomModel().getCurrentRoom().getS() > 0) {
+          this.getPlayer().setCurrentRoom(this.getRoomModel().queryRoom(this.getRoomModel().getCurrentRoom().getS()));
+          this.roomModel.setCurrentRoom(this.getRoomModel().queryRoom(this.getRoomModel().getCurrentRoom().getS()));
         }
-        else if (this.getRoomModel().getCurrentRoom().getN() == 0) {
+        else if (this.getRoomModel().getCurrentRoom().getS() == 0) {
           throw new IllegalArgumentException("There is no room to the south");
         }
         else {
@@ -99,9 +99,9 @@ public class GameModel {
         }
         break;
       case "E":
-        if (this.getRoomModel().getCurrentRoom().getN() > 0) {
-          this.getPlayer().setCurrentRoom(this.getRoomModel().queryRoom(this.getRoomModel().getCurrentRoom().getN()));
-          this.roomModel.setCurrentRoom(this.getRoomModel().queryRoom(this.getRoomModel().getCurrentRoom().getN()));
+        if (this.getRoomModel().getCurrentRoom().getE() > 0) {
+          this.getPlayer().setCurrentRoom(this.getRoomModel().queryRoom(this.getRoomModel().getCurrentRoom().getE()));
+          this.roomModel.setCurrentRoom(this.getRoomModel().queryRoom(this.getRoomModel().getCurrentRoom().getE()));
         }
         else if (this.getRoomModel().getCurrentRoom().getN() == 0) {
           throw new IllegalArgumentException("There is no room to the east");
@@ -112,9 +112,9 @@ public class GameModel {
         }
         break;
       case "W":
-        if (this.getRoomModel().getCurrentRoom().getN() > 0) {
-          this.getPlayer().setCurrentRoom(this.getRoomModel().queryRoom(this.getRoomModel().getCurrentRoom().getN()));
-          this.roomModel.setCurrentRoom(this.getRoomModel().queryRoom(this.getRoomModel().getCurrentRoom().getN()));
+        if (this.getRoomModel().getCurrentRoom().getW() > 0) {
+          this.getPlayer().setCurrentRoom(this.getRoomModel().queryRoom(this.getRoomModel().getCurrentRoom().getW()));
+          this.roomModel.setCurrentRoom(this.getRoomModel().queryRoom(this.getRoomModel().getCurrentRoom().getW()));
         }
         else if (this.getRoomModel().getCurrentRoom().getN() == 0) {
           throw new IllegalArgumentException("There is no room to the west");
