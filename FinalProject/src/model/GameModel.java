@@ -15,6 +15,7 @@ public class GameModel {
   public GameModel(String gameFileName) throws Exception {
     this.roomModel = new RoomModel(gameFileName);
     this.player = new Player();
+    this.player.setCurrentRoom(this.roomModel.currentRoom);
   }
 
   public Player getPlayer() {
@@ -88,6 +89,11 @@ public class GameModel {
     return true;
   }
 
+  public void saveGame() {
+//    this.roomModel.parseRoomsToJSON();
+    this.player.parsePlayerToJSON();
+    this.roomModel.parseRoomsToJSON();
+  }
   // should Model directly have methods for element interaction or should it call
   // the elements who have methods to interact with each other
 

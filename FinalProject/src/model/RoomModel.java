@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import gameelements.Player;
 import gameelements.Room;
 
 /**
@@ -55,5 +56,12 @@ public class RoomModel {
             .findFirst()
             .get();
   }
+
+  public void parseRoomsToJSON() {
+    List<String> roomStr = ReverseParser.readRoom(this.roomList);
+    System.out.println(roomStr);
+  }
+
+
 
 }

@@ -2,6 +2,8 @@ package gameelements;
 
 import java.awt.geom.Point2D;
 
+import model.ReverseParser;
+
 public class Player {
   private String name;
   private int score;
@@ -52,5 +54,10 @@ public class Player {
   public void setInventory(Inventory inventory) {
     this.inventory = inventory;
   }
-  
+
+  public String parsePlayerToJSON() {
+    String playerStr = ReverseParser.readPlayer(this);
+    String invStr = ReverseParser.readInventory(this.inventory);
+    return "player: " + playerStr + "\ninventory: " + invStr;
+  }
 }

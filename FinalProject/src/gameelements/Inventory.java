@@ -3,6 +3,8 @@ package gameelements;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.ReverseParser;
+
 public class Inventory {
     // Instance variables to store the inventory's attributes
     private final int maxWeight;  // The maximum weight
@@ -36,5 +38,9 @@ public class Inventory {
     // Get the photo path
     public String getPicture() {
         return picture;
+    }
+
+    public void parseInventoryToJSON() {
+        ReverseParser.readInventory(this);
     }
 }
