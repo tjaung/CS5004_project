@@ -85,6 +85,45 @@ public class GameModel {
           throw new IllegalArgumentException("The path is blocked\n");
         }
         break;
+      case "S":
+        if (this.getRoomModel().getCurrentRoom().getN() > 0) {
+          this.getPlayer().setCurrentRoom(this.getRoomModel().queryRoom(this.getRoomModel().getCurrentRoom().getN()));
+          this.roomModel.setCurrentRoom(this.getRoomModel().queryRoom(this.getRoomModel().getCurrentRoom().getN()));
+        }
+        else if (this.getRoomModel().getCurrentRoom().getN() == 0) {
+          throw new IllegalArgumentException("There is no room to the south");
+        }
+        else {
+          // get specific of why path is blocked
+          throw new IllegalArgumentException("The path is blocked\n");
+        }
+        break;
+      case "E":
+        if (this.getRoomModel().getCurrentRoom().getN() > 0) {
+          this.getPlayer().setCurrentRoom(this.getRoomModel().queryRoom(this.getRoomModel().getCurrentRoom().getN()));
+          this.roomModel.setCurrentRoom(this.getRoomModel().queryRoom(this.getRoomModel().getCurrentRoom().getN()));
+        }
+        else if (this.getRoomModel().getCurrentRoom().getN() == 0) {
+          throw new IllegalArgumentException("There is no room to the east");
+        }
+        else {
+          // get specific of why path is blocked
+          throw new IllegalArgumentException("The path is blocked\n");
+        }
+        break;
+      case "W":
+        if (this.getRoomModel().getCurrentRoom().getN() > 0) {
+          this.getPlayer().setCurrentRoom(this.getRoomModel().queryRoom(this.getRoomModel().getCurrentRoom().getN()));
+          this.roomModel.setCurrentRoom(this.getRoomModel().queryRoom(this.getRoomModel().getCurrentRoom().getN()));
+        }
+        else if (this.getRoomModel().getCurrentRoom().getN() == 0) {
+          throw new IllegalArgumentException("There is no room to the west");
+        }
+        else {
+          // get specific of why path is blocked
+          throw new IllegalArgumentException("The path is blocked\n");
+        }
+        break;
     }
   }
 
