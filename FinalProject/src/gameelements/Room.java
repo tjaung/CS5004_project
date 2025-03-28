@@ -82,16 +82,16 @@ public class Room {
 
     /**
      * Getter for the room description.
-     * 
+     *
      * @return desc - string of the room desc.
      */
     public String getRoomDescription() {
         return description;
-    }    
+    }
 
     /**
      * Getter for North direction.
-     * 
+     *
      * @return N - int of N room
      */
     public int getN() {
@@ -100,7 +100,7 @@ public class Room {
 
     /**
      * Getter for South direction.
-     * 
+     *
      * @return S - int of S room
      */
     public int getS() {
@@ -109,7 +109,7 @@ public class Room {
 
     /**
      * Getter for East direction.
-     * 
+     *
      * @return E - int of E room
      */
     public int getE() {
@@ -118,7 +118,7 @@ public class Room {
 
     /**
      * Getter for West direction.
-     * 
+     *
      * @return W - int of W room
      */
     public int getW() {
@@ -193,17 +193,17 @@ public class Room {
         String i = printItems() == "" ? "none" : printItems();
         String f = printFixtures() == "" ? "none" : printFixtures();
 
-      return "Room: " + roomName + "\n"
-              + "Description: " + description + "\n"
-              + "N: " + N + "\n"
-              + "S: " + S + "\n"
-              + "E: " + E + "\n"
-              + "W: " + W + "\n"
-              + "Monster: " + m + "\n"
-              + "Puzzle: " + p  + "\n"
-              + "Items: " + i + "\n"
-              + "Fixtures: " + f + "\n"
-              + "Picture: " + picture + "\n";
+        return "Room: " + roomName + "\n"
+                + "Description: " + description + "\n"
+                + "N: " + N + "\n"
+                + "S: " + S + "\n"
+                + "E: " + E + "\n"
+                + "W: " + W + "\n"
+                + "Monster: " + m + "\n"
+                + "Puzzle: " + p  + "\n"
+                + "Items: " + i + "\n"
+                + "Fixtures: " + f + "\n"
+                + "Picture: " + picture + "\n";
     }
 
     //COLLECTS IROOMELEMENTS
