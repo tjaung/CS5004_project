@@ -1,7 +1,9 @@
 package TextUI;
 
 import java.io.IOException;
+import java.util.List;
 
+import gameelements.Item;
 import gameelements.Room;
 
 public class GameView {
@@ -30,8 +32,15 @@ public class GameView {
     this.out.append(s);
   }
 
-  public void printInventory(String s) throws IOException {
-    String output = "Items in your inventory: ";
+  public void printInventory(List<Item> items) throws IOException {
+    String s = "Items in your inventory: ";
+    if (items.size() == 0) {
+      s += "none";
+    } else {
+      for(Item item : items) {
+        s += item.getName();
+      }
+    }
     this.out.append(s);
   }
 

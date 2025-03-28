@@ -30,7 +30,7 @@ public class GameController {
     while (this.in.getOptionFromUser()) {
       // check for monsters or puzzle effects
       String input = this.in.getCommand().toUpperCase();
-      switch (this.in.getCommand().toUpperCase()) {
+      switch (input) {
         // move any direction into one case
         case "N":
         case "S":
@@ -47,7 +47,7 @@ public class GameController {
 
         case "I":
           List<Item> items = this.model.getPlayer().getInventory().getItems();
-
+          this.view.printInventory(items);
           break;
         case "L":
           this.view.print(this.model.getRoomModel().getCurrentRoom().getRoomDescription().concat(".\n"));
@@ -65,6 +65,8 @@ public class GameController {
         case "U":
           break;
         case "T":
+          // grab input index 1
+          // index model.getRoomModel().getCurrentRoom().getElement(input);
           break;
         case "D":
           break;
