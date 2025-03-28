@@ -2,6 +2,7 @@ package gameelements;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Class for gameelements.Room.
@@ -14,13 +15,14 @@ public class Room {
     private int S;
     private int E;
     private int W;
-    private IRoomElement monster = null;
-    private IRoomElement puzzle = null;
-    private IRoomElement items = null;
-    private IRoomElement fixtures = null;
+    private List<IRoomElement> monster;
+    private List<IRoomElement> puzzle;
+    private List<IRoomElement> items;
+    private List<IRoomElement> fixtures = null;
     private String picture;
     private List<IRoomElement> elements;
-
+    private boolean hasEffect;
+    private String effectDescription;
     /**
      * Constructor for gameelements.Room. Takes in a lot of parameters to construct it.
      */
@@ -32,10 +34,10 @@ public class Room {
             int S,
             int E,
             int W,
-            IRoomElement monster,
-            IRoomElement puzzle,
-            IRoomElement items,
-            IRoomElement fixtures,
+            List<IRoomElement> monster,
+            List<IRoomElement> puzzle,
+            List<IRoomElement> items,
+            List<IRoomElement> fixtures,
             String picture) {
 
         // Check parameters
@@ -52,6 +54,10 @@ public class Room {
         this.fixtures = fixtures;
         this.picture = picture;
         this.roomNumber = roomNumber;
+
+        // if monster effect or puzzle effect
+        // this.hasEffect = effect
+        // this.effectdescription = effect desc
     }
 
     public String getRoomName() {
@@ -113,27 +119,58 @@ public class Room {
     }
 
     public IRoomElement getMonster() {
-        return monster;
+
+        if (monster.size() == 0) {
+            return null;
+        }
+        return monster.get(0); // assuming only 1 monster per room
     }
 
     public IRoomElement getPuzzle() {
-        return puzzle;
+        if (puzzle.size() == 0) {
+            return null;
+        }
+        return puzzle.get(0); // assuming only 1 puzzle per room
     }
 
-    public IRoomElement getItems() {
+    public List<IRoomElement> getItems() {
         return items;
     }
 
-    public IRoomElement getFixtures() {
+    public String printItems() {
+        if(items.size() == 0) {
+            return "";
+        }
+        StringBuilder out = new StringBuilder();
+        for (IRoomElement i : items) {
+            out.append(i.getName()).append(" ");
+        }
+        return out.toString();
+    }
+
+    public List<IRoomElement> getFixtures() {
         return fixtures;
+    }
+
+    public String printFixtures() {
+        if(fixtures.size() == 0) {
+            return "";
+        }
+        StringBuilder out = new StringBuilder();
+        for (IRoomElement i : fixtures) {
+            out.append(i.getName()).append(" ");
+        }
+        return out.toString();
     }
 
     @Override
     public String toString() {
-        String m = monster == null ? "none" : monster.getName();
-        String p = puzzle == null ? "none" : puzzle.getName();
-        String i = items == null ? "none" : items.getName();
-        String f = fixtures == null ? "none" : fixtures.getName();
+
+        String m = getMonster() == null ? "none" : getMonster().getName();
+        String p = getPuzzle() == null ? "none" : getPuzzle().getName();
+//        String pSolution = !Objects.equals(p, "none") ? " " + puzzle.getFirst().getClass().getName() : "";
+        String i = printItems() == "" ? "none" : printItems();
+        String f = printFixtures() == "" ? "none" : printFixtures();
 
       return "Room: " + roomName + "\n"
               + "Description: " + description + "\n"
@@ -142,28 +179,29 @@ public class Room {
               + "E: " + E + "\n"
               + "W: " + W + "\n"
               + "Monster: " + m + "\n"
-              + "Puzzle: " + p + "\n"
+              + "Puzzle: " + p  + "\n"
               + "Items: " + i + "\n"
-              + "Fixtures: " + f;
+              + "Fixtures: " + f + "\n"
+              + "Picture: " + picture + "\n";
     }
 
     //COLLECTS IROOMELEMENTS
     // SHOULDN't EACH TYPE BE A LIST IN ROOM??
-    public void addElements() {
-        this.elements = new ArrayList<IRoomElement>();
-        if (this.getFixtures() != null) {
-            this.elements.add(this.getFixtures());
-        }
-        if (this.getMonster() != null) {
-            this.elements.add(this.getMonster());
-        }
-        if (this.getPuzzle() != null) {
-            this.elements.add(this.getPuzzle());
-        }
-        if (this.getItems() != null) {
-            this.elements.add(this.getItems());
-        }
-    }
+//    public void addElements() {
+//        this.elements = new ArrayList<IRoomElement>();
+//        if (this.getFixtures() != null) {
+//            this.elements.add(this.getFixtures());
+//        }
+//        if (this.getMonster() != null) {
+//            this.elements.add(this.getMonster());
+//        }
+//        if (this.getPuzzle() != null) {
+//            this.elements.add(this.getPuzzle());
+//        }
+//        if (this.getItems() != null) {
+//            this.elements.add(this.getItems());
+//        }
+//    }
 
     public List<IRoomElement> getElements() {
         return elements;

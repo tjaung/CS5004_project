@@ -1,9 +1,11 @@
 package factories;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
+import gameelements.IRoomElement;
 import gameelements.Puzzle;
 import gameelements.Fixture;
 import gameelements.Item;
@@ -22,10 +24,10 @@ public class RoomFactory {
                             int S,
                             int E,
                             int W,
-                            Monster monster,
-                            Puzzle puzzle,
-                            Item items,
-                            Fixture fixtures,
+                            List<IRoomElement> monster,
+                            List<IRoomElement> puzzle,
+                            List<IRoomElement> items,
+                            List<IRoomElement> fixtures,
                             String picture) {
     // Assuming that puzzle, Item, and Fixture will already be instantiated for construction
     return new Room(

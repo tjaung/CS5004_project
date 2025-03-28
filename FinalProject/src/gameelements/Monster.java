@@ -8,7 +8,7 @@ public class Monster implements IRoomElement{
     private boolean active;           // Is the monster active
     private boolean affectsTarget;    // Does this impact the target
     private boolean affectsPlayer;    // Does this impact the player
-    private Item solution;            // How to calm it down
+    private IRoomElement solution;            // How to calm it down
     private int value;                // Score you get for killing it
     private String description;       // Describe the monster
     private String effects;           // What it does 
@@ -20,7 +20,7 @@ public class Monster implements IRoomElement{
     private int health;               // Health of the monster (now not nullable)
 
     // Constructor to initialize object with specified values
-    public Monster(String name, boolean active, boolean affectsTarget, boolean affectsPlayer, Item solution, 
+    public Monster(String name, boolean active, boolean affectsTarget, boolean affectsPlayer, IRoomElement solution,
                    int value, String description, String effects, int damage, String target,
                    boolean canAttack, String attack, String picture, int health ) {
         this.name = name;
@@ -125,7 +125,7 @@ public class Monster implements IRoomElement{
     }
 
     // Getter for solution
-    public Item getSolution() {
+    public IRoomElement getSolution() {
         return solution;
     }
 

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import gameelements.Fixture;
@@ -83,7 +84,7 @@ public class Parser {
    * @param monsterArray array from json data
    * @return list of all monsters
    */
-  private static List<IRoomElement> parseMonster(JSONArray monsterArray) {
+  private static List<IRoomElement> parseMonster(JSONArray monsterArray, List<IRoomElement> itemList) {
     List<gameelements.IRoomElement> monsterList = new ArrayList<>();
 
     // loop parameter monster array
@@ -93,18 +94,18 @@ public class Parser {
       // cast to proper data types
       String name = monsterJson.getString("name");
       boolean active = monsterJson.getBoolean("active");
-      boolean affectsTarget = monsterJson.getBoolean("affectsTarget");
-      boolean affectsPlayer = monsterJson.getBoolean("affectsPlayer");
-      Item solution = null;
+      boolean affectsTarget = monsterJson.getBoolean("affects_target");
+      boolean affectsPlayer = monsterJson.getBoolean("affects_player");
+      IRoomElement solution = getSolution(monsterJson, itemList);
       int value = monsterJson.getInt("value");
       String description = monsterJson.optString("description");
       String effects = monsterJson.optString("effects");
       int damage = monsterJson.getInt("damage");
       String target = monsterJson.optString("target");
-      boolean canAttack = monsterJson.getBoolean("canAttack");
+      boolean canAttack = monsterJson.has("can_attack") && monsterJson.getBoolean("can_attack");
       String attack = monsterJson.getString("attack");
       String picture = monsterJson.isNull("picture") ? null : monsterJson.getString("picture");
-      int health = monsterJson.getInt("health");
+      int health = monsterJson.has("health") ? monsterJson.getInt("health") : 0;
 
       // create concrete instance of monster
       gameelements.Monster monster = new gameelements.Monster(name, active, affectsTarget, affectsPlayer, solution, value, description,
@@ -133,26 +134,26 @@ public class Parser {
       boolean active = puzzleJson.getBoolean("active");
       boolean affects_targets = puzzleJson.getBoolean("affects_target");
       boolean affects_player = puzzleJson.getBoolean("affects_player");
-      IRoomElement solution = null;
+      IRoomElement solution = getSolution(puzzleJson, itemList);
 
       // get the solution
-      if (puzzleJson.has("solution")) {
-        String answer = puzzleJson.getString("solution").replace("\'", "");
-        // solution condition 1: it's a pw and needs a string solution
-        if(puzzleJson.getString("name").equalsIgnoreCase("PASSWORD")) {
-          // create a new empty item that holds the string solution
-          solution = new Item(0,0, answer, 1,1,"", "", "");
-          itemList.add(solution);
-        }
-        // solution condition 2: it's an item puzzle and it needs a specific item
-        else {
-          // query the item list
-          solution = itemList.stream()
-                  .filter(item -> item.getName().toLowerCase().equals(answer.toLowerCase()))
-                  .findFirst()
-                  .get();
-        }
-      }
+//      if (puzzleJson.has("solution")) {
+//        String answer = puzzleJson.getString("solution");
+//        // solution condition 1: it's a pw and needs a string solution
+//        if(answer.startsWith("'") && answer.endsWith("'")) {
+//          // create a new empty item that holds the string solution
+//          solution = new Item(0,0, answer, 1,1,"", "", "");
+//          itemList.add(solution);
+//        }
+//        // solution condition 2: it's an item puzzle and it needs a specific item
+//        else {
+//          // query the item list
+//          solution = itemList.stream()
+//                  .filter(item -> item.getName().toLowerCase().equals(answer.toLowerCase()))
+//                  .findFirst()
+//                  .get();
+//        }
+//      }
 
       int value = puzzleJson.getInt("value");
       String description = puzzleJson.getString("description");
@@ -225,16 +226,52 @@ public class Parser {
    * @param elementArray list of objects corresponding to key
    * @return single game object
    */
-  private static IRoomElement getRoomGameElement(JSONObject room, String key, List<IRoomElement> elementArray) {
-    IRoomElement gameObject = null;
+  private static List<IRoomElement> getRoomGameElements(JSONObject room, String key, List<IRoomElement> elementArray) {
+    // init list to return
+    List<IRoomElement> gameObjects = new ArrayList<IRoomElement>();
+
+    // get the game element that the room needs
     if (!room.isNull(key)) {
       String roomEle = room.getString(key).toLowerCase();
-       gameObject = elementArray.stream()
-              .filter(e -> e.getName().toLowerCase().equalsIgnoreCase(roomEle))
-              .findFirst()
-              .orElse(null);
+
+      // if the game element has commas, it is probably a list of elements
+      List<String> eleList = Arrays.asList(roomEle.split(", "));
+
+      for(String ele : eleList){
+        // query the list of elements
+        IRoomElement gameObject = elementArray.stream()
+                .filter(e -> e.getName().toLowerCase().equalsIgnoreCase(ele))
+                .findFirst()
+                .orElse(null);
+        // add queried element to output list
+        gameObjects.add(gameObject);
+      }
     }
-    return gameObject;
+    return gameObjects;
+  }
+
+  private static IRoomElement getSolution(JSONObject eleJson, List<IRoomElement> itemList) {
+    // get the solution
+    IRoomElement solution = null;
+
+    if (eleJson.has("solution")) {
+      String answer = eleJson.getString("solution");
+      // solution condition 1: it's a pw and needs a string solution
+      if(answer.startsWith("'") && answer.endsWith("'")) {
+        // create a new empty item that holds the string solution
+        solution = new Item(0,0, answer, 1,1,"", "", "");
+        itemList.add(solution);
+      }
+      // solution condition 2: it's an item puzzle and it needs a specific item
+      else {
+        // query the item list
+        solution = itemList.stream()
+                .filter(item -> item.getName().toLowerCase().equals(answer.toLowerCase()))
+                .findFirst()
+                .get();
+      }
+    }
+    return solution;
   }
 
   /**
@@ -261,7 +298,7 @@ public class Parser {
 
     // create list of monsters
     JSONArray monsterJson = jsonObject.isNull("monsters") ? null : jsonObject.getJSONArray("monsters");
-    List<IRoomElement> monsters = monsterJson == null ? null : parseMonster(monsterJson);
+    List<IRoomElement> monsters = monsterJson == null ? null : parseMonster(monsterJson, items);
 
     // create rooms
     for(int i=0; i < roomArray.length(); i++){
@@ -276,10 +313,10 @@ public class Parser {
       String picture = roomJson.isNull("picture") ? null : roomJson.getString("picture");
 
       // query correct game elements for each room
-      IRoomElement puzzle = getRoomGameElement(roomJson, "puzzle", puzzles);
-      IRoomElement item = getRoomGameElement(roomJson, "items", items);
-      IRoomElement fixture = getRoomGameElement(roomJson, "fixtures", fixtures);
-      IRoomElement monster = getRoomGameElement(roomJson, "monster", monsters);
+      List<IRoomElement> puzzle = getRoomGameElements(roomJson, "puzzle", puzzles);
+      List<IRoomElement> item = getRoomGameElements(roomJson, "items", items);
+      List<IRoomElement> fixture = getRoomGameElements(roomJson, "fixtures", fixtures);
+      List<IRoomElement> monster = getRoomGameElements(roomJson, "monster", monsters);
 
       // create new room instance
       Room room = new Room(name,roomNumber,description,N,S,E,W,monster,puzzle, item, fixture, picture);
