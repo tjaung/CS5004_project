@@ -181,7 +181,7 @@ public class Room {
                 return element;
             }
         }
-        return null;
+        throw new IllegalArgumentException(elementName.concat(" does not exist.\n"));
     }
 
     @Override
