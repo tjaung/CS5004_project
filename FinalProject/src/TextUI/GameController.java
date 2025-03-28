@@ -21,7 +21,7 @@ public class GameController {
 
     this.view.showIntro();
     this.view.print(this.model.getRoomModel().getCurrentRoom().getRoomName().concat(".\n\n"));
-    TimeUnit.SECONDS.sleep(1);
+//    TimeUnit.SECONDS.sleep(1);
     this.view.showOptions();
     this.view.print("\n".concat(this.model.getRoomModel().getCurrentRoom().getRoomDescription()).concat("\n"));
 
@@ -89,6 +89,8 @@ public class GameController {
         case "X":
           try {
             String elementName = this.in.getElement();
+            String examineString = this.model.getRoomModel().getCurrentRoom().getElement(elementName).getDescription();
+            this.view.print(examineString);
           }
           catch (Exception e) {
             this.view.print(e.getMessage());

@@ -1,8 +1,11 @@
 package gameelements;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Class for gameelements.Room.
@@ -18,7 +21,7 @@ public class Room {
     private List<IRoomElement> monster;
     private List<IRoomElement> puzzle;
     private List<IRoomElement> items;
-    private List<IRoomElement> fixtures = null;
+    private List<IRoomElement> fixtures;
     private String picture;
     private List<IRoomElement> elements;
     private boolean hasEffect;
@@ -54,6 +57,10 @@ public class Room {
         this.fixtures = fixtures;
         this.picture = picture;
         this.roomNumber = roomNumber;
+
+        this.elements = Stream.of(monster, puzzle, items,fixtures)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
 
         // if monster effect or puzzle effect
         // this.hasEffect = effect
@@ -161,6 +168,20 @@ public class Room {
             out.append(i.getName()).append(" ");
         }
         return out.toString();
+    }
+
+    public IRoomElement getElement(String elementName) {
+        if(elementName.isEmpty()) {
+            return null;
+        }
+        IRoomElement element = null;
+        for (IRoomElement i : elements) {
+            if (i.getName().equalsIgnoreCase(elementName)) {
+                element = i;
+                return element;
+            }
+        }
+        return null;
     }
 
     @Override
