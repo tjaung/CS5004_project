@@ -30,6 +30,11 @@ public class GameView {
     this.out.append(s);
   }
 
+  public void printInventory(String s) throws IOException {
+    String output = "Items in your inventory: ";
+    this.out.append(s);
+  }
+
   public void showOptionError() throws IOException {
     this.out.append("Incorrect input please try again. Use (O) to view options\n");
   }

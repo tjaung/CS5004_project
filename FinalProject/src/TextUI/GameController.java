@@ -1,9 +1,11 @@
 package TextUI;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import gameelements.IRoomElement;
+import gameelements.Item;
 import model.GameModel;
 
 public class GameController {
@@ -27,45 +29,25 @@ public class GameController {
 
     while (this.in.getOptionFromUser()) {
       // check for monsters or puzzle effects
+      String input = this.in.getCommand().toUpperCase();
       switch (this.in.getCommand().toUpperCase()) {
         // move any direction into one case
         case "N":
-          try {
-            this.model.move("N");
-            this.view.enterRoom(this.model.getRoomModel().getCurrentRoom().getRoomName(), this.model.getRoomModel().getCurrentRoom().getRoomDescription());
-          }
-          catch (IllegalArgumentException e) {
-            this.view.print(e.getMessage());
-          }
-          break;
         case "S":
-          try {
-            this.model.move("S");
-            this.view.enterRoom(this.model.getRoomModel().getCurrentRoom().getRoomName(), this.model.getRoomModel().getCurrentRoom().getRoomDescription());
-          }
-          catch (IllegalArgumentException e) {
-            this.view.print(e.getMessage());
-          }
-          break;
         case "E":
-          try {
-            this.model.move("E");
-            this.view.enterRoom(this.model.getRoomModel().getCurrentRoom().getRoomName(), this.model.getRoomModel().getCurrentRoom().getRoomDescription());
-          }
-          catch (IllegalArgumentException e) {
-            this.view.print(e.getMessage());
-          }
-          break;
         case "W":
           try {
-            this.model.move("W");
+            this.model.move(input);
             this.view.enterRoom(this.model.getRoomModel().getCurrentRoom().getRoomName(), this.model.getRoomModel().getCurrentRoom().getRoomDescription());
           }
           catch (IllegalArgumentException e) {
             this.view.print(e.getMessage());
           }
           break;
+
         case "I":
+          List<Item> items = this.model.getPlayer().getInventory().getItems();
+
           break;
         case "L":
           this.view.print(this.model.getRoomModel().getCurrentRoom().getRoomDescription().concat(".\n"));

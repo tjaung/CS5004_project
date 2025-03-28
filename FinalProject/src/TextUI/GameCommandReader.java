@@ -25,7 +25,6 @@ public class GameCommandReader {
       String option = scanner.nextLine();
       if (option.length() > 1) {
         this.data[0] = String.valueOf(option.charAt(0));
-        System.out.println(option.substring(2));
         this.data[1] = option.substring(2);
       } else {
         this.data[0] = option;
