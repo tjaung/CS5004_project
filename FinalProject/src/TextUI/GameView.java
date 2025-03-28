@@ -5,7 +5,7 @@ import java.io.IOException;
 import gameelements.Room;
 
 public class GameView {
-  public Appendable out;
+  private Appendable out;
 
   public GameView() {
     this.out = System.out;
