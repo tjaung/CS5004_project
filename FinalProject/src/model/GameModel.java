@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONObject;
+
 import gameelements.Inventory;
 import gameelements.Player;
 
@@ -90,7 +92,6 @@ public class GameModel {
   }
 
   public String saveGame() {
-//    this.roomModel.parseRoomsToJSON();
     String playerStr = this.player.parsePlayerToJSON();
     String invStr = this.player.getInventory().parseInventoryToJSON();
     String roomStr = this.roomModel.parseRoomsToJSON();
@@ -99,8 +100,18 @@ public class GameModel {
     return response;
   }
 
-  public void loadGame() {
-
+  public String loadGame() {
+    // check for save data
+    String path = "../FinalProject/src/resources/save.json";
+    try {
+      this.roomModel = new RoomModel(path);
+      String strJson = Parser.readJsonFile(path);
+      JSONObject json = Parser.parseJsonString(strJson);
+      this.player = Parser.parsePlayer(json, this.roomModel.getRoomList());
+      return "Save data loaded successfully";
+    } catch (Exception e) {
+      return e.getMessage();
+    }
   }
   // should Model directly have methods for element interaction or should it call
   // the elements who have methods to interact with each other
