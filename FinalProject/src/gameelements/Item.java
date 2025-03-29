@@ -86,4 +86,13 @@ public class Item implements IRoomElement {
   public void setPicture(String picture) {
     this.picture = picture;
   }
+
+  public void useItem() {
+    if (this.getUsesRemaining() > 0) {
+      this.setUsesRemaining(this.getUsesRemaining() - 1);
+    }
+    else {
+      throw new IllegalArgumentException("This item is out of uses.\n");
+    }
+  }
 }

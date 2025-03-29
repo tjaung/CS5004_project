@@ -66,6 +66,10 @@ public class Puzzle implements IRoomElement{
   }
 
   public String getPicture() {
-    return picture;
+    return this.picture;
+  }
+
+  public void setActive(boolean bool) {
+    this.active = bool;
   }
 }

@@ -52,9 +52,9 @@ public class GameView {
     this.out.append("Items in this room: ");
   }
 
-  public void enterRoom(String name, String description) throws IOException {
+  public void enterRoom(String name, String toString) throws IOException {
     this.out.append("You enter the ");
     this.out.append(name.concat("\n"));
-    this.out.append(description.concat("\n"));
+    this.out.append(toString.concat("\n"));
   }
 }

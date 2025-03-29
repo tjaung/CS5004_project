@@ -37,4 +37,43 @@ public class Inventory {
     public String getPicture() {
         return picture;
     }
+
+    public void addItem(Item item) {
+        if (this.currWeight + (item).getWeight() > this.maxWeight) {
+            throw new IllegalArgumentException("You don't have room in your inventory.\n");
+        }
+        else {
+            this.items.add(item);
+        }
+    }
+
+    public void dropItem(Item item) {
+        if (this.getItems().contains(item)) {
+            this.items.remove(item);
+        }
+        else {
+            throw new IllegalArgumentException("You don't have that item.\n");
+        }
+    }
+
+    public boolean hasItem(Item item) {
+        for (IRoomElement i : this.items) {
+            if (i.getName().equalsIgnoreCase(item.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Item getItem(String itemName) {
+        if(itemName.isEmpty()) {
+            return null;
+        }
+        for (IRoomElement i : this.items) {
+            if (i.getName().equalsIgnoreCase(itemName)) {
+                return (Item) i;
+            }
+        }
+        throw new IllegalArgumentException("You don't have a ".concat(itemName).concat(" in your inventory.\n"));
+    }
 }

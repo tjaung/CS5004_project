@@ -1,9 +1,7 @@
 package gameelements;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -26,6 +24,7 @@ public class Room {
     private List<IRoomElement> elements;
     private boolean hasEffect;
     private String effectDescription;
+
     /**
      * Constructor for gameelements.Room. Takes in a lot of parameters to construct it.
      */
@@ -67,7 +66,7 @@ public class Room {
         // this.effectdescription = effect desc
     }
 
-    public String getRoomName() {
+    public String getName() {
         return roomName;
     }
 
@@ -76,16 +75,17 @@ public class Room {
      *
      * @return int of room number
      */
-    public int getRoomNumber() {
+    public int getNumber() {
         return roomNumber;
     }
 
     /**
-     * Getter for the room description.
+     * Getter for the room
+     * description.
      *
      * @return desc - string of the room desc.
      */
-    public String getRoomDescription() {
+    public String getDescription() {
         return description;
     }
 
@@ -125,19 +125,35 @@ public class Room {
         return W;
     }
 
-    public IRoomElement getMonster() {
+    public void setN(int n) {
+        this.N = n;
+    }
+
+    public void setS(int s) {
+        this.S = s;
+    }
+
+    public void setE(int e) {
+        this.E = e;
+    }
+
+    public void setW(int w) {
+        this.W = w;
+    }
+
+    public Monster getMonster() {
 
         if (monster.size() == 0) {
             return null;
         }
-        return monster.get(0); // assuming only 1 monster per room
+        return (Monster) monster.get(0); // assuming only 1 monster per room
     }
 
-    public IRoomElement getPuzzle() {
+    public Puzzle getPuzzle() {
         if (puzzle.size() == 0) {
             return null;
         }
-        return puzzle.get(0); // assuming only 1 puzzle per room
+        return (Puzzle) puzzle.get(0); // assuming only 1 puzzle per room
     }
 
     public List<IRoomElement> getItems() {
@@ -174,57 +190,84 @@ public class Room {
         if(elementName.isEmpty()) {
             return null;
         }
-        IRoomElement element = null;
-        for (IRoomElement i : elements) {
+        for (IRoomElement i : this.elements) {
             if (i.getName().equalsIgnoreCase(elementName)) {
-                element = i;
-                return element;
+                return i;
             }
         }
-        throw new IllegalArgumentException(elementName.concat(" does not exist.\n"));
+        throw new IllegalArgumentException("There is no ".concat(elementName).concat(" here.\n"));
+    }
+
+    public Item getItem(String itemName) {
+        if(itemName.isEmpty()) {
+            return null;
+        }
+        for (IRoomElement i : this.items) {
+            if (i.getName().equalsIgnoreCase(itemName)) {
+                return (Item) i;
+            }
+        }
+        throw new IllegalArgumentException("There is no ".concat(itemName).concat(" here.\n"));
     }
 
     @Override
     public String toString() {
+        if (this.getPuzzle() != null) {
+            if (this.getPuzzle().isActive()) {
+                return this.getPuzzle().getEffects();
+            }
+            else {
+                return this.getDescription();
+            }
+        }
+        else if (this.getMonster() != null) {
+            if (this.getMonster().isActive()) {
+                return this.getMonster().getEffects();
+            }
+            else {
+                return this.getDescription().concat(" ").concat(this.getMonster().getDescription());
+            }
+        }
+        else {
+            return this.getDescription();
+        }
 
-        String m = getMonster() == null ? "none" : getMonster().getName();
-        String p = getPuzzle() == null ? "none" : getPuzzle().getName();
-//        String pSolution = !Objects.equals(p, "none") ? " " + puzzle.getFirst().getClass().getName() : "";
-        String i = printItems() == "" ? "none" : printItems();
-        String f = printFixtures() == "" ? "none" : printFixtures();
-
-        return "Room: " + roomName + "\n"
-                + "Description: " + description + "\n"
-                + "N: " + N + "\n"
-                + "S: " + S + "\n"
-                + "E: " + E + "\n"
-                + "W: " + W + "\n"
-                + "Monster: " + m + "\n"
-                + "Puzzle: " + p  + "\n"
-                + "Items: " + i + "\n"
-                + "Fixtures: " + f + "\n"
-                + "Picture: " + picture + "\n";
     }
-
-    //COLLECTS IROOMELEMENTS
-    // SHOULDN't EACH TYPE BE A LIST IN ROOM??
-//    public void addElements() {
-//        this.elements = new ArrayList<IRoomElement>();
-//        if (this.getFixtures() != null) {
-//            this.elements.add(this.getFixtures());
-//        }
-//        if (this.getMonster() != null) {
-//            this.elements.add(this.getMonster());
-//        }
-//        if (this.getPuzzle() != null) {
-//            this.elements.add(this.getPuzzle());
-//        }
-//        if (this.getItems() != null) {
-//            this.elements.add(this.getItems());
-//        }
-//    }
 
     public List<IRoomElement> getElements() {
         return elements;
+    }
+
+
+    public IRoomElement queryElement(String name) {
+        try {
+            return this.getElements().stream()
+                    .filter(element -> element.getName() == name)
+                    .findFirst()
+                    .get();
+        } catch (Exception e) {
+            throw new IllegalArgumentException("There is no item with that name in the current room.\n");
+        }
+    }
+
+    public void removeItem(Item item) {
+        this.items.remove(item);
+    }
+
+    public void addItem(Item item) {
+        this.items.add(item);
+    }
+
+    public boolean hasItem(Item item) {
+        for (IRoomElement i : this.items) {
+            if (i.getName().equalsIgnoreCase(item.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void checkEffects() {
+
     }
 }

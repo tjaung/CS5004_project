@@ -2,7 +2,6 @@ package model;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import gameelements.Room;
@@ -21,7 +20,7 @@ public class RoomModel {
     this.roomList = Parser.parseRooms(JSON);
     // initialize current room as room 1
     this.currentRoom = this.roomList.stream()
-            .filter(room -> room.getRoomNumber() == 1)
+            .filter(room -> room.getNumber() == 1)
             .findFirst()
             .get();
   }
@@ -38,22 +37,26 @@ public class RoomModel {
     return this.roomList;
   }
 
-  public void add(Room room) {
+  public void addRoom(Room room) {
     // if room in roomList
     this.roomList.add(room);
   }
 
-  public void remove(Room room) {
+  public void removeRoom(Room room) {
     // if room in roomList
     this.roomList.remove(room);
   }
 
 
   public Room queryRoom(int roomNumber) {
-    return this.roomList.stream()
-            .filter(room -> room.getRoomNumber() == 1)
-            .findFirst()
-            .get();
+    try {
+      return this.roomList.stream()
+              .filter(room -> room.getNumber() == roomNumber)
+              .findFirst()
+              .get();
+    } catch (Exception e) {
+      throw new IllegalArgumentException("No room with that number exists.\n");
+    }
   }
 
 }

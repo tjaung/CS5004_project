@@ -49,8 +49,5 @@ public class Player {
     this.currentRoom = currentRoom;
   }
 
-  public void setInventory(Inventory inventory) {
-    this.inventory = inventory;
-  }
   
 }
