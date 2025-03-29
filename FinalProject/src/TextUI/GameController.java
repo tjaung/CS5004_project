@@ -17,7 +17,7 @@ public class GameController {
     this.model = model;
   }
 
-  public void go() throws IOException, InterruptedException {
+  public void go() throws Exception {
     this.view = new GameView();
     this.in = new GameCommandReader();
 
@@ -86,12 +86,15 @@ public class GameController {
           this.view.showOptions();
           break;
         case "+":
-          //this.view.print("File name:\n");
-          //this.in.
-          this.view.print("We should implement a save function...\n");
+          String response = this.model.saveGame();
+          this.view.print(response + "\n");
           break;
         case "-":
-          this.view.print("We should implement a load save function...\n");
+          // pull data from resources if available
+          String res = this.model.loadGame();
+          // if found, run through parser
+          // load world with new data
+          this.view.print(res + "\n");
           break;
         default:
           this.view.showOptionError();

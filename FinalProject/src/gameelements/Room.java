@@ -7,6 +7,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import model.ReverseParser;
+
 /**
  * Class for gameelements.Room.
  */
@@ -125,6 +127,10 @@ public class Room {
         return W;
     }
 
+    public String getPicture() {
+        return picture;
+    }
+
     public IRoomElement getMonster() {
 
         if (monster.size() == 0) {
@@ -156,6 +162,9 @@ public class Room {
     }
 
     public List<IRoomElement> getFixtures() {
+        if(fixtures.size() == 0) {
+            return null;
+        }
         return fixtures;
     }
 
@@ -227,4 +236,5 @@ public class Room {
     public List<IRoomElement> getElements() {
         return elements;
     }
+
 }
