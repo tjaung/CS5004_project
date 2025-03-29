@@ -39,6 +39,11 @@ public class Monster implements IRoomElement{
         this.health = health;   
     }
 
+    // Getter for value
+    public int getValue() {
+        return this.value;
+    }
+
     // Getter for damage
     public int getDamage() {
         return damage;
@@ -105,7 +110,7 @@ public class Monster implements IRoomElement{
     }
 
     // Getter for affects target status
-    public boolean isAffectsTarget() {
+    public boolean affectsTarget() {
         return affectsTarget;
     }
 
@@ -115,7 +120,7 @@ public class Monster implements IRoomElement{
     }
 
     // Getter for affects player status
-    public boolean isAffectsPlayer() {
+    public boolean affectsPlayer() {
         return affectsPlayer;
     }
 

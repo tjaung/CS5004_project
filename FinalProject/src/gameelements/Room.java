@@ -24,6 +24,7 @@ public class Room {
     private List<IRoomElement> elements;
     private boolean hasEffect;
     private String effectDescription;
+    private boolean clear;
 
     /**
      * Constructor for gameelements.Room. Takes in a lot of parameters to construct it.
@@ -60,6 +61,13 @@ public class Room {
         this.elements = Stream.of(monster, puzzle, items,fixtures)
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
+
+        if (this.getMonster() == null && this.getPuzzle() == null) {
+            this.clear = true;
+        }
+        else {
+            this.clear = false;
+        }
 
         // if monster effect or puzzle effect
         // this.hasEffect = effect
@@ -214,7 +222,7 @@ public class Room {
     public String toString() {
         if (this.getPuzzle() != null) {
             if (this.getPuzzle().isActive()) {
-                return this.getPuzzle().getEffects();
+                return this.getPuzzle().getEffects().concat("\n");
             }
             else {
                 return this.getDescription();
@@ -222,10 +230,10 @@ public class Room {
         }
         else if (this.getMonster() != null) {
             if (this.getMonster().isActive()) {
-                return this.getMonster().getEffects();
+                return this.getMonster().getEffects().concat("\n");
             }
             else {
-                return this.getDescription().concat(" ").concat(this.getMonster().getDescription());
+                return this.getDescription();
             }
         }
         else {
@@ -265,6 +273,10 @@ public class Room {
             }
         }
         return false;
+    }
+
+    public boolean isClear() {
+        return this.clear;
     }
 
     public void checkEffects() {

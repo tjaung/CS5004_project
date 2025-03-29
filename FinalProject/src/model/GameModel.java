@@ -109,7 +109,12 @@ public class GameModel {
     if (this.player.getInventory().hasItem(item)) {
       if (item.getUsesRemaining() > 0) {
         item.setUsesRemaining(item.getUsesRemaining() - 1);
-        solvePuzzle(item);
+        if (this.roomModel.getCurrentRoom().getMonster() != null) {
+          attackMonster(item);
+        }
+        else if (this.roomModel.getCurrentRoom().getPuzzle() != null) {
+          solvePuzzle(item);
+        }
       } else {
         throw new IllegalArgumentException(item.getName().concat(" is out of uses.\n"));
       }
@@ -123,6 +128,22 @@ public class GameModel {
     if (this.roomModel.getCurrentRoom().getPuzzle() != null && this.roomModel.getCurrentRoom().getPuzzle().isActive()) {
       if (item.equals(this.roomModel.getCurrentRoom().getPuzzle().getSolution())) {
         this.roomModel.getCurrentRoom().getPuzzle().setActive(false);
+        this.player.setScore(this.player.getScore() + this.roomModel.getCurrentRoom().getPuzzle().getValue());
+        clearRoom(this.roomModel.getCurrentRoom());
+      } else {
+        throw new IllegalArgumentException("It had no effect.\n");
+      }
+    }
+    else {
+      throw new IllegalArgumentException("There is nothing here to use it on.\n");
+    }
+  }
+
+  public void attackMonster(Item item) {
+    if (this.roomModel.getCurrentRoom().getMonster() != null && this.roomModel.getCurrentRoom().getMonster().isActive()) {
+      if (item.equals(this.roomModel.getCurrentRoom().getMonster().getSolution())) {
+        this.roomModel.getCurrentRoom().getMonster().setActive(false);
+        this.player.setScore(this.player.getScore() + this.roomModel.getCurrentRoom().getMonster().getValue());
         clearRoom(this.roomModel.getCurrentRoom());
       } else {
         throw new IllegalArgumentException("It had no effect.\n");
@@ -153,11 +174,4 @@ public class GameModel {
   public boolean validTarget() {
     return true;
   }
-
-  // should Model directly have methods for element interaction or should it call
-  // the elements who have methods to interact with each other
-
-
-
-
 }
