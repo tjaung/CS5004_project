@@ -1,5 +1,6 @@
 package model;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
@@ -34,13 +35,27 @@ public class ReverseParser {
   }
 
   public static String readInventory(Inventory inventory) {
-    String itemString = inventory.getItems().stream()
-            .map(item -> item.getName())
-            .collect(Collectors.joining(","));
+    JSONArray jsonArray = new JSONArray();
+    List<Item> items = inventory.getItems();
+
+    // make a json of all of the items in inventory
+    for (Item item : items) {
+      JSONObject jsonItem = new JSONObject();
+      jsonItem.put("name", item.getName());
+      jsonItem.put("weight", item.getWeight());
+      jsonItem.put("max_uses", item.getMaxUses());
+      jsonItem.put("uses_remaining", item.getUsesRemaining());
+      jsonItem.put("value", item.getValue());
+      jsonItem.put("when_used", item.getWhenUsed());
+      jsonItem.put("description", item.getDescription());
+      jsonItem.put("picture", item.getPicture());
+
+      jsonArray.add(jsonItem);
+    }
     JSONObject inventoryObject = new JSONObject();
     inventoryObject.put("current_weight", inventory.getCurrWeight());
     inventoryObject.put("max_weight", inventory.getMaxWeight());
-    inventoryObject.put("items", itemString);
+    inventoryObject.put("items", jsonArray);
 
     return "\"inventory\": " + inventoryObject.toJSONString() + ",";
   }
@@ -50,9 +65,9 @@ public class ReverseParser {
     itemObject.put("name", item.getName());
     itemObject.put("weight", item.getWeight());
     itemObject.put("value", item.getValue());
-    itemObject.put("maxUses", item.getMaxUses());
-    itemObject.put("usesRemaining", item.getUsesRemaining());
-    itemObject.put("whenUsed", item.getWhenUsed());
+    itemObject.put("max_uses", item.getMaxUses());
+    itemObject.put("uses_remaining", item.getUsesRemaining());
+    itemObject.put("when_used", item.getWhenUsed());
     itemObject.put("description", item.getDescription());
     itemObject.put("picture", item.getPicture());
 
@@ -85,6 +100,7 @@ public class ReverseParser {
     List<String> monsterList = new ArrayList<>();
     List<String> puzzleList = new ArrayList<>();
     List<String> fixturesList = new ArrayList<>();
+    List<String> itemList = new ArrayList<>();
 
     // loop all of the rooms
     for(Room room : rooms) {
@@ -111,6 +127,12 @@ public class ReverseParser {
         Puzzle puzzleObj = (Puzzle) room.getPuzzle();
         puzzleList.add(readPuzzle(puzzleObj));
       }
+      if(items != null) {
+        for(IRoomElement item : room.getItems()) {
+          Item i = (Item) item;
+          itemList.add(readSingleItem(i));
+        }
+      }
 
       roomObject.put("room_name", room.getRoomName());
       roomObject.put("room_number", room.getRoomNumber());
@@ -131,7 +153,8 @@ public class ReverseParser {
     String monsters = "\"monsters\": " + monsterList.toString() + ",";
     String puzzles = "\"puzzles\": " + puzzleList.toString() + ",";
     String fixtures = "\"fixtures\": " + fixturesList.toString() + ",";
-    return "\"rooms\": " + roomList.toString() + "," + monsters + puzzles + fixtures;
+    String items = "\"items\": " + itemList.toString();
+    return "\"rooms\": " + roomList.toString() + "," + monsters + puzzles + fixtures + items;
   }
 
   public static String readPuzzle(Puzzle puzzle) {
@@ -174,7 +197,7 @@ public class ReverseParser {
     monsterObject.put("active", monster.isActive());
     monsterObject.put("affects_target", monster.isAffectsTarget());
     monsterObject.put("affects_player", monster.isAffectsPlayer());
-    monsterObject.put("solution", monster.getSolution());
+    monsterObject.put("solution", monster.getSolution().getName());
     monsterObject.put("value", monster.getValue());
     monsterObject.put("description", monster.getDescription());
     monsterObject.put("effects", monster.getEffects());

@@ -35,6 +35,10 @@ public class Inventory {
         return items; 
     }
 
+    public void addItem(Item item) {
+        this.items.add(item);
+    }
+
     // Get the photo path
     public String getPicture() {
         return picture;
