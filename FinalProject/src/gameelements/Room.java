@@ -1,8 +1,13 @@
 package gameelements;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import model.ReverseParser;
 
 /**
  * Class for gameelements.Room.
@@ -18,7 +23,7 @@ public class Room {
     private List<IRoomElement> monster;
     private List<IRoomElement> puzzle;
     private List<IRoomElement> items;
-    private List<IRoomElement> fixtures = null;
+    private List<IRoomElement> fixtures;
     private String picture;
     private List<IRoomElement> elements;
     private boolean hasEffect;
@@ -55,6 +60,10 @@ public class Room {
         this.picture = picture;
         this.roomNumber = roomNumber;
 
+        this.elements = Stream.of(monster, puzzle, items,fixtures)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
+
         // if monster effect or puzzle effect
         // this.hasEffect = effect
         // this.effectdescription = effect desc
@@ -75,16 +84,16 @@ public class Room {
 
     /**
      * Getter for the room description.
-     * 
+     *
      * @return desc - string of the room desc.
      */
     public String getRoomDescription() {
         return description;
-    }    
+    }
 
     /**
      * Getter for North direction.
-     * 
+     *
      * @return N - int of N room
      */
     public int getN() {
@@ -93,7 +102,7 @@ public class Room {
 
     /**
      * Getter for South direction.
-     * 
+     *
      * @return S - int of S room
      */
     public int getS() {
@@ -102,7 +111,7 @@ public class Room {
 
     /**
      * Getter for East direction.
-     * 
+     *
      * @return E - int of E room
      */
     public int getE() {
@@ -111,11 +120,15 @@ public class Room {
 
     /**
      * Getter for West direction.
-     * 
+     *
      * @return W - int of W room
      */
     public int getW() {
         return W;
+    }
+
+    public String getPicture() {
+        return picture;
     }
 
     public IRoomElement getMonster() {
@@ -149,6 +162,9 @@ public class Room {
     }
 
     public List<IRoomElement> getFixtures() {
+        if(fixtures.size() == 0) {
+            return null;
+        }
         return fixtures;
     }
 
@@ -163,6 +179,20 @@ public class Room {
         return out.toString();
     }
 
+    public IRoomElement getElement(String elementName) {
+        if(elementName.isEmpty()) {
+            return null;
+        }
+        IRoomElement element = null;
+        for (IRoomElement i : elements) {
+            if (i.getName().equalsIgnoreCase(elementName)) {
+                element = i;
+                return element;
+            }
+        }
+        throw new IllegalArgumentException(elementName.concat(" does not exist.\n"));
+    }
+
     @Override
     public String toString() {
 
@@ -172,17 +202,17 @@ public class Room {
         String i = printItems() == "" ? "none" : printItems();
         String f = printFixtures() == "" ? "none" : printFixtures();
 
-      return "Room: " + roomName + "\n"
-              + "Description: " + description + "\n"
-              + "N: " + N + "\n"
-              + "S: " + S + "\n"
-              + "E: " + E + "\n"
-              + "W: " + W + "\n"
-              + "Monster: " + m + "\n"
-              + "Puzzle: " + p  + "\n"
-              + "Items: " + i + "\n"
-              + "Fixtures: " + f + "\n"
-              + "Picture: " + picture + "\n";
+        return "Room: " + roomName + "\n"
+                + "Description: " + description + "\n"
+                + "N: " + N + "\n"
+                + "S: " + S + "\n"
+                + "E: " + E + "\n"
+                + "W: " + W + "\n"
+                + "Monster: " + m + "\n"
+                + "Puzzle: " + p  + "\n"
+                + "Items: " + i + "\n"
+                + "Fixtures: " + f + "\n"
+                + "Picture: " + picture + "\n";
     }
 
     //COLLECTS IROOMELEMENTS
@@ -206,4 +236,5 @@ public class Room {
     public List<IRoomElement> getElements() {
         return elements;
     }
+
 }

@@ -1,9 +1,11 @@
 package TextUI;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import gameelements.IRoomElement;
+import gameelements.Item;
 import model.GameModel;
 
 public class GameController {
@@ -15,57 +17,37 @@ public class GameController {
     this.model = model;
   }
 
-  public void go() throws IOException, InterruptedException {
+  public void go() throws Exception {
     this.view = new GameView();
     this.in = new GameCommandReader();
 
     this.view.showIntro();
     this.view.print(this.model.getRoomModel().getCurrentRoom().getRoomName().concat(".\n\n"));
-    TimeUnit.SECONDS.sleep(1);
+//    TimeUnit.SECONDS.sleep(1);
     this.view.showOptions();
     this.view.print("\n".concat(this.model.getRoomModel().getCurrentRoom().getRoomDescription()).concat("\n"));
 
     while (this.in.getOptionFromUser()) {
       // check for monsters or puzzle effects
-      switch (this.in.getCommand().toUpperCase()) {
+      String input = this.in.getCommand().toUpperCase();
+      switch (input) {
         // move any direction into one case
         case "N":
-          try {
-            this.model.move("N");
-            this.view.enterRoom(this.model.getRoomModel().getCurrentRoom().getRoomName(), this.model.getRoomModel().getCurrentRoom().getRoomDescription());
-          }
-          catch (IllegalArgumentException e) {
-            this.view.print(e.getMessage());
-          }
-          break;
         case "S":
-          try {
-            this.model.move("S");
-            this.view.enterRoom(this.model.getRoomModel().getCurrentRoom().getRoomName(), this.model.getRoomModel().getCurrentRoom().getRoomDescription());
-          }
-          catch (IllegalArgumentException e) {
-            this.view.print(e.getMessage());
-          }
-          break;
         case "E":
-          try {
-            this.model.move("E");
-            this.view.enterRoom(this.model.getRoomModel().getCurrentRoom().getRoomName(), this.model.getRoomModel().getCurrentRoom().getRoomDescription());
-          }
-          catch (IllegalArgumentException e) {
-            this.view.print(e.getMessage());
-          }
-          break;
         case "W":
           try {
-            this.model.move("W");
+            this.model.move(input);
             this.view.enterRoom(this.model.getRoomModel().getCurrentRoom().getRoomName(), this.model.getRoomModel().getCurrentRoom().getRoomDescription());
           }
           catch (IllegalArgumentException e) {
             this.view.print(e.getMessage());
           }
           break;
+
         case "I":
+          List<Item> items = this.model.getPlayer().getInventory().getItems();
+          this.view.printInventory(items);
           break;
         case "L":
           this.view.print(this.model.getRoomModel().getCurrentRoom().getRoomDescription().concat(".\n"));
@@ -83,12 +65,16 @@ public class GameController {
         case "U":
           break;
         case "T":
+          // grab input index 1
+          // index model.getRoomModel().getCurrentRoom().getElement(input);
           break;
         case "D":
           break;
         case "X":
           try {
             String elementName = this.in.getElement();
+            String examineString = this.model.getRoomModel().getCurrentRoom().getElement(elementName).getDescription();
+            this.view.print(examineString);
           }
           catch (Exception e) {
             this.view.print(e.getMessage());
@@ -100,12 +86,15 @@ public class GameController {
           this.view.showOptions();
           break;
         case "+":
-          //this.view.print("File name:\n");
-          //this.in.
-          this.view.print("We should implement a save function...\n");
+          String response = this.model.saveGame();
+          this.view.print(response + "\n");
           break;
         case "-":
-          this.view.print("We should implement a load save function...\n");
+          // pull data from resources if available
+          String res = this.model.loadGame();
+          // if found, run through parser
+          // load world with new data
+          this.view.print(res + "\n");
           break;
         default:
           this.view.showOptionError();

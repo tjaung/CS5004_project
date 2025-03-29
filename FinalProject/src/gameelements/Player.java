@@ -1,16 +1,20 @@
 package gameelements;
 
 import java.awt.geom.Point2D;
+import java.util.List;
+
+import model.Parser;
+import model.ReverseParser;
 
 public class Player {
   private String name;
   private int score;
   private int health;
-  private Point2D location;
   private Room currentRoom;
   private Inventory inventory;
 
   public Player() {
+    this.inventory = new Inventory(10, 0, "./");
   }
 
   public String getName() {
@@ -29,12 +33,15 @@ public class Player {
     return health;
   }
 
-  public Point2D getLocation() {
-    return location;
-  }
-
   public Inventory getInventory() {
     return inventory;
+  }
+
+  public void setInventory(int maxWeight, int currentWeight, String path, List<Item> itemList) {
+    this.inventory = new Inventory(maxWeight, currentWeight, path);
+    for(Item item : itemList) {
+      this.inventory.addItem(item);
+    }
   }
 
   public void setName(String name) {
@@ -49,10 +56,6 @@ public class Player {
     this.health = health;
   }
 
-  public void setLocation(Point2D location) {
-    this.location = location;
-  }
-
   public void setCurrentRoom(Room currentRoom) {
     this.currentRoom = currentRoom;
   }
@@ -60,5 +63,10 @@ public class Player {
   public void setInventory(Inventory inventory) {
     this.inventory = inventory;
   }
-  
+
+  public String parsePlayerToJSON() {
+    String playerStr = ReverseParser.readPlayer(this);
+    return playerStr;
+  }
+
 }

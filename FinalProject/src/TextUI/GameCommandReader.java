@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class GameCommandReader {
   private String[] data;
   private Readable in;
-
+  private Scanner scanner;
 
   public GameCommandReader() {
     // STRING BUFFER LENGTH!!!!!
@@ -21,15 +21,17 @@ public class GameCommandReader {
 
   public boolean getOptionFromUser() {
     try {
-      this.data = new String[2];
       Scanner scanner = new Scanner(this.in);
-      for (int i = 0; i < this.data.length; i++) {
-        if (scanner.hasNext()) { // could have done NextLines
-          this.data[i] = scanner.next();
-          if (data[0].equalsIgnoreCase("Q")) {
-            return false;
-          }
-        }
+      String option = scanner.nextLine();
+      if (option.length() > 1) {
+        this.data[0] = String.valueOf(option.charAt(0));
+        this.data[1] = option.substring(2);
+      } else {
+        this.data[0] = option;
+      }
+
+      if (this.data[0].equalsIgnoreCase("Q")) {
+        return false;
       }
       return true;
     }

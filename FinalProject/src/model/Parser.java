@@ -13,8 +13,10 @@ import java.util.List;
 
 import gameelements.Fixture;
 import gameelements.IRoomElement;
+import gameelements.Inventory;
 import gameelements.Item;
 import gameelements.Monster;
+import gameelements.Player;
 import gameelements.Puzzle;
 import gameelements.Room;
 
@@ -32,7 +34,12 @@ public class Parser {
    * @throws Exception any errors thrown
    */
   public static String readJsonFile(String filePath) throws Exception {
-    return Files.readString(Paths.get(filePath));
+     try{
+       return Files.readString(Paths.get(filePath));
+     } catch (IOException e) {
+//       String message = e.getMessage();
+       throw new Exception("Error reading json file");
+     }
   }
 
   /**
@@ -43,7 +50,11 @@ public class Parser {
    * @throws Exception any errors thrown
    */
   public static JSONObject parseJsonString(String jsonData) throws Exception {
-    return new JSONObject(jsonData);
+    try{
+      return new JSONObject(jsonData);
+    } catch (JSONException e) {
+      throw new Exception("Error parsing json string");
+    }
   }
 
   /**
@@ -52,9 +63,16 @@ public class Parser {
    * @param itemsArray array from json data
    * @return list of items
    */
-  private static List<IRoomElement> parseItems(JSONArray itemsArray){
+  public static List<IRoomElement> parseItems(JSONArray itemsArray){
+    if(itemsArray == null){
+      throw new IllegalArgumentException("itemsArray is null");
+    }
+
     // init empty item array
     List<IRoomElement> itemList = new ArrayList<>();
+    if (itemsArray.isEmpty()){
+      return itemList;
+    }
 
     // loop parameter item array
     for(int i=0; i < itemsArray.length(); i++){
@@ -84,7 +102,10 @@ public class Parser {
    * @param monsterArray array from json data
    * @return list of all monsters
    */
-  private static List<IRoomElement> parseMonster(JSONArray monsterArray, List<IRoomElement> itemList) {
+  public static List<IRoomElement> parseMonster(JSONArray monsterArray, List<IRoomElement> itemList) {
+    if (monsterArray == null || itemList == null){
+      throw new IllegalArgumentException("One or more arguments is null");
+    }
     List<gameelements.IRoomElement> monsterList = new ArrayList<>();
 
     // loop parameter monster array
@@ -122,7 +143,10 @@ public class Parser {
    * @param itemList list of all items since some puzzles need items to solve
    * @return list of all puzzles
    */
-  private static List<IRoomElement> parsePuzzle(JSONArray puzzleArray, List<IRoomElement> itemList){
+  public static List<IRoomElement> parsePuzzle(JSONArray puzzleArray, List<IRoomElement> itemList){
+    if (puzzleArray == null || itemList == null){
+      throw new IllegalArgumentException("One or more arguments is null");
+    }
     List<gameelements.IRoomElement> puzzleList = new ArrayList<>();
 
     // loop parameter puzzle array
@@ -135,25 +159,6 @@ public class Parser {
       boolean affects_targets = puzzleJson.getBoolean("affects_target");
       boolean affects_player = puzzleJson.getBoolean("affects_player");
       IRoomElement solution = getSolution(puzzleJson, itemList);
-
-      // get the solution
-//      if (puzzleJson.has("solution")) {
-//        String answer = puzzleJson.getString("solution");
-//        // solution condition 1: it's a pw and needs a string solution
-//        if(answer.startsWith("'") && answer.endsWith("'")) {
-//          // create a new empty item that holds the string solution
-//          solution = new Item(0,0, answer, 1,1,"", "", "");
-//          itemList.add(solution);
-//        }
-//        // solution condition 2: it's an item puzzle and it needs a specific item
-//        else {
-//          // query the item list
-//          solution = itemList.stream()
-//                  .filter(item -> item.getName().toLowerCase().equals(answer.toLowerCase()))
-//                  .findFirst()
-//                  .get();
-//        }
-//      }
 
       int value = puzzleJson.getInt("value");
       String description = puzzleJson.getString("description");
@@ -183,7 +188,10 @@ public class Parser {
    * @param puzzleList list of puzzles since some fixtures have puzzles
    * @return list of all fixtures
    */
-  private static List<IRoomElement> parseFixture(JSONArray fixtureArray, List<IRoomElement> puzzleList){
+  public static List<IRoomElement> parseFixture(JSONArray fixtureArray, List<IRoomElement> puzzleList){
+    if (fixtureArray == null || puzzleList == null){
+      throw new IllegalArgumentException("One or more arguments is null");
+    }
     List<gameelements.IRoomElement> fixturesList = new ArrayList<>();
 
     // loop param array of fixtures
@@ -281,6 +289,12 @@ public class Parser {
    * @return list of all rooms with its game elements
    */
   public static List<Room> parseRooms(JSONObject jsonObject){
+    if (jsonObject == null) {
+      throw new IllegalArgumentException("JSON argument is null");
+    }
+    if (jsonObject.isEmpty()) {
+      throw new IllegalArgumentException("JSON argument is empty");
+    }
     List<Room> roomList = new ArrayList<>();
     JSONArray roomArray = jsonObject.getJSONArray("rooms");
 
@@ -323,6 +337,56 @@ public class Parser {
       roomList.add(room);
     }
     return roomList;
+  }
+
+  public static Player parsePlayer(JSONObject jsonObject, List<Room> roomList) {
+    if(jsonObject.isNull("player")) {
+      return null;
+    }
+    JSONObject playerJson = (JSONObject) jsonObject.get("player");
+    String name = playerJson.isNull("name") ? null : playerJson.getString("name");
+    int score = playerJson.getInt("score");
+    int health = playerJson.getInt("health");
+    // query for current room
+    int currRoomNumber = playerJson.getInt("currentRoom");
+    Room currentRoom = roomList.stream()
+            .filter(room -> room.getRoomNumber() == currRoomNumber)
+            .findFirst()
+            .get();
+    Player player = new Player();
+    player.setName(name);
+    player.setScore(score);
+    player.setHealth(health);
+
+    // get inventory
+    JSONObject inventoryJson = (JSONObject) jsonObject.get("inventory");
+    player.setInventory(parseInventory(inventoryJson));
+
+    return player;
+  }
+
+  public static Inventory parseInventory(JSONObject invObj) {
+//    JSONObject invObj = (JSONObject) jsonObject.get("inventory");
+
+    int maxWeight = invObj.getInt("max_weight");
+    int currWeight = invObj.getInt("current_weight");
+    String picture = !invObj.isNull("picture") ? invObj.getString("picture") : "./";
+
+    Inventory inventory = new Inventory(maxWeight, currWeight, picture);
+
+    // get items
+    JSONArray items = invObj.getJSONArray("items");
+    List<IRoomElement> invItems = parseItems(items);
+    for (IRoomElement item : invItems) {
+      Item invItem = (Item) item;
+      inventory.addItem(invItem);
+    }
+    return inventory;
+  }
+
+  public static void loadSaveData(JSONObject jsonObject) {
+
+
   }
 
 }
