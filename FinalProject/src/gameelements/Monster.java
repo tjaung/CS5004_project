@@ -84,6 +84,10 @@ public class Monster implements IRoomElement{
         this.attack = attack;
     }
 
+    // Getter for value
+    public int getValue() {
+        return value;
+    }
     // Getter for picture
     public String getPicture() {
         return picture;

@@ -125,6 +125,10 @@ public class Room {
         return W;
     }
 
+    public String getPicture() {
+        return picture;
+    }
+
     public IRoomElement getMonster() {
 
         if (monster.size() == 0) {
