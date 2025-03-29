@@ -133,6 +133,9 @@ public class Monster implements IRoomElement{
         return solution;
     }
 
+    public int getValue() {
+        return value;
+    }
     // Setter for solution
     public void setSolution(Item solution) {
         this.solution = solution;

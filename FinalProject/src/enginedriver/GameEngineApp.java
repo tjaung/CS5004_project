@@ -21,7 +21,7 @@ public class GameEngineApp {
 
   }
 
-  public void start() throws IOException, InterruptedException {
+  public void start() throws Exception {
     // Should create a new GameModel and new Controller
     // Then tell controller to go
     this.controller.go();

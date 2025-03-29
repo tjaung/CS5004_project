@@ -13,8 +13,10 @@ import java.util.List;
 
 import gameelements.Fixture;
 import gameelements.IRoomElement;
+import gameelements.Inventory;
 import gameelements.Item;
 import gameelements.Monster;
+import gameelements.Player;
 import gameelements.Puzzle;
 import gameelements.Room;
 
@@ -335,6 +337,56 @@ public class Parser {
       roomList.add(room);
     }
     return roomList;
+  }
+
+  public static Player parsePlayer(JSONObject jsonObject, List<Room> roomList) {
+    if(jsonObject.isNull("player")) {
+      return null;
+    }
+    JSONObject playerJson = (JSONObject) jsonObject.get("player");
+    String name = playerJson.isNull("name") ? null : playerJson.getString("name");
+    int score = playerJson.getInt("score");
+    int health = playerJson.getInt("health");
+    // query for current room
+    int currRoomNumber = playerJson.getInt("currentRoom");
+    Room currentRoom = roomList.stream()
+            .filter(room -> room.getRoomNumber() == currRoomNumber)
+            .findFirst()
+            .get();
+    Player player = new Player();
+    player.setName(name);
+    player.setScore(score);
+    player.setHealth(health);
+
+    // get inventory
+    JSONObject inventoryJson = (JSONObject) jsonObject.get("inventory");
+    player.setInventory(parseInventory(inventoryJson));
+
+    return player;
+  }
+
+  public static Inventory parseInventory(JSONObject invObj) {
+//    JSONObject invObj = (JSONObject) jsonObject.get("inventory");
+
+    int maxWeight = invObj.getInt("max_weight");
+    int currWeight = invObj.getInt("current_weight");
+    String picture = !invObj.isNull("picture") ? invObj.getString("picture") : "./";
+
+    Inventory inventory = new Inventory(maxWeight, currWeight, picture);
+
+    // get items
+    JSONArray items = invObj.getJSONArray("items");
+    List<IRoomElement> invItems = parseItems(items);
+    for (IRoomElement item : invItems) {
+      Item invItem = (Item) item;
+      inventory.addItem(invItem);
+    }
+    return inventory;
+  }
+
+  public static void loadSaveData(JSONObject jsonObject) {
+
+
   }
 
 }

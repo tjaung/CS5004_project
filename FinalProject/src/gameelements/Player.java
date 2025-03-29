@@ -1,6 +1,10 @@
 package gameelements;
 
 import java.awt.geom.Point2D;
+import java.util.List;
+
+import model.Parser;
+import model.ReverseParser;
 
 public class Player {
   private String name;
@@ -33,6 +37,13 @@ public class Player {
     return inventory;
   }
 
+  public void setInventory(int maxWeight, int currentWeight, String path, List<Item> itemList) {
+    this.inventory = new Inventory(maxWeight, currentWeight, path);
+    for(Item item : itemList) {
+      this.inventory.addItem(item);
+    }
+  }
+
   public void setName(String name) {
     this.name = name;
   }
@@ -52,5 +63,10 @@ public class Player {
   public void setInventory(Inventory inventory) {
     this.inventory = inventory;
   }
-  
+
+  public String parsePlayerToJSON() {
+    String playerStr = ReverseParser.readPlayer(this);
+    return playerStr;
+  }
+
 }
