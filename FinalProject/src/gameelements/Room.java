@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 import model.ReverseParser;
 
 /**
- * Class for gameelements.Room.
+ * The room class
  */
 public class Room {
     private String roomName;
@@ -30,7 +30,7 @@ public class Room {
     private String effectDescription;
     private boolean clear;
     /**
-     * Constructor for gameelements.Room. Takes in a lot of parameters to construct it.
+     * Constructor for the class.
      */
     public Room(
             String roomName,
@@ -73,7 +73,11 @@ public class Room {
         }
     }
 
-    public String getName() {
+    /**
+     * Getter for name.
+     *
+     * @return room name
+     */    public String getName() {
         return roomName;
     }
 
@@ -131,26 +135,51 @@ public class Room {
         return W;
     }
 
+    
+    /**
+     * Sets room number for the North.
+     *
+     */ 
     public void setN(int n) {
         this.N = n;
     }
 
+     /**
+     * Sets room number for the South.
+     *
+     */     
     public void setS(int s) {
         this.S = s;
     }
 
+    
+    /**
+     * Sets room number for the East.
+     *
+     */         
     public void setE(int e) {
         this.E = e;
     }
 
+     /**
+     * Sets room number for the West.
+     *
+     */     
     public void setW(int w) {
         this.W = w;
     }
 
+    /**
+     * Gets the file path to the room's picture.
+     */
     public String getPicture() {
         return picture;
     }
 
+    /**
+     * Gets the monster in the room.
+     *
+     */   
     public Monster getMonster() {
 
         if (monster.size() == 0) {
@@ -159,6 +188,10 @@ public class Room {
         return (Monster) monster.get(0); // assuming only 1 monster per room
     }
 
+    /**
+     * Gets the puzzle in the room.
+     *
+     */   
     public Puzzle getPuzzle() {
         if (puzzle.size() == 0) {
             return null;
@@ -166,10 +199,18 @@ public class Room {
         return (Puzzle) puzzle.get(0); // assuming only 1 puzzle per room
     }
 
+    /**
+     * Gets the items in the room.
+     *
+     */  
     public List<IRoomElement> getItems() {
         return items;
     }
 
+    /**
+     * Prints items 
+     *
+     */  
     public String printItems() {
         if(items.size() == 0) {
             return "";
@@ -181,6 +222,10 @@ public class Room {
         return out.toString();
     }
 
+    /**
+     * Gets the fixtures
+     *
+     */  
     public List<IRoomElement> getFixtures() {
         if(fixtures.size() == 0) {
             return null;
@@ -188,6 +233,10 @@ public class Room {
         return fixtures;
     }
 
+    /**
+     * Prints fixtures 
+     *
+     */  
     public String printFixtures() {
         if(fixtures.size() == 0) {
             return "";
@@ -199,6 +248,10 @@ public class Room {
         return out.toString();
     }
 
+    /**
+     * Gets the input element
+     *
+     */  
     public IRoomElement getElement(String elementName) {
         if(elementName.isEmpty()) {
             return null;
@@ -211,6 +264,10 @@ public class Room {
         throw new IllegalArgumentException(elementName.concat(" does not exist.\n"));
     }
 
+     /**
+     * Gets the item based on input
+     *
+     */  
     public Item getItem(String itemName) {
         if(itemName.isEmpty()) {
             return null;
@@ -223,7 +280,10 @@ public class Room {
         throw new IllegalArgumentException("There is no ".concat(itemName).concat(" here.\n"));
     }
 
-    @Override
+     /**
+     * Gets the string
+     *
+     */  
     public String toString() {
         if (this.getPuzzle() != null) {
             if (this.getPuzzle().isActive()) {
@@ -247,18 +307,34 @@ public class Room {
 
     }
 
+    /**
+     * Gets all the elements in a list
+     *
+     */ 
     public List<IRoomElement> getElements() {
         return elements;
     }
 
+    /**
+     * Removes an item
+     *
+     */ 
     public void removeItem(Item item) {
         this.items.remove(item);
     }
 
+    /**
+     * Adds an item 
+     *
+     */ 
     public void addItem(Item item) {
         this.items.add(item);
     }
 
+    /**
+     * Checks if the item is in the room
+     *
+     */ 
     public boolean hasItem(Item item) {
         for (IRoomElement i : this.items) {
             if (i.getName().equalsIgnoreCase(item.getName())) {
@@ -268,10 +344,18 @@ public class Room {
         return false;
     }
 
+    /**
+     * Is the room clear? 
+     *
+     */ 
     public boolean isClear() {
         return this.clear;
     }
 
+    /**
+     * Reset room status
+     *
+     */ 
     public void setClear(boolean bool) {
         this.clear = bool;
     }
