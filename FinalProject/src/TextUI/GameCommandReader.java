@@ -19,7 +19,7 @@ public class GameCommandReader {
     this.in = in;
   }
 
-  public boolean getOptionFromUser() {
+  public void getOptionFromUser() {
     try {
       Scanner scanner = new Scanner(this.in);
       String option = scanner.nextLine();
@@ -29,16 +29,10 @@ public class GameCommandReader {
       } else {
         this.data[0] = option;
       }
-
-      if (this.data[0].equalsIgnoreCase("Q")) {
-        return false;
-      }
-      return true;
     }
     catch (Exception e) {
       e.printStackTrace();
     }
-    return false;
   }
 
   public String getCommand() {return this.data[0];}

@@ -80,12 +80,12 @@ public class Monster implements IRoomElement{
     }
 
     // Getter for attack type
-    public String getTypeOfAttack() {
+    public String getAttack() {
         return attack;
     }
 
     // Setter for attack type
-    public void setTypeOfAttack(String attack) {
+    public void setAttack(String attack) {
         this.attack = attack;
     }
 

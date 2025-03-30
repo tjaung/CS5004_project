@@ -47,7 +47,6 @@ public class RoomModel {
     this.roomList.remove(room);
   }
 
-
   public Room queryRoom(int roomNumber) {
     try {
       return this.roomList.stream()
@@ -57,6 +56,15 @@ public class RoomModel {
     } catch (Exception e) {
       throw new IllegalArgumentException("No room with that number exists.\n");
     }
+  }
+
+  public boolean allClear() {
+    for (Room room : this.roomList) {
+      if (room.isClear() == false) {
+        return false;
+      }
+    }
+    return true;
   }
 
 }

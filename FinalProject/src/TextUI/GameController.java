@@ -11,22 +11,24 @@ public class GameController {
   private GameModel model;
   private GameCommandReader in;
   private GameView view;
+  private boolean quit;
 
   public GameController(GameModel model) {
     this.model = model;
+    this.quit = false;
   }
 
-  public void go() throws IOException, InterruptedException {
+  public void go() throws IOException {
     this.view = new GameView();
     this.in = new GameCommandReader();
 
     this.view.showIntro();
     this.view.print(this.model.getRoomModel().getCurrentRoom().getName().concat(".\n\n"));
-//    TimeUnit.SECONDS.sleep(1);
     this.view.showOptions();
     this.view.print("\n".concat(this.model.getRoomModel().getCurrentRoom().toString()).concat("\n"));
 
-    while (this.in.getOptionFromUser()) {
+    while (this.quit == false) {
+      this.in.getOptionFromUser();
       // check for monsters or puzzle effects
       String input = this.in.getCommand().toUpperCase();
       switch (input) {
@@ -39,8 +41,7 @@ public class GameController {
             this.model.move(input);
             this.view.enterRoom(this.model.getRoomModel().getCurrentRoom().getName(),
                     this.model.getRoomModel().getCurrentRoom().toString());
-          }
-          catch (IllegalArgumentException e) {
+          } catch (IllegalArgumentException e) {
             this.view.print(e.getMessage());
           }
           break;
@@ -48,9 +49,9 @@ public class GameController {
         case "I":
           List<Item> items = this.model.getPlayer().getInventory().getItems();
           this.view.printInventory(items);
+          this.view.print("\n");
           break;
 
-        // should this show fixtures as well?
         case "L":
           this.view.print(this.model.getRoomModel().getCurrentRoom().toString().concat(".\n"));
           this.view.showItems();
@@ -58,8 +59,7 @@ public class GameController {
             for (IRoomElement i : this.model.getRoomModel().getCurrentRoom().getItems()) {
               this.view.print(i.getName().concat("\n"));
             }
-          }
-          catch (Exception e) {
+          } catch (Exception e) {
             this.view.print("You don't see any items\n");
             continue;
           }
@@ -69,8 +69,7 @@ public class GameController {
           try {
             this.model.useItem(this.model.getPlayer().getInventory().getItem(this.in.getElement()));
             this.view.print(this.model.getPlayer().getInventory().getItem(this.in.getElement()).getWhenUsed());
-          }
-          catch (Exception e) {
+          } catch (Exception e) {
             this.view.print(e.getMessage());
           }
           break;
@@ -79,20 +78,16 @@ public class GameController {
           try {
             this.model.takeItem(this.model.getRoomModel().getCurrentRoom().getItem(this.in.getElement()));
             this.view.print(this.in.getElement().concat(" added to your inventory.\n"));
-          }
-          catch (Exception e) {
+          } catch (Exception e) {
             this.view.print(e.getMessage());
           }
-          // grab input index 1
-          // index model.getRoomModel().getCurrentRoom().getElement(input);
           break;
 
         case "D":
           try {
             this.model.dropItem(this.model.getPlayer().getInventory().getItem(this.in.getElement()));
             this.view.print("You dropped ".concat(this.in.getElement().concat(".\n")));
-          }
-          catch (Exception e) {
+          } catch (Exception e) {
             this.view.print(e.getMessage());
           }
           break;
@@ -102,8 +97,7 @@ public class GameController {
             String elementName = this.in.getElement();
             String examineString = this.model.getRoomModel().getCurrentRoom().getElement(elementName).getDescription();
             this.view.print(examineString.concat("\n"));
-          }
-          catch (Exception e) {
+          } catch (Exception e) {
             this.view.print(e.getMessage());
           }
           break;
@@ -113,6 +107,10 @@ public class GameController {
 
         case "O":
           this.view.showOptions();
+          break;
+
+        case "Q":
+          this.quit = true;
           break;
 
         case "+":
@@ -128,13 +126,29 @@ public class GameController {
         default:
           this.view.showOptionError();
           break;
-          //TimeUnit.SECONDS.sleep(1);
-          //this.view.showOptions();
       }
 
-
-
+      if (quit == false) {
+        try {
+          this.model.takeDamage();
+          this.view.print(this.model.getRoomModel().getCurrentRoom().getMonster().getName().concat(
+                  " ").concat(
+                  this.model.getRoomModel().getCurrentRoom().getMonster().getAttack()));
+          this.view.print("\n");
+          this.view.print("Player takes ".concat(String.valueOf(
+                  this.model.getRoomModel().getCurrentRoom().getMonster().getDamage()).concat(
+                  " damage!\n")));
+          this.view.print(this.model.getPlayer().toString());
+        } catch (Exception e) {
+          this.view.print(e.getMessage());
+        }
+      }
+      if (this.quit == false) {
+        this.quit = this.model.gameOver();
+      }
     }
+
+    this.view.print(this.model.endGame());
   }
 }
 
