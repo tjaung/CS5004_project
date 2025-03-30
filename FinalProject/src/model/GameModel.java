@@ -18,20 +18,34 @@ public class GameModel {
   // inventory is contained within player
 
 
+  /**
+   * Constructor for the GameModel class.
+   */
   public GameModel(String gameFileName) throws Exception {
     this.roomModel = new RoomModel(gameFileName);
     this.player = new Player();
     this.player.setCurrentRoom(this.roomModel.currentRoom);
   }
 
+  /**
+   * Gets the player object.
+   * 
+   */
   public Player getPlayer() {
     return player;
   }
 
+
+  /**
+   * Gets the room model for the game
+   */
   public RoomModel getRoomModel() {
     return roomModel;
   }
 
+  /**
+   * Moves the player 
+   */
   public void move(String s) {
     switch (s.toUpperCase()) {
       case "N":
@@ -89,6 +103,10 @@ public class GameModel {
     }
   }
 
+  /**
+   * Makes the player take an item from the current room.
+   * If the item is not in the room, an exception is thrown.
+   */
   public void takeItem(Item item) {
     if (this.roomModel.getCurrentRoom().hasItem(item)) {
       this.getPlayer().getInventory().addItem(item);
@@ -99,6 +117,10 @@ public class GameModel {
     }
   }
 
+  /**
+   * Makes the player drop an item from their inventory into the current room.
+   * If the player does not have the item, an exception is thrown.
+   */
   public void dropItem(Item item) {
     if (this.player.getInventory().hasItem(item)) {
       this.player.getInventory().dropItem(item);
@@ -109,6 +131,9 @@ public class GameModel {
     }
   }
 
+  /**
+   * Uses an item from the player's inventory. If the item is used on a monster or puzzle,
+   */
   public void useItem(Item item) {
     if (this.player.getInventory().hasItem(item)) {
       if (item.getUsesRemaining() > 0) {
@@ -128,6 +153,11 @@ public class GameModel {
     }
   }
 
+
+  
+  /**
+   * Solves a puzzle by answering with the correct solution.
+   */
   public void answerRiddle(String answer) {
     if (this.roomModel.getCurrentRoom().getPuzzle() != null && this.roomModel.getCurrentRoom().getPuzzle().isActive()) {
       if (answer.equalsIgnoreCase(this.roomModel.getCurrentRoom().getPuzzle().getSolution().getName())) {
@@ -143,6 +173,9 @@ public class GameModel {
     }
   }
 
+   /**
+   * Solves a puzzle using an item as the solution.
+   */
   public void solvePuzzle(Item item) {
     if (this.roomModel.getCurrentRoom().getPuzzle() != null && this.roomModel.getCurrentRoom().getPuzzle().isActive()) {
       if (item.equals(this.roomModel.getCurrentRoom().getPuzzle().getSolution())) {
@@ -158,6 +191,9 @@ public class GameModel {
     }
   }
 
+  /**
+   * Attacks a monster using an item.
+   */
   public void attackMonster(Item item) {
     if (this.roomModel.getCurrentRoom().getMonster() != null && this.roomModel.getCurrentRoom().getMonster().isActive()) {
       if (item.equals(this.roomModel.getCurrentRoom().getMonster().getSolution())) {
@@ -172,6 +208,10 @@ public class GameModel {
       throw new IllegalArgumentException("There is nothing here to use it on.\n");
     }
   }
+
+  /**
+   * Clears a room 
+   */
 
   public void clearRoom(Room room) {
     if (this.roomModel.getCurrentRoom().getN() < 0) {
@@ -189,6 +229,9 @@ public class GameModel {
     this.roomModel.getCurrentRoom().setClear(true);
   }
 
+  /**
+   * Checks if the game is over.
+   */
   public boolean gameOver() {
     if (this.player.getHealth() <= 0) {
       return true;
@@ -201,6 +244,9 @@ public class GameModel {
     }
   }
 
+   /**
+   * Ends the game
+   */
   public String endGame() {
     this.player.calculateScore();
     if (this.player.getHealth() <= 0) {
@@ -214,6 +260,9 @@ public class GameModel {
     }
   }
 
+  /**
+   * Applies damage.
+   */
   public void takeDamage() {
     if (this.roomModel.getCurrentRoom().getMonster() != null) {
       this.player.setHealth(this.player.getHealth() + this.roomModel.getCurrentRoom().getMonster().getDamage());
@@ -223,12 +272,22 @@ public class GameModel {
     }
   }
 
+    /**
+   * Answer.
+   */
   public void answer() {}
 
+  
+    /**
+   * is the target valid
+   */
   public boolean validTarget() {
     return true;
   }
 
+      /**
+   * Saves the game
+   */
   public String saveGame() {
     String playerStr = this.player.parsePlayerToJSON();
     String invStr = this.player.getInventory().parseInventoryToJSON();
@@ -238,6 +297,9 @@ public class GameModel {
     return response;
   }
 
+   /**
+   * Loads the game
+   */
   public String loadGame() {
     // check for save data
     String path = "../FinalProject/src/resources/save.json";

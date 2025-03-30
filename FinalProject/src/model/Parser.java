@@ -258,6 +258,11 @@ public class Parser {
     return gameObjects;
   }
 
+  
+  /**
+   * helper function to query solutions
+   * finds the solution based on input
+   */
   private static IRoomElement getSolution(JSONObject eleJson, List<IRoomElement> itemList) {
     // get the solution
     IRoomElement solution = null;
@@ -339,6 +344,10 @@ public class Parser {
     return roomList;
   }
 
+   /**
+   * helper function to query players
+   * finds the solution based on input
+   */
   public static Player parsePlayer(JSONObject jsonObject, List<Room> roomList) {
     if(jsonObject.isNull("player")) {
       return null;
@@ -365,6 +374,9 @@ public class Parser {
     return player;
   }
 
+  /**
+   * parses the inventory
+   */
   public static Inventory parseInventory(JSONObject invObj) {
 //    JSONObject invObj = (JSONObject) jsonObject.get("inventory");
 
