@@ -5,6 +5,9 @@ import java.util.List;
 
 import model.ReverseParser;
 
+/**
+ * Class for a Inventory concrete Object.
+ */
 public class Inventory {
     // Instance variables to store the inventory's attributes
     private final int maxWeight;  // The maximum weight
@@ -12,7 +15,13 @@ public class Inventory {
     private final List<Item> items;  // A list to hold Item objects
     private String picture;        // The path to an image 
 
-    // Constructor to initialize the gameelements.Inventory object with specified values
+    /**
+   * Constructor for Inventory. 
+   *
+   * @param maxWeight - int of the inventory's max weight from 0 to inf.
+   * @param currWeight - int of the inventory's curr weight. 
+   * @param picture - a string path to the corresponding asset.
+   */
     public Inventory(int maxWeight, int currWeight, String path) {
         this.maxWeight = maxWeight;     
         this.currWeight = currWeight;    
@@ -20,21 +29,37 @@ public class Inventory {
         this.picture = path;           
     }
 
-    // Get the current weight
+    /**
+   * Getter for current weight.
+   *
+   * @return current weight.
+   */
     public int getCurrWeight() {
         return currWeight;  
     }
 
-    // Get the maximum weight
+
+     /**
+   * Getter for max weight.
+   *
+   * @return max weight.
+   */   
     public int getMaxWeight() {
         return maxWeight;
     }
 
-    // Get method to retrieve the items
+    /**
+   * Getter for items.
+   *
+   * @return items in a list.
+   */   
     public List<Item> getItems() {
         return items; 
     }
 
+    /**
+   * addItem() adds a item to the inventory 
+   */  
     public void addItem(Item item) {
         if (this.currWeight + (item).getWeight() > this.maxWeight) {
             throw new IllegalArgumentException("You don't have room in your inventory.\n");
@@ -44,6 +69,9 @@ public class Inventory {
         }
     }
 
+      /**
+   * drops a item to the inventory 
+   */  
     public void dropItem(Item item) {
         if (this.getItems().contains(item)) {
             this.items.remove(item);
@@ -53,6 +81,11 @@ public class Inventory {
         }
     }
 
+     /**
+   * Checks if item is in a list.
+   *
+   * @return boolean.
+   */      
     public boolean hasItem(Item item) {
         for (IRoomElement i : this.items) {
             if (i.getName().equalsIgnoreCase(item.getName())) {
@@ -62,6 +95,11 @@ public class Inventory {
         return false;
     }
 
+    /**
+   * gets an Item from a room.
+   *
+   * @return Item.
+   */      
     public Item getItem(String itemName) {
         if(itemName.isEmpty()) {
             return null;
@@ -74,11 +112,16 @@ public class Inventory {
         throw new IllegalArgumentException("You don't have a ".concat(itemName).concat(" in your inventory.\n"));
     }
 
-    // Get the photo path
+   /**
+   * returns the picture path.
+   */      
     public String getPicture() {
         return picture;
     }
 
+    /**
+   * parses json
+   */     
     public String parseInventoryToJSON() {
         return ReverseParser.readInventory(this);
     }
