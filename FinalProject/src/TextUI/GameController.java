@@ -7,17 +7,28 @@ import gameelements.IRoomElement;
 import gameelements.Item;
 import model.GameModel;
 
+/**
+ * beginning of a class.
+ */
 public class GameController {
   private GameModel model;
   private GameCommandReader in;
   private GameView view;
   private boolean quit;
 
+  /**
+   * class constructor.
+   * @param model game model
+   */
   public GameController(GameModel model) {
     this.model = model;
     this.quit = false;
   }
 
+  /**
+   * start the game with different commands.
+   * @throws IOException
+   */
   public void go() throws IOException {
     this.view = new GameView();
     this.in = new GameCommandReader();
