@@ -2,8 +2,12 @@ package model;
 
 import org.json.JSONObject;
 
+import java.util.NoSuchElementException;
+
 import gameelements.Inventory;
+import gameelements.Item;
 import gameelements.Player;
+import gameelements.Room;
 
 /**
  * Model in MVC schema. Has a database and handles logic.
@@ -82,6 +86,125 @@ public class GameModel {
           throw new IllegalArgumentException("The path is blocked\n");
         }
         break;
+    }
+  }
+
+  public void takeItem(Item item) {
+    if (this.roomModel.getCurrentRoom().hasItem(item)) {
+      this.getPlayer().getInventory().addItem(item);
+      this.roomModel.getCurrentRoom().removeItem(item);
+    }
+    else {
+      throw new IllegalArgumentException("There is no item with that name in the current room.\n");
+    }
+  }
+
+  public void dropItem(Item item) {
+    if (this.player.getInventory().hasItem(item)) {
+      this.player.getInventory().dropItem(item);
+      this.roomModel.getCurrentRoom().addItem((Item) item);
+    }
+    else {
+      throw new IllegalArgumentException("You don't have a ".concat(item.getName().concat(".\n")));
+    }
+  }
+
+  public void useItem(Item item) {
+    if (this.player.getInventory().hasItem(item)) {
+      if (item.getUsesRemaining() > 0) {
+        item.setUsesRemaining(item.getUsesRemaining() - 1);
+        if (this.roomModel.getCurrentRoom().getMonster() != null) {
+          attackMonster(item);
+        }
+        else if (this.roomModel.getCurrentRoom().getPuzzle() != null) {
+          solvePuzzle(item);
+        }
+      } else {
+        throw new IllegalArgumentException(item.getName().concat(" is out of uses.\n"));
+      }
+    }
+    else {
+      throw new IllegalArgumentException("You don't have a ".concat(item.getName().concat(".\n")));
+    }
+  }
+
+  public void solvePuzzle(Item item) {
+    if (this.roomModel.getCurrentRoom().getPuzzle() != null && this.roomModel.getCurrentRoom().getPuzzle().isActive()) {
+      if (item.equals(this.roomModel.getCurrentRoom().getPuzzle().getSolution())) {
+        this.roomModel.getCurrentRoom().getPuzzle().setActive(false);
+        this.player.addPuzzle(this.roomModel.getCurrentRoom().getPuzzle());
+        clearRoom(this.roomModel.getCurrentRoom());
+      } else {
+        throw new IllegalArgumentException("It had no effect.\n");
+      }
+    }
+    else {
+      throw new IllegalArgumentException("There is nothing here to use it on.\n");
+    }
+  }
+
+  public void attackMonster(Item item) {
+    if (this.roomModel.getCurrentRoom().getMonster() != null && this.roomModel.getCurrentRoom().getMonster().isActive()) {
+      if (item.equals(this.roomModel.getCurrentRoom().getMonster().getSolution())) {
+        this.roomModel.getCurrentRoom().getMonster().setActive(false);
+        this.player.addMonster(this.roomModel.getCurrentRoom().getMonster());
+        clearRoom(this.roomModel.getCurrentRoom());
+      } else {
+        throw new IllegalArgumentException("It had no effect.\n");
+      }
+    }
+    else {
+      throw new IllegalArgumentException("There is nothing here to use it on.\n");
+    }
+  }
+
+  public void clearRoom(Room room) {
+    if (this.roomModel.getCurrentRoom().getN() < 0) {
+      this.roomModel.getCurrentRoom().setN(this.roomModel.getCurrentRoom().getN() * -1);
+    }
+    else if (this.roomModel.getCurrentRoom().getS() < 0) {
+      this.roomModel.getCurrentRoom().setS(this.roomModel.getCurrentRoom().getS() * -1);
+    }
+    else if (this.roomModel.getCurrentRoom().getE() < 0) {
+      this.roomModel.getCurrentRoom().setE(this.roomModel.getCurrentRoom().getE() * -1);
+    }
+    else if (this.roomModel.getCurrentRoom().getW() < 0) {
+      this.roomModel.getCurrentRoom().setW(this.roomModel.getCurrentRoom().getW() * -1);
+    }
+    this.roomModel.getCurrentRoom().setClear(true);
+  }
+
+  public boolean gameOver() {
+    if (this.player.getHealth() <= 0) {
+      return true;
+    }
+    else if (this.roomModel.allClear()) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  public String endGame() {
+    this.player.calculateScore();
+    if (this.player.getHealth() <= 0) {
+      return "Game Over!\nYour score was: ".concat(String.valueOf(this.player.getScore()));
+    }
+    else if (this.roomModel.allClear()) {
+      return "You won!\nYour score was: ".concat(String.valueOf(this.player.getScore()));
+    }
+    else {
+      return "You quit.\nYour score was: ".concat(String.valueOf(this.player.getScore()));
+    }
+  }
+
+  public void takeDamage() {
+    if (this.roomModel.getCurrentRoom().getMonster() != null) {
+      this.player.setHealth(this.player.getHealth() + this.roomModel.getCurrentRoom().getMonster().getDamage());
+    }
+    else {
+      throw new NoSuchElementException("");
     }
   }
 

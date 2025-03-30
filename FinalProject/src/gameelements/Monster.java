@@ -75,12 +75,12 @@ public class Monster implements IRoomElement{
     }
 
     // Getter for attack type
-    public String getTypeOfAttack() {
+    public String getAttack() {
         return attack;
     }
 
     // Setter for attack type
-    public void setTypeOfAttack(String attack) {
+    public void setAttack(String attack) {
         this.attack = attack;
     }
 
@@ -109,7 +109,7 @@ public class Monster implements IRoomElement{
     }
 
     // Getter for affects target status
-    public boolean isAffectsTarget() {
+    public boolean affectsTarget() {
         return affectsTarget;
     }
 
@@ -119,7 +119,7 @@ public class Monster implements IRoomElement{
     }
 
     // Getter for affects player status
-    public boolean isAffectsPlayer() {
+    public boolean affectsPlayer() {
         return affectsPlayer;
     }
 
@@ -133,9 +133,6 @@ public class Monster implements IRoomElement{
         return solution;
     }
 
-    public int getValue() {
-        return value;
-    }
     // Setter for solution
     public void setSolution(Item solution) {
         this.solution = solution;

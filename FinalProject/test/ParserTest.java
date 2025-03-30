@@ -304,10 +304,10 @@ public class ParserTest {
     Assert.assertTrue(rooms.size() > 0);
 
 
-    Assert.assertTrue(rooms.getFirst().getRoomName().equals("Courtyard"));
+    Assert.assertTrue(rooms.getFirst().getName().equals("Courtyard"));
     Assert.assertEquals(1, rooms.getFirst().getRoomNumber());
     Assert.assertEquals("A beautiful courtyard with flowers on both sides of the stone walkway. \nThe walkway leads north. A billboard is in the distance.",
-            rooms.getFirst().getRoomDescription());
+            rooms.getFirst().getDescription());
     Assert.assertEquals(2, rooms.getFirst().getN());
     Assert.assertEquals(0, rooms.getFirst().getS());
     Assert.assertEquals(0, rooms.getFirst().getE());

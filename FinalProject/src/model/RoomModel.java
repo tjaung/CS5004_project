@@ -39,12 +39,12 @@ public class RoomModel {
     return this.roomList;
   }
 
-  public void add(Room room) {
+  public void addRoom(Room room) {
     // if room in roomList
     this.roomList.add(room);
   }
 
-  public void remove(Room room) {
+  public void removeRoom(Room room) {
     // if room in roomList
     this.roomList.remove(room);
   }
@@ -52,7 +52,7 @@ public class RoomModel {
 
   public Room queryRoom(int roomNumber) {
     return this.roomList.stream()
-            .filter(room -> room.getRoomNumber() == 1)
+            .filter(room -> room.getRoomNumber() == roomNumber)
             .findFirst()
             .get();
   }
@@ -61,6 +61,13 @@ public class RoomModel {
     return ReverseParser.readRoom(this.roomList);
   }
 
-
+  public boolean allClear() {
+    for (Room room : this.roomList) {
+      if (room.isClear() == false) {
+        return false;
+      }
+    }
+    return true;
+  }
 
 }

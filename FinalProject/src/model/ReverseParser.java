@@ -134,9 +134,9 @@ public class ReverseParser {
         }
       }
 
-      roomObject.put("room_name", room.getRoomName());
+      roomObject.put("room_name", room.getName());
       roomObject.put("room_number", room.getRoomNumber());
-      roomObject.put("description", room.getRoomDescription());
+      roomObject.put("description", room.getDescription());
       roomObject.put("N", room.getN());
       roomObject.put("S", room.getS());
       roomObject.put("E", room.getE());
@@ -195,8 +195,8 @@ public class ReverseParser {
     JSONObject monsterObject = new JSONObject();
     monsterObject.put("name", monster.getName());
     monsterObject.put("active", monster.isActive());
-    monsterObject.put("affects_target", monster.isAffectsTarget());
-    monsterObject.put("affects_player", monster.isAffectsPlayer());
+    monsterObject.put("affects_target", monster.affectsTarget());
+    monsterObject.put("affects_player", monster.affectsPlayer());
     monsterObject.put("solution", monster.getSolution().getName());
     monsterObject.put("value", monster.getValue());
     monsterObject.put("description", monster.getDescription());
@@ -204,7 +204,7 @@ public class ReverseParser {
     monsterObject.put("damage", monster.getDamage());
     monsterObject.put("target", monster.getTarget());
     monsterObject.put("can_attack", monster.canAttack());
-    monsterObject.put("attack", monster.getTypeOfAttack());
+    monsterObject.put("attack", monster.getAttack());
     monsterObject.put("picture", monster.getPicture());
 //    monsterObject.put("health", monster.isAffectsTarget());
 

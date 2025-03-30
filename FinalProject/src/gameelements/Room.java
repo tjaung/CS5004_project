@@ -28,6 +28,7 @@ public class Room {
     private List<IRoomElement> elements;
     private boolean hasEffect;
     private String effectDescription;
+    private boolean clear;
     /**
      * Constructor for gameelements.Room. Takes in a lot of parameters to construct it.
      */
@@ -64,12 +65,15 @@ public class Room {
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
 
-        // if monster effect or puzzle effect
-        // this.hasEffect = effect
-        // this.effectdescription = effect desc
+        if (this.getMonster() == null && this.getPuzzle() == null) {
+            this.clear = true;
+        }
+        else {
+            this.clear = false;
+        }
     }
 
-    public String getRoomName() {
+    public String getName() {
         return roomName;
     }
 
@@ -87,7 +91,7 @@ public class Room {
      *
      * @return desc - string of the room desc.
      */
-    public String getRoomDescription() {
+    public String getDescription() {
         return description;
     }
 
@@ -127,23 +131,39 @@ public class Room {
         return W;
     }
 
+    public void setN(int n) {
+        this.N = n;
+    }
+
+    public void setS(int s) {
+        this.S = s;
+    }
+
+    public void setE(int e) {
+        this.E = e;
+    }
+
+    public void setW(int w) {
+        this.W = w;
+    }
+
     public String getPicture() {
         return picture;
     }
 
-    public IRoomElement getMonster() {
+    public Monster getMonster() {
 
         if (monster.size() == 0) {
             return null;
         }
-        return monster.get(0); // assuming only 1 monster per room
+        return (Monster) monster.get(0); // assuming only 1 monster per room
     }
 
-    public IRoomElement getPuzzle() {
+    public Puzzle getPuzzle() {
         if (puzzle.size() == 0) {
             return null;
         }
-        return puzzle.get(0); // assuming only 1 puzzle per room
+        return (Puzzle) puzzle.get(0); // assuming only 1 puzzle per room
     }
 
     public List<IRoomElement> getItems() {
@@ -183,58 +203,77 @@ public class Room {
         if(elementName.isEmpty()) {
             return null;
         }
-        IRoomElement element = null;
         for (IRoomElement i : elements) {
             if (i.getName().equalsIgnoreCase(elementName)) {
-                element = i;
-                return element;
+                return i;
             }
         }
         throw new IllegalArgumentException(elementName.concat(" does not exist.\n"));
     }
 
-    @Override
-    public String toString() {
-
-        String m = getMonster() == null ? "none" : getMonster().getName();
-        String p = getPuzzle() == null ? "none" : getPuzzle().getName();
-//        String pSolution = !Objects.equals(p, "none") ? " " + puzzle.getFirst().getClass().getName() : "";
-        String i = printItems() == "" ? "none" : printItems();
-        String f = printFixtures() == "" ? "none" : printFixtures();
-
-        return "Room: " + roomName + "\n"
-                + "Description: " + description + "\n"
-                + "N: " + N + "\n"
-                + "S: " + S + "\n"
-                + "E: " + E + "\n"
-                + "W: " + W + "\n"
-                + "Monster: " + m + "\n"
-                + "Puzzle: " + p  + "\n"
-                + "Items: " + i + "\n"
-                + "Fixtures: " + f + "\n"
-                + "Picture: " + picture + "\n";
+    public Item getItem(String itemName) {
+        if(itemName.isEmpty()) {
+            return null;
+        }
+        for (IRoomElement i : this.items) {
+            if (i.getName().equalsIgnoreCase(itemName)) {
+                return (Item) i;
+            }
+        }
+        throw new IllegalArgumentException("There is no ".concat(itemName).concat(" here.\n"));
     }
 
-    //COLLECTS IROOMELEMENTS
-    // SHOULDN't EACH TYPE BE A LIST IN ROOM??
-//    public void addElements() {
-//        this.elements = new ArrayList<IRoomElement>();
-//        if (this.getFixtures() != null) {
-//            this.elements.add(this.getFixtures());
-//        }
-//        if (this.getMonster() != null) {
-//            this.elements.add(this.getMonster());
-//        }
-//        if (this.getPuzzle() != null) {
-//            this.elements.add(this.getPuzzle());
-//        }
-//        if (this.getItems() != null) {
-//            this.elements.add(this.getItems());
-//        }
-//    }
+    @Override
+    public String toString() {
+        if (this.getPuzzle() != null) {
+            if (this.getPuzzle().isActive()) {
+                return this.getPuzzle().getEffects().concat("\n");
+            }
+            else {
+                return this.getDescription();
+            }
+        }
+        else if (this.getMonster() != null) {
+            if (this.getMonster().isActive()) {
+                return this.getMonster().getEffects().concat("\n");
+            }
+            else {
+                return this.getDescription();
+            }
+        }
+        else {
+            return this.getDescription();
+        }
+
+    }
 
     public List<IRoomElement> getElements() {
         return elements;
+    }
+
+    public void removeItem(Item item) {
+        this.items.remove(item);
+    }
+
+    public void addItem(Item item) {
+        this.items.add(item);
+    }
+
+    public boolean hasItem(Item item) {
+        for (IRoomElement i : this.items) {
+            if (i.getName().equalsIgnoreCase(item.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isClear() {
+        return this.clear;
+    }
+
+    public void setClear(boolean bool) {
+        this.clear = bool;
     }
 
 }
