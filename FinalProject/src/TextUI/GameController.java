@@ -2,7 +2,6 @@ package TextUI;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import gameelements.IRoomElement;
 import gameelements.Item;
@@ -30,7 +29,6 @@ public class GameController {
 
     while (this.quit == false) {
       this.in.getOptionFromUser();
-      // check for monsters or puzzle effects
       String input = this.in.getCommand().toUpperCase();
       switch (input) {
         // move any direction into one case
@@ -103,6 +101,13 @@ public class GameController {
           break;
 
         case "A":
+          try {
+            this.model.answerRiddle(this.in.getElement());
+            this.view.print("Success!\n");
+          }
+          catch (Exception e) {
+            this.view.print(e.getMessage());
+          }
           break;
 
         case "O":
@@ -112,10 +117,12 @@ public class GameController {
         case "Q":
           this.quit = true;
           break;
+
         case "+":
           String response = this.model.saveGame();
           this.view.print(response + "\n");
           break;
+
         case "-":
           // pull data from resources if available
           String res = this.model.loadGame();
@@ -123,11 +130,10 @@ public class GameController {
           // load world with new data
           this.view.print(res + "\n");
           break;
+
         default:
           this.view.showOptionError();
           break;
-          //TimeUnit.SECONDS.sleep(1);
-          //this.view.showOptions();
       }
 
       if (quit == false) {

@@ -128,6 +128,21 @@ public class GameModel {
     }
   }
 
+  public void answerRiddle(String answer) {
+    if (this.roomModel.getCurrentRoom().getPuzzle() != null && this.roomModel.getCurrentRoom().getPuzzle().isActive()) {
+      if (answer.equalsIgnoreCase(this.roomModel.getCurrentRoom().getPuzzle().getSolution().getName())) {
+        this.roomModel.getCurrentRoom().getPuzzle().setActive(false);
+        this.player.addPuzzle(this.roomModel.getCurrentRoom().getPuzzle());
+        clearRoom(this.roomModel.getCurrentRoom());
+      } else {
+        throw new IllegalArgumentException("It had no effect.\n");
+      }
+    }
+    else {
+      throw new IllegalArgumentException("There is no question here to answer.\n");
+    }
+  }
+
   public void solvePuzzle(Item item) {
     if (this.roomModel.getCurrentRoom().getPuzzle() != null && this.roomModel.getCurrentRoom().getPuzzle().isActive()) {
       if (item.equals(this.roomModel.getCurrentRoom().getPuzzle().getSolution())) {
