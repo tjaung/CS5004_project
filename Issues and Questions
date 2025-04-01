@@ -5,3 +5,4 @@ allow player to type in full word commands
 standardize strings and errors!!
 the lists of elements in Room
 adopt command pattern for switch statement
+merge JSON system to only use one jar file
