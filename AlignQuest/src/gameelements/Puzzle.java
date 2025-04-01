@@ -1,10 +1,8 @@
 package gameelements;
 
-
 /**
- * The Puzzle class
+ * Puzzle class.
  */
-
 public class Puzzle implements IRoomElement{
   private String  name;
   private boolean active;
@@ -40,7 +38,6 @@ public class Puzzle implements IRoomElement{
 
   /**
    * Gets the name of the puzzle.
-   * 
    * @return The name of the puzzle.
    */
   public String getName() {
@@ -49,69 +46,79 @@ public class Puzzle implements IRoomElement{
 
   /**
    * Checks if the puzzle is active.
-   */ 
+   * @return
+   */
   public boolean isActive() {
     return active;
   }
 
   /**
-   * Checks if the puzzle impacts player.
+   * Checks if the puzzle affects the player.
+   * @return
    */
   public boolean affects_player() {
     return affects_player;
   }
 
-   /**
-   * Checks if the puzzle impacts target.
+  /**
+   * Checks if the puzzle affects a target.
+   * @return
    */
   public boolean affects_target() {
     return affects_target;
   }
 
   /**
-   * Gets the solution to the puzzle.
+   *
+   * @return
    */
   public IRoomElement getSolution() {
     return solution;
   }
 
-   /**
-   * Gets the score for solving.
+  /**
+   *
+   * @return
    */
   public int getValue() {
     return value;
   }
 
   /**
-   * Gets the effects of the puzzle.
+   *
+   * @return
    */
   public String getEffects() {
     return effects;
   }
 
   /**
-   * Gets the description of the puzzle.
+   *
+   * @return
    */
   public String getDescription() {
     return description;
   }
 
-   /**
-   * Gets target of the puzzle.
+  /**
+   *
+   * @return
    */
   public Object getTarget() {
     return target;
   }
 
-   /**
-   * Gets the picture.
+  /**
+   *
+   * @return
    */
   public String getPicture() {
     return picture;
   }
 
   /**
-   * Sets the puzzle status.
+   * 
+   * @param bool
    */
   public void setActive(boolean bool) {
     this.active = bool;
