@@ -23,7 +23,6 @@ public class Monster implements IRoomElement {
 
     /**
      * Constructs a new Monster object.
-     *
      * @param name The name of the monster.
      * @param active Indicates if the monster is active.
      * @param affectsTarget Indicates if the monster affects the target.
@@ -60,7 +59,6 @@ public class Monster implements IRoomElement {
 
     /**
      * Gets the damage dealt by the monster.
-     * 
      * @return The damage value of the monster.
      */
     public int getDamage() {
@@ -69,7 +67,6 @@ public class Monster implements IRoomElement {
 
     /**
      * Sets the damage dealt by the monster.
-     * 
      * @param damage The new damage value for the monster.
      */
     public void setDamage(int damage) {
@@ -78,7 +75,6 @@ public class Monster implements IRoomElement {
 
     /**
      * Gets the health of the monster.
-     * 
      * @return The health of the monster.
      */
     public int getHealth() {
@@ -87,7 +83,6 @@ public class Monster implements IRoomElement {
 
     /**
      * Sets the health of the monster.
-     * 
      * @param health The new health value for the monster.
      */
     public void setHealth(int health) {
@@ -96,7 +91,6 @@ public class Monster implements IRoomElement {
 
     /**
      * Updates the monster's health after it takes damage.
-     * 
      * @param attackDamage The amount of damage to reduce the health by.
      */
     public void setHealthAfterDamage(int attackDamage) {
@@ -105,7 +99,6 @@ public class Monster implements IRoomElement {
 
     /**
      * Determines if the monster can attack.
-     * 
      * @return True if the monster can attack, otherwise false.
      */
     public boolean canAttack() {
@@ -114,7 +107,6 @@ public class Monster implements IRoomElement {
 
     /**
      * Sets whether the monster can attack.
-     * 
      * @param canAttack The new attack capability of the monster.
      */
     public void setCanAttack(boolean canAttack) {
@@ -123,7 +115,6 @@ public class Monster implements IRoomElement {
 
     /**
      * Gets the type of attack used by the monster.
-     * 
      * @return The attack type of the monster.
      */
     public String getAttack() {
@@ -132,7 +123,6 @@ public class Monster implements IRoomElement {
 
     /**
      * Sets the type of attack the monster uses.
-     * 
      * @param attack The new attack type for the monster.
      */
     public void setAttack(String attack) {
@@ -141,7 +131,6 @@ public class Monster implements IRoomElement {
 
     /**
      * Gets the value (score) awarded for killing the monster.
-     * 
      * @return The value (score) for killing the monster.
      */
     public int getValue() {
@@ -150,7 +139,6 @@ public class Monster implements IRoomElement {
 
     /**
      * Gets the file path to the picture or image of the monster.
-     * 
      * @return The file path of the monster's picture.
      */
     public String getPicture() {
@@ -159,7 +147,6 @@ public class Monster implements IRoomElement {
 
     /**
      * Sets the file path to the picture or image of the monster.
-     * 
      * @param picture The new file path for the monster's picture.
      */
     public void setPicture(String picture) {
@@ -168,7 +155,6 @@ public class Monster implements IRoomElement {
 
     /**
      * Gets the active status of the monster.
-     * 
      * @return True if the monster is active, otherwise false.
      */
     public boolean isActive() {
@@ -177,7 +163,6 @@ public class Monster implements IRoomElement {
 
     /**
      * Sets the active status of the monster.
-     * 
      * @param active The new active status for the monster.
      */
     public void setActive(boolean active) {
@@ -186,7 +171,6 @@ public class Monster implements IRoomElement {
 
     /**
      * Gets whether the monster affects the target.
-     * 
      * @return True if the monster affects the target, otherwise false.
      */
     public boolean affectsTarget() {
@@ -195,7 +179,6 @@ public class Monster implements IRoomElement {
 
     /**
      * Sets whether the monster affects the target.
-     * 
      * @param affectsTarget The new value for affectsTarget.
      */
     public void setAffectsTarget(boolean affectsTarget) {
@@ -204,7 +187,6 @@ public class Monster implements IRoomElement {
 
     /**
      * Gets whether the monster affects the player.
-     * 
      * @return True if the monster affects the player, otherwise false.
      */
     public boolean affectsPlayer() {
@@ -213,7 +195,6 @@ public class Monster implements IRoomElement {
 
     /**
      * Sets whether the monster affects the player.
-     * 
      * @param affectsPlayer The new value for affectsPlayer.
      */
     public void setAffectsPlayer(boolean affectsPlayer) {
@@ -222,7 +203,6 @@ public class Monster implements IRoomElement {
 
     /**
      * Gets the solution to calm the monster.
-     * 
      * @return The solution for calming the monster.
      */
     public IRoomElement getSolution() {
@@ -231,7 +211,6 @@ public class Monster implements IRoomElement {
 
     /**
      * Sets the solution for calming the monster.
-     * 
      * @param solution The new solution for calming the monster.
      */
     public void setSolution(Item solution) {
@@ -240,7 +219,6 @@ public class Monster implements IRoomElement {
 
     /**
      * Gets the description of the monster.
-     * 
      * @return The description of the monster.
      */
     public String getDescription() {
@@ -249,7 +227,6 @@ public class Monster implements IRoomElement {
 
     /**
      * Sets the description of the monster.
-     * 
      * @param description The new description for the monster.
      */
     public void setDescription(String description) {
@@ -258,7 +235,6 @@ public class Monster implements IRoomElement {
 
     /**
      * Gets the effects of the monster on the environment or player.
-     * 
      * @return The effects of the monster.
      */
     public String getEffects() {
@@ -267,7 +243,6 @@ public class Monster implements IRoomElement {
 
     /**
      * Sets the effects of the monster.
-     * 
      * @param effects The new effects for the monster.
      */
     public void setEffects(String effects) {
@@ -276,7 +251,6 @@ public class Monster implements IRoomElement {
 
     /**
      * Gets the target of the monster's attacks.
-     * 
      * @return The target of the monster's attacks.
      */
     public String getTarget() {
@@ -285,7 +259,6 @@ public class Monster implements IRoomElement {
 
     /**
      * Sets the target of the monster's attacks.
-     * 
      * @param target The new target for the monster's attacks.
      */
     public void setTarget(String target) {
@@ -294,7 +267,6 @@ public class Monster implements IRoomElement {
 
     /**
      * Gets the name of the monster.
-     * 
      * @return The name of the monster.
      */
     public String getName() {
