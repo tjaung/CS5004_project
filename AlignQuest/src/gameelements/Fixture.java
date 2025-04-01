@@ -40,20 +40,22 @@ public class Fixture implements IRoomElement {
 
   /**
    * Getter for weight.
-   *
    * @return weight of fixture.
    */
   public int getWeight() {
     return this.weight;
   }
 
+  /**
+   * Getter for name.
+   * @return  name.
+   */
   public String getName() {
     return this.name;
   }
 
   /**
    * Setter for weight.
-   *
    * @param newWeight int of new weight to set.
    */
   public void setWeight(int newWeight) {
@@ -62,7 +64,6 @@ public class Fixture implements IRoomElement {
 
   /**
    * Getter for Puzzle.
-   *
    * @return puzzle associated with fixture.
    */
   public IRoomElement getPuzzle() {
@@ -71,17 +72,14 @@ public class Fixture implements IRoomElement {
 
   /**
    * Setter for Puzzle. Might not be necessary.
-   *
    * @param newPuzzle of Puzzle type.
    */
   public void setPuzzle(Puzzle newPuzzle) {
     this.puzzle = newPuzzle;
   }
 
-
   /**
    * Getter for State of fixture.
-   *
    * @return current state of fixture.
    */
   public boolean getState() {
@@ -90,7 +88,6 @@ public class Fixture implements IRoomElement {
 
   /**
    * Set the current state to a new state.
-   *
    * @param newState the new state to be updated to.
    */
   public void setState(boolean newState) {
@@ -99,7 +96,6 @@ public class Fixture implements IRoomElement {
 
   /**
    * Getter for description of the fixture.
-   *
    * @return string of the fixture description.
    */
   public String getDescription() {
@@ -108,7 +104,6 @@ public class Fixture implements IRoomElement {
 
   /**
    * Setter for a new description.
-   *
    * @param newDesc string of the new Description.
    */
   public void setDescription(String newDesc) {
@@ -117,7 +112,6 @@ public class Fixture implements IRoomElement {
 
   /**
    * Getter for picture asset of fixture.
-   *
    * @return string of the path to the picture asset.
    */
   public String getPicture() {
@@ -126,7 +120,6 @@ public class Fixture implements IRoomElement {
 
   /**
    * Setter for new picture asset.
-   *
    * @param newPicture string path to new pic.
    */
   public void setPicture(String newPicture) {
