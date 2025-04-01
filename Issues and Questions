@@ -1,0 +1,1 @@
+Inventory.hasItem could be replaced with Inventory.getItems().contains()
