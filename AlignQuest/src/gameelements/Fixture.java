@@ -12,7 +12,7 @@ public class Fixture implements IRoomElement {
   private IRoomElement puzzle = null;
 
   /**
-   * Constructor for Fixture. takes in a weight, puzzle, state, desc, and picture.
+   * Constructor for Fixture. Takes in a weight, puzzle, state, desc, and picture.
    *
    * @param weight - int of the fixtures weight from 0 to inf.
    * @param puzzle - an associated puzzle with fixture of type Puzzle.
@@ -22,8 +22,8 @@ public class Fixture implements IRoomElement {
    */
   public Fixture(String name, int weight, String description, String picture, boolean state, IRoomElement puzzle) {
     // Check parameters for missingness
-    if ( weight <= 0) {
-      throw new IllegalArgumentException("Weight must be non-null and greater than 0.");
+    if ( weight <= 200) {
+      throw new IllegalArgumentException("Weight must be non-null and greater than 200.");
     }
     if (description == null || description.isEmpty()) {
       throw new IllegalArgumentException("Description must not be empty.");
@@ -56,7 +56,7 @@ public class Fixture implements IRoomElement {
 
   /**
    * Setter for weight.
-   * @param newWeight int of new weight to set.
+   * @param newWeight   int of new weight to set.
    */
   public void setWeight(int newWeight) {
     this.weight = newWeight;
