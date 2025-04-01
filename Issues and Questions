@@ -1,1 +1,2 @@
-Inventory.hasItem could be replaced with Inventory.getItems().contains()
+Inventory.hasItem could be replaced with Inventory.getItems().contains
+Shouldn't parse<GameElement>toJSON be moved out to the parser/reverseParser and use getters to get the appropriate info?
