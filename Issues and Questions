@@ -4,3 +4,4 @@ Enum for directions? this could dramatically simplify the move commands.
 allow player to type in full word commands
 standardize strings and errors!!
 the lists of elements in Room
+adopt command pattern for switch statement
