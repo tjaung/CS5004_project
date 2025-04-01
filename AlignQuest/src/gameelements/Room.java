@@ -71,15 +71,14 @@ public class Room {
 
     /**
      * Getter for name.
-     *
      * @return room name
-     */    public String getName() {
+     */
+    public String getName() {
         return roomName;
     }
 
     /**
      * Getter for room number.
-     *
      * @return int of room number
      */
     public int getRoomNumber() {
@@ -88,7 +87,6 @@ public class Room {
 
     /**
      * Getter for the room description.
-     *
      * @return desc - string of the room desc.
      */
     public String getDescription() {
@@ -97,7 +95,6 @@ public class Room {
 
     /**
      * Getter for North direction.
-     *
      * @return N - int of N room
      */
     public int getN() {
@@ -106,7 +103,6 @@ public class Room {
 
     /**
      * Getter for South direction.
-     *
      * @return S - int of S room
      */
     public int getS() {
@@ -115,7 +111,6 @@ public class Room {
 
     /**
      * Getter for East direction.
-     *
      * @return E - int of E room
      */
     public int getE() {
@@ -124,7 +119,6 @@ public class Room {
 
     /**
      * Getter for West direction.
-     *
      * @return W - int of W room
      */
     public int getW() {
@@ -134,16 +128,15 @@ public class Room {
     
     /**
      * Sets room number for the North.
-     *
      */ 
     public void setN(int n) {
         this.N = n;
     }
 
-     /**
+    /**
      * Sets room number for the South.
-     *
-     */     
+     * @param s
+     */
     public void setS(int s) {
         this.S = s;
     }
@@ -166,16 +159,17 @@ public class Room {
     }
 
     /**
-     * Gets the file path to the room's picture.
+     * Getter for picture.
+     * @return  picture.
      */
     public String getPicture() {
         return picture;
     }
 
     /**
-     * Gets the monster in the room.
-     *
-     */   
+     * Getter for monster.
+     * @return
+     */
     public Monster getMonster() {
 
         if (monster.size() == 0) {
@@ -185,9 +179,9 @@ public class Room {
     }
 
     /**
-     * Gets the puzzle in the room.
-     *
-     */   
+     * Getter for puzzle.
+     * @return  The room's puzzle. Null if the room has no puzzle.
+     */
     public Puzzle getPuzzle() {
         if (puzzle.size() == 0) {
             return null;
@@ -196,17 +190,17 @@ public class Room {
     }
 
     /**
-     * Gets the items in the room.
      *
-     */  
+     * @return
+     */
     public List<IRoomElement> getItems() {
         return items;
     }
 
     /**
-     * Prints items 
      *
-     */  
+     * @return
+     */
     public String printItems() {
         if(items.size() == 0) {
             return "";
@@ -219,9 +213,9 @@ public class Room {
     }
 
     /**
-     * Gets the fixtures
      *
-     */  
+     * @return
+     */
     public List<IRoomElement> getFixtures() {
         if(fixtures.size() == 0) {
             return null;
@@ -230,9 +224,9 @@ public class Room {
     }
 
     /**
-     * Prints fixtures 
      *
-     */  
+     * @return
+     */
     public String printFixtures() {
         if(fixtures.size() == 0) {
             return "";
@@ -260,10 +254,11 @@ public class Room {
         throw new IllegalArgumentException(elementName.concat(" does not exist.\n"));
     }
 
-     /**
-     * Gets the item based on input
+    /**
      *
-     */  
+     * @param itemName
+     * @return
+     */
     public Item getItem(String itemName) {
         if(itemName.isEmpty()) {
             return null;
@@ -276,10 +271,10 @@ public class Room {
         throw new IllegalArgumentException("There is no ".concat(itemName).concat(" here.\n"));
     }
 
-     /**
-     * Gets the string
+    /**
      *
-     */  
+     * @return
+     */
     public String toString() {
         if (this.getPuzzle() != null) {
             if (this.getPuzzle().isActive()) {
@@ -304,33 +299,34 @@ public class Room {
     }
 
     /**
-     * Gets all the elements in a list
      *
-     */ 
+     * @return
+     */
     public List<IRoomElement> getElements() {
         return elements;
     }
 
     /**
-     * Removes an item
      *
-     */ 
+     * @param item
+     */
     public void removeItem(Item item) {
         this.items.remove(item);
     }
 
     /**
-     * Adds an item 
-     *
-     */ 
+     * The room's puzzle. Null if the room has no puzzle.
+     * @param item
+     */
     public void addItem(Item item) {
         this.items.add(item);
     }
 
     /**
-     * Checks if the item is in the room
      *
-     */ 
+     * @param item
+     * @return
+     */
     public boolean hasItem(Item item) {
         for (IRoomElement i : this.items) {
             if (i.getName().equalsIgnoreCase(item.getName())) {
@@ -341,17 +337,17 @@ public class Room {
     }
 
     /**
-     * Is the room clear? 
      *
-     */ 
+     * @return
+     */
     public boolean isClear() {
         return this.clear;
     }
 
     /**
-     * Reset room status
-     *
-     */ 
+     * 
+     * @param bool
+     */
     public void setClear(boolean bool) {
         this.clear = bool;
     }
