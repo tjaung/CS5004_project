@@ -1,7 +1,7 @@
 package gameelements;
 
 /**
- * Concrete item classs.
+ * Concrete item class.
  */
 public class Item implements IRoomElement {
   
@@ -17,7 +17,6 @@ public class Item implements IRoomElement {
 
   /**
    * Constructs an Item with specified attributes.
-   * 
    * @param weight The weight of the item.
    * @param value The value of the item.
    * @param name The name of the item.
@@ -42,7 +41,6 @@ public class Item implements IRoomElement {
 
   /**
    * Gets the weight of the item.
-   * 
    * @return The weight of the item.
    */
   public int getWeight() {
@@ -51,7 +49,6 @@ public class Item implements IRoomElement {
 
   /**
    * Gets the value of the item.
-   * 
    * @return The value of the item.
    */
   public int getValue() {
@@ -60,7 +57,6 @@ public class Item implements IRoomElement {
 
   /**
    * Gets the name of the item.
-   * 
    * @return The name of the item.
    */
   public String getName() {
@@ -69,7 +65,6 @@ public class Item implements IRoomElement {
 
   /**
    * Gets the maximum uses of the item.
-   * 
    * @return The maximum number of uses for the item.
    */
   public int getMaxUses() {
@@ -78,7 +73,6 @@ public class Item implements IRoomElement {
 
   /**
    * Gets the number of uses remaining for the item.
-   * 
    * @return The number of uses remaining.
    */
   public int getUsesRemaining() {
@@ -87,7 +81,6 @@ public class Item implements IRoomElement {
 
   /**
    * Gets the condition under which the item is used.
-   * 
    * @return A description of when the item is used.
    */
   public String getWhenUsed() {
@@ -96,7 +89,6 @@ public class Item implements IRoomElement {
 
   /**
    * Gets a description of the item.
-   * 
    * @return A description of the item.
    */
   public String getDescription() {
@@ -105,7 +97,6 @@ public class Item implements IRoomElement {
 
   /**
    * Gets the picture or image associated with the item.
-   * 
    * @return The picture or path to the image of the item.
    */
   public String getPicture() {
@@ -114,7 +105,6 @@ public class Item implements IRoomElement {
 
   /**
    * Sets the name of the item.
-   * 
    * @param name The new name for the item.
    */
   public void setName(String name) {
@@ -123,7 +113,6 @@ public class Item implements IRoomElement {
 
   /**
    * Sets the weight of the item.
-   * 
    * @param weight The new weight for the item.
    */
   public void setWeight(int weight) {
@@ -132,7 +121,6 @@ public class Item implements IRoomElement {
 
   /**
    * Sets the maximum uses of the item.
-   * 
    * @param maxUses The new maximum number of uses for the item.
    */
   public void setMaxUses(int maxUses) {
@@ -141,7 +129,6 @@ public class Item implements IRoomElement {
 
   /**
    * Sets the remaining uses of the item.
-   * 
    * @param usesRemaining The new number of uses remaining.
    */
   public void setUsesRemaining(int usesRemaining) {
@@ -150,7 +137,6 @@ public class Item implements IRoomElement {
 
   /**
    * Sets the value of the item.
-   * 
    * @param value The new value for the item.
    */
   public void setValue(int value) {
@@ -159,7 +145,6 @@ public class Item implements IRoomElement {
 
   /**
    * Sets the condition under which the item is used.
-   * 
    * @param whenUsed The new condition for when the item is used.
    */
   public void setWhenUsed(String whenUsed) {
@@ -168,7 +153,6 @@ public class Item implements IRoomElement {
 
   /**
    * Sets the description of the item.
-   * 
    * @param description The new description for the item.
    */
   public void setDescription(String description) {
@@ -177,7 +161,6 @@ public class Item implements IRoomElement {
 
   /**
    * Sets the picture or image associated with the item.
-   * 
    * @param picture The new picture or path to the image of the item.
    */
   public void setPicture(String picture) {

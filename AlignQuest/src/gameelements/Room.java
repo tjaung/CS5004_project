@@ -345,7 +345,7 @@ public class Room {
     }
 
     /**
-     * 
+     *
      * @param bool
      */
     public void setClear(boolean bool) {
