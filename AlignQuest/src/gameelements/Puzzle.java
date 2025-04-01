@@ -117,7 +117,7 @@ public class Puzzle implements IRoomElement{
   }
 
   /**
-   * 
+   *
    * @param bool
    */
   public void setActive(boolean bool) {

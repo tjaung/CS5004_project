@@ -6,6 +6,7 @@ import java.util.List;
 import gameelements.IRoomElement;
 import gameelements.Item;
 import model.GameModel;
+import view.GameView;
 
 public class GameController {
   private GameModel model;
