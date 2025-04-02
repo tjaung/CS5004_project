@@ -6,21 +6,21 @@ import java.util.List;
 import gameelements.IRoomElement;
 import gameelements.Item;
 import model.GameModel;
-import view.GameView;
+import view.TextView;
 
 public class GameController {
   private GameModel model;
   private GameCommandReader in;
-  private GameView view;
+  private TextView view;
   private boolean quit;
 
-  public GameController(GameModel model) {
+  public GameController(GameModel model, TextView view) {
     this.model = model;
     this.quit = false;
   }
 
   public void go() throws IOException {
-    this.view = new GameView();
+    this.view = new TextView();
     this.in = new GameCommandReader();
 
     this.view.showIntro();

@@ -3,15 +3,19 @@ package enginedriver;
 //import org.json.simple.JSONObject;
 
 import controller.GameController;
+import controller.VisualController;
 import model.GameModel;
+import view.GameView;
+import view.TextView;
 
 public class GameEngineApp {
   private GameModel model;
-  private GameController controller;
+  private VisualController controller;
 
-  public GameEngineApp(String gameFileName, Readable source, Appendable output) throws Exception {
+  public GameEngineApp(String gameFileName) throws Exception {
     GameModel model = new GameModel(gameFileName);
-    this.controller = new GameController(model);
+    GameView view = new GameView("Align Quest");
+    this.controller = new VisualController(model, view);
 
   }
 
