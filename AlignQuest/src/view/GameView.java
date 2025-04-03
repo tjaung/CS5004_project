@@ -89,7 +89,7 @@ public class GameView extends JFrame {
     //this.optionPanel.setVisible(true);
   }
 
-  public JPanel getImagePanel() {
+  public ImagePanel getImagePanel() {
     return this.imagePanel;
   }
 
