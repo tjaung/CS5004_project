@@ -6,6 +6,10 @@ import javax.swing.*;
 
 import controller.VisualController;
 
+
+// REFACTOR buildDirection to a method that builds a button based on the string name and includes functionality
+// CALL this method 4 times
+
 public class GameView extends JFrame {
   private JButton north, south, east, west;
   private JButton inventory;
@@ -24,25 +28,13 @@ public class GameView extends JFrame {
     // setup frame
     super(caption);
 
-    setSize(400, 400);
-    setLocation(400,400);
+    setSize(800, 800);
+    setLocation(100,100);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    // Setup panels
-    this.imagePanel = new JPanel();
-    this.imagePanel.setBounds(0,0,400,200);
-    this.optionPanel = new JPanel();
-    this.optionPanel.setBounds(0,200,400,200);
-    this.movePanel = new JPanel();
-    this.movePanel.setBounds(0,0,200,200);
-    this.actionPanel = new JPanel();
-    this.actionPanel.setBounds(200,0,200,200);
-
-    this.setLayout(new GridLayout(2, 0));
-    this.add(this.imagePanel);
-    this.add(this.optionPanel);
-
-    // add butttons
+    // build panels
+    this.buildPanels();
+    // build direction buttons
     this.buildDirections();
     // build menu bar
     this.setJMenuBar(this.buildMenu());
@@ -64,6 +56,21 @@ public class GameView extends JFrame {
     menuBar.add(menu);
 
     return menuBar;
+  }
+
+  public void buildPanels() {
+    this.imagePanel = new JPanel();
+    this.imagePanel.setBounds(0,0,800,500);
+    this.optionPanel = new JPanel();
+    this.optionPanel.setBounds(0,500,800,300);
+    this.movePanel = new JPanel();
+    this.movePanel.setBounds(0,0,400,400);
+    this.actionPanel = new JPanel();
+    this.actionPanel.setBounds(200,0,400,400);
+
+    this.setLayout(null);
+    this.add(this.imagePanel);
+    this.add(this.optionPanel);
   }
 
   public void buildDirections() {
