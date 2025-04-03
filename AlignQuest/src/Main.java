@@ -7,7 +7,7 @@ public class Main {
   public static void main(String [] args) throws Exception {
     // smoke tests - first send synthetic data via a string
     String s = "Sir Mix-A-Lot\nT NOTEBOOK\nN\nT HAIR CLIPPERS\nT KEY\nD NOTEBOOK\nQuit";
-    GameEngineApp gameEngineApp = new GameEngineApp("../AlignQuest/align_quest_game_elements.json");
+    GameEngineApp gameEngineApp = new GameEngineApp("./AlignQuest/align_quest_game_elements.json");
     gameEngineApp.start();
 
 

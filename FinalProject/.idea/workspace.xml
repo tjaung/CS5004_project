@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="36d6e69b-c14d-452f-a62d-f5f40294b174" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2uxc1RN4jS1h6Lf0ZfWNUfx5yfQ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "Downloaded.Files.Path.Enabled": "false",
+    "JUnit.ParserTest.executor": "Run",
+    "JUnit.ParserTest.testFileToString.executor": "Run",
+    "JUnit.ParserTest.testFixturesParseHasAllElements.executor": "Run",
+    "JUnit.ParserTest.testItemParseHasAllElements.executor": "Run",
+    "JUnit.ParserTest.testMonsterParseHasAllElements.executor": "Run",
+    "JUnit.ParserTest.testPuzzleParseHasAllElements.executor": "Run",
+    "JUnit.ParserTest.testRoomsParseHasAllElements.executor": "Run",
+    "JUnit.ParserTest.testStringToJsonObject.executor": "Run",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "HW9Prep",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/timjaung/Documents/NEU/5004ObjectOrientedProgramming/Homworks/CS5004_project/FinalProject",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="FinalProject" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ParserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="FinalProject" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ParserTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ParserTest.testFixturesParseHasAllElements" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="FinalProject" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ParserTest" />
+      <option name="METHOD_NAME" value="testFixturesParseHasAllElements" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ParserTest.testPuzzleParseHasAllElements" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="FinalProject" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ParserTest" />
+      <option name="METHOD_NAME" value="testPuzzleParseHasAllElements" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ParserTest.testRoomsParseHasAllElements" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="FinalProject" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ParserTest" />
+      <option name="METHOD_NAME" value="testRoomsParseHasAllElements" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.ParserTest" />
+        <item itemvalue="JUnit.ParserTest.testRoomsParseHasAllElements" />
+        <item itemvalue="JUnit.ParserTest.testFixturesParseHasAllElements" />
+        <item itemvalue="JUnit.ParserTest.testPuzzleParseHasAllElements" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.24978.46" />
+        <option value="bundled-js-predefined-d6986cc7102b-76f8388c3a79-JavaScript-IU-243.24978.46" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="36d6e69b-c14d-452f-a62d-f5f40294b174" name="Changes" comment="" />
+      <created>1743193451463</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1743193451463</updated>
+      <workItem from="1743193452812" duration="24922000" />
+      <workItem from="1743705995578" duration="332000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/FinalProject$ParserTest.ic" NAME="ParserTest Coverage Results" MODIFIED="1743277786047" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+  </component>
+</project>

@@ -16,7 +16,6 @@ public class GameEngineApp {
     GameModel model = new GameModel(gameFileName);
     GameView view = new GameView("Align Quest");
     this.controller = new VisualController(model, view);
-
   }
 
   public void start() throws Exception {

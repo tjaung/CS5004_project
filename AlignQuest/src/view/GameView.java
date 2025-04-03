@@ -2,6 +2,12 @@ package view;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Objects;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import controller.VisualController;
@@ -19,6 +25,7 @@ public class GameView extends JFrame {
   private JButton take;
   private JButton drop;
   private JButton answer;
+  private JPanel imgPanel;
   private JPanel viewPanel;
   private JPanel optionPanel;
   private JPanel descriptionPanel;
@@ -34,10 +41,13 @@ public class GameView extends JFrame {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLayout(new GridLayout(2,2));
 
+    // build image panel
+    this.buildImagePanel();
     // build panels
     this.buildPanels();
     // build direction buttons
     this.buildDirections();
+
     // build menu bar
     this.setJMenuBar(this.buildMenu());
   }
@@ -71,6 +81,30 @@ public class GameView extends JFrame {
     this.add(this.optionPanel);
   }
 
+  public void buildImagePanel() {
+    JPanel imgPanel = new JPanel();
+//    imgPanel.setBounds(0,0,800,500);
+    imgPanel.setBackground(Color.blue);
+    this.imgPanel = imgPanel;
+    this.add(this.imgPanel);
+  }
+
+  public void setImgPanelImage(String path) throws Exception {
+    // try to read image from path
+    String imgPath = "./AlignQuest/resources/resources/images/" + path;
+    try {
+      JLabel label = new JLabel();
+      label.setIcon(new ImageIcon(imgPath));
+      this.imgPanel.removeAll();
+      this.imgPanel.add(label);
+      // force refresh on img panel
+      this.imgPanel.revalidate();
+      this.imgPanel.repaint();
+    } catch (Exception ex) {
+      ex.printStackTrace();
+    }
+  }
+
   public void buildDirections() {
     this.north = new JButton("");
     this.south = new JButton("");
@@ -78,7 +112,7 @@ public class GameView extends JFrame {
     this.west = new JButton("");
 
     try {
-      ImageIcon northIcon = new ImageIcon("../AlignQuest/resources/resources/images/north.png");
+      ImageIcon northIcon = new ImageIcon("./AlignQuest/resources/resources/images/north.png");
       this.north.setIcon(northIcon);
       this.north.setBorderPainted(false);
       this.north.setContentAreaFilled(false);
@@ -89,7 +123,7 @@ public class GameView extends JFrame {
     }
 
     try {
-      ImageIcon southIcon = new ImageIcon("../AlignQuest/resources/resources/images/south.png");
+      ImageIcon southIcon = new ImageIcon("./AlignQuest/resources/resources/images/south.png");
       this.south.setIcon(southIcon);
       this.south.setBorderPainted(false);
       this.south.setContentAreaFilled(false);
@@ -100,7 +134,7 @@ public class GameView extends JFrame {
     }
 
     try {
-      ImageIcon eastIcon = new ImageIcon("../AlignQuest/resources/resources/images/east.png");
+      ImageIcon eastIcon = new ImageIcon("./AlignQuest/resources/resources/images/east.png");
       this.east.setIcon(eastIcon);
       this.east.setBorderPainted(false);
       this.east.setContentAreaFilled(false);
@@ -111,7 +145,7 @@ public class GameView extends JFrame {
     }
 
     try {
-      ImageIcon westIcon = new ImageIcon("../AlignQuest/resources/resources/images/west.png");
+      ImageIcon westIcon = new ImageIcon("./AlignQuest/resources/resources/images/west.png");
       this.west.setIcon(westIcon);
       this.west.setBorderPainted(false);
       this.west.setContentAreaFilled(false);
