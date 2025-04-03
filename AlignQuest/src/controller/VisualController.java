@@ -24,7 +24,9 @@ public class VisualController implements ActionListener {
    */
   @Override
   public void actionPerformed(ActionEvent e) {
+    switch (e.getActionCommand()) {
 
+    }
   }
 
   public void go() throws IOException {
