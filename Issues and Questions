@@ -6,3 +6,6 @@ standardize strings and errors!!
 the lists of elements in Room
 adopt command pattern for switch statement
 merge JSON system to only use one jar file
+
+
+model needs a toString to describe its state that can be passed to the view
