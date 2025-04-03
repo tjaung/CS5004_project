@@ -19,10 +19,11 @@ public class GameView extends JFrame {
   private JButton take;
   private JButton drop;
   private JButton answer;
-  private JPanel imagePanel;
+  private JPanel viewPanel;
   private JPanel optionPanel;
-  private JPanel movePanel;
-  private JPanel actionPanel;
+  private JPanel descriptionPanel;
+  private JPanel inventoryPanel;
+
 
   public GameView(String caption) {
     // setup frame
@@ -31,6 +32,7 @@ public class GameView extends JFrame {
     setSize(800, 800);
     setLocation(100,100);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.setLayout(new GridLayout(2,2));
 
     // build panels
     this.buildPanels();
@@ -55,21 +57,17 @@ public class GameView extends JFrame {
 
     menuBar.add(menu);
 
+
     return menuBar;
   }
 
   public void buildPanels() {
-    this.imagePanel = new JPanel();
-    this.imagePanel.setBounds(0,0,800,500);
+    this.viewPanel = new JPanel();
+    this.viewPanel.setBounds(0,0,800,500);
     this.optionPanel = new JPanel();
     this.optionPanel.setBounds(0,500,800,300);
-    this.movePanel = new JPanel();
-    this.movePanel.setBounds(0,0,400,400);
-    this.actionPanel = new JPanel();
-    this.actionPanel.setBounds(200,0,400,400);
 
-    this.setLayout(null);
-    this.add(this.imagePanel);
+    this.add(this.viewPanel);
     this.add(this.optionPanel);
   }
 
