@@ -21,8 +21,12 @@ public class OptionPanel extends JPanel {
   public OptionPanel() {
     super();
 
+    this.movePanel = new JPanel();
+    this.actionPanel = new JPanel();
     buildDirections(this.movePanel);
     buildOptions(this.actionPanel);
+    this.add(movePanel);
+    this.add(actionPanel);
   }
 
   public void buildDirections(JPanel panel) {
