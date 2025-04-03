@@ -22,7 +22,7 @@ public class GameView extends JFrame {
   private JButton dropButton;
   private JButton answerButton;
 
-  private JPanel imagePanel;
+  private ImagePanel imagePanel;
   private JPanel optionPanel;
   private JPanel descriptionPanel;
   private JPanel inventoryPanel;
@@ -38,9 +38,10 @@ public class GameView extends JFrame {
 
     // build panels
     this.imagePanel = new ImagePanel();
-    this.optionPanel = new OptionPanel();
-    this.descriptionPanel = new DescriptionPanel();
-    this.inventoryPanel = new InventoryPanel();
+    this.add(this.imagePanel.returnImagePanel());
+//    this.optionPanel = new OptionPanel();
+//    this.descriptionPanel = new DescriptionPanel();
+//    this.inventoryPanel = new InventoryPanel();
     // build menu bar
     this.setJMenuBar(this.buildMenu());
   }
@@ -86,6 +87,10 @@ public class GameView extends JFrame {
     this.setVisible(true);
     //this.imagePanel.setVisible(true);
     //this.optionPanel.setVisible(true);
+  }
+
+  public JPanel getImagePanel() {
+    return this.imagePanel;
   }
 
 

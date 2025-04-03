@@ -29,7 +29,9 @@ public class VisualController implements ActionListener {
     }
   }
 
-  public void go() throws IOException {
+  public void go() throws Exception {
+    String imgPath = this.model.getRoomModel().getCurrentRoom().getPicture();
+    this.view.getImagePanel().setIcon()
     this.view.display();
   }
 }
