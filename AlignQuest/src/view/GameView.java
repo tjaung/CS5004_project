@@ -39,8 +39,8 @@ public class GameView extends JFrame {
     // build panels
     this.imagePanel = new ImagePanel();
     this.optionPanel = new OptionPanel();
+    this.add(this.imagePanel);
     this.add(this.optionPanel);
-    this.add(this.imagePanel.returnImagePanel());
 
 //    this.descriptionPanel = new DescriptionPanel();
 //    this.inventoryPanel = new InventoryPanel();

@@ -15,6 +15,7 @@ public class ImagePanel extends JPanel {
     imgPanel.setBackground(Color.blue);
     this.imgPanel = imgPanel;
     this.img = new JLabel();
+    this.add(this.imgPanel);
   }
 
   public void setImage(String path) throws Exception {
