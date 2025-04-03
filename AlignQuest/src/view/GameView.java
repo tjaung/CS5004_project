@@ -43,38 +43,7 @@ public class GameView extends JFrame {
     this.add(this.optionPanel);
 
     // add butttons
-    this.north = new JButton("");
-    try {
-      ImageIcon northIcon = new ImageIcon("../AlignQuest/resources/resources/images/north.png");
-      this.north.setIcon(northIcon);
-      this.north.setBorderPainted(false);
-      this.north.setContentAreaFilled(false);
-      this.north.setFocusPainted(false);
-    }
-    catch (Exception e) {
-      System.out.println(e.getMessage());
-    }
-    this.north.setBounds(70, 10, 80, 80);
-    this.south = new JButton("");
-    this.south.setBounds(70, 70, 50, 50);
-    this.east = new JButton("");
-    this.east.setBounds(130, 35, 50, 50);
-    this.west = new JButton("");
-    this.west.setBounds(10, 35, 50, 50);
-
-    /*this.optionPanel.setLayout(new GridLayout(0,2));
-    this.optionPanel.add(this.movePanel);
-    this.optionPanel.add(this.actionPanel);*/
-
-    /*this.movePanel.setLayout(new GridLayout(2,2));
-    this.actionPanel.setLayout(new GridLayout(2, 4));*/
-
-    this.optionPanel.setLayout(null);
-    this.optionPanel.add(this.north);
-    this.optionPanel.add(this.south);
-    this.optionPanel.add(this.east);
-    this.optionPanel.add(this.west);
-
+    this.buildDirections();
     // build menu bar
     this.setJMenuBar(this.buildMenu());
   }
@@ -95,6 +64,68 @@ public class GameView extends JFrame {
     menuBar.add(menu);
 
     return menuBar;
+  }
+
+  public void buildDirections() {
+    this.north = new JButton("");
+    this.south = new JButton("");
+    this.east = new JButton("");
+    this.west = new JButton("");
+
+    try {
+      ImageIcon northIcon = new ImageIcon("../AlignQuest/resources/resources/images/north.png");
+      this.north.setIcon(northIcon);
+      this.north.setBorderPainted(false);
+      this.north.setContentAreaFilled(false);
+      this.north.setFocusPainted(false);
+    }
+    catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+
+    try {
+      ImageIcon southIcon = new ImageIcon("../AlignQuest/resources/resources/images/south.png");
+      this.south.setIcon(southIcon);
+      this.south.setBorderPainted(false);
+      this.south.setContentAreaFilled(false);
+      this.south.setFocusPainted(false);
+    }
+    catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+
+    try {
+      ImageIcon eastIcon = new ImageIcon("../AlignQuest/resources/resources/images/east.png");
+      this.east.setIcon(eastIcon);
+      this.east.setBorderPainted(false);
+      this.east.setContentAreaFilled(false);
+      this.east.setFocusPainted(false);
+    }
+    catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+
+    try {
+      ImageIcon westIcon = new ImageIcon("../AlignQuest/resources/resources/images/west.png");
+      this.west.setIcon(westIcon);
+      this.west.setBorderPainted(false);
+      this.west.setContentAreaFilled(false);
+      this.west.setFocusPainted(false);
+    }
+    catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+
+    this.north.setBounds(70, 20, 50, 50);
+    this.south.setBounds(70, 110, 50, 50);
+    this.east.setBounds(130, 65, 50, 50);
+    this.west.setBounds(10, 65, 50, 50);
+
+    this.optionPanel.setLayout(null);
+    this.optionPanel.add(this.north);
+    this.optionPanel.add(this.south);
+    this.optionPanel.add(this.east);
+    this.optionPanel.add(this.west);
   }
 
   public void setEventHandler(VisualController visualController) {
