@@ -24,15 +24,23 @@ public class VisualController implements ActionListener {
    */
   @Override
   public void actionPerformed(ActionEvent e) {
-    switch (e.getActionCommand()) {
-      case "N": {
-        System.out.println("You moved north");
+    String command = e.getActionCommand();
+    switch (command) {
+      case "N":
+      case "S":
+      case "W":
+      case "E":
+      try {
+        this.model.move(command);
+        // update model string
+//        this.model.setString(command);
+        // display model string
+        System.out.println(this.model.toString());
         break;
+      } catch (Exception e1) {
+        System.out.println(e1.getMessage());
       }
-      case "S": {
-        System.out.println();
-        break;
-      }
+
 
     }
   }
