@@ -14,9 +14,10 @@ import gameelements.Room;
 public class GameModel {
   RoomModel roomModel; // database
   Player player;
-  // inventory is contained within player
   private String string;
   private String imagePath;
+  // inventory is contained within player
+
 
   /**
    * Constructor for the GameModel class.
@@ -54,6 +55,7 @@ public class GameModel {
         if (this.getRoomModel().getCurrentRoom().getN() > 0) {
           this.getPlayer().setCurrentRoom(this.getRoomModel().queryRoom(this.getRoomModel().getCurrentRoom().getN()));
           this.roomModel.setCurrentRoom(this.getRoomModel().queryRoom(this.getRoomModel().getCurrentRoom().getN()));
+
         }
         else if (this.getRoomModel().getCurrentRoom().getN() == 0) {
           throw new IllegalArgumentException("There is no room to the north\n");
@@ -103,8 +105,9 @@ public class GameModel {
         }
         break;
     }
+    // this.roomModel.currentRoom.toString()
     this.setString("You moved " + s + "\n" +
-            this.roomModel.getCurrentRoom().toString());
+            this.roomModel.currentRoom.toString());
   }
 
   /**
@@ -322,7 +325,9 @@ public class GameModel {
     this.string = newStr;
   }
 
-  public String toString() {
+  public String getString() {
     return this.string;
   }
+
+
 }

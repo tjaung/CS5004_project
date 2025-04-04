@@ -40,9 +40,11 @@ public class GameView extends JFrame {
     this.imagePanel = new ImagePanel();
     this.optionPanel = new OptionPanel();
     this.descriptionPanel = new DescriptionPanel();
+    this.inventoryPanel = new InventoryPanel();
     this.add(this.imagePanel);
     this.add(this.optionPanel);
     this.add(this.descriptionPanel);
+    this.add(this.inventoryPanel);
 
 
 //    this.inventoryPanel = new InventoryPanel();
@@ -53,6 +55,7 @@ public class GameView extends JFrame {
     this.south = this.optionPanel.getSouth();
     this.east = this.optionPanel.getEast();
     this.west = this.optionPanel.getWest();
+
   }
 
   public JMenuBar buildMenu() {

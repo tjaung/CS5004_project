@@ -24,23 +24,25 @@ public class VisualController implements ActionListener {
    */
   @Override
   public void actionPerformed(ActionEvent e) {
-    String command = e.getActionCommand();
-    switch (command) {
+    switch (e.getActionCommand()) {
       case "N":
       case "S":
-      case "W":
       case "E":
-      try {
-        this.model.move(command);
-        // update model string
-//        this.model.setString(command);
-        // display model string
-        System.out.println(this.model.toString());
-        break;
-      } catch (Exception e1) {
-        System.out.println(e1.getMessage());
-      }
+      case "W": {
+        try {
+          this.model.move(e.getActionCommand());
+          System.out.println(this.model.getString());
 
+//          this.view.updateDesc(this.model.getString());
+//          this.view.updateImg();
+        }
+        catch (Exception error) {
+          System.out.println(error.getMessage());
+//          this.view.showError(e);
+        }
+
+        break;
+      }
 
     }
   }
@@ -49,5 +51,7 @@ public class VisualController implements ActionListener {
     String imgPath = this.model.getRoomModel().getCurrentRoom().getPicture();
     this.view.getImagePanel().setImage(imgPath);
     this.view.display();
+    // this.view.updateDesc(this.model.getString());
+    // this.view.updateImage(this.model.getImage());
   }
 }
