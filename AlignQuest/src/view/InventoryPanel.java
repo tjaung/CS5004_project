@@ -21,9 +21,9 @@ public class InventoryPanel extends JPanel { // Fix: 'extend' should be 'extends
 
   public InventoryPanel() {
     // Initialize buttons using the createButton method
-    this.inspect = createButton("null", "Inspect", "I");
-    this.use = createButton("null", "Use", "U");
-    this.drop = createButton("null", "Drop", "D");
+    this.inspect = createButton(null, "Inspect", "I");
+    this.use = createButton(null, "Use", "U");
+    this.drop = createButton(null, "Drop", "D");
     this.inventoryPanel = new JPanel();
     // Create and configure the panel
     createPanel();  // Call createPanel to initialize the layout
@@ -35,6 +35,9 @@ public class InventoryPanel extends JPanel { // Fix: 'extend' should be 'extends
     JLabel inventoryLabel = new JLabel("Inventory");
     inventoryLabel.setFont(new Font("Arial", Font.BOLD, 16)); // Set font for label
     inventoryLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the label
+
+    // Set the layout for the inventory panel to BoxLayout in the vertical direction
+    this.inventoryPanel.setLayout(new BoxLayout(this.inventoryPanel, BoxLayout.Y_AXIS));
 
     // Center the buttons inside the panel
     inspect.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -51,6 +54,7 @@ public class InventoryPanel extends JPanel { // Fix: 'extend' should be 'extends
     // Add the inventoryPanel to the current panel (this InventoryPanel instance)
     this.add(this.inventoryPanel);
   }
+
 
   public JPanel getInventoryPanel() {
     return this.inventoryPanel;
