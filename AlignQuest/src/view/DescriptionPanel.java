@@ -3,13 +3,14 @@ package view;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class descriptionPanel extends JPanel{
+public class DescriptionPanel extends JPanel{
     private JPanel descriptionPanel;
     private JLabel descriptionText;
 
-    public descriptionPanel(String description) {
+    public DescriptionPanel() {
         super();
         JLabel l = new JLabel("Description");
+        this.descriptionPanel = new JPanel();
         this.descriptionPanel.add(l);
         
     }
