@@ -50,6 +50,9 @@ public class GameView extends JFrame {
     this.setJMenuBar(this.buildMenu());
 
     this.north = this.optionPanel.getNorth();
+    this.south = this.optionPanel.getSouth();
+    this.east = this.optionPanel.getEast();
+    this.west = this.optionPanel.getWest();
   }
 
   public JMenuBar buildMenu() {
@@ -81,7 +84,9 @@ public class GameView extends JFrame {
 
   public void setActionListener(ActionListener controller) {
     this.north.addActionListener(controller);
-    //this.south.addActionListener(controller);
+    this.south.addActionListener(controller);
+    this.east.addActionListener(controller);
+    this.west.addActionListener(controller);
   }
 
   public void display() {

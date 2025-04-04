@@ -62,5 +62,17 @@ public class OptionPanel extends JPanel {
     return this.north;
   }
 
+  public JButton getSouth() {
+    return this.south;
+  }
+
+  public JButton getEast() {
+    return this.east;
+  }
+
+  public JButton getWest() {
+    return this.west;
+  }
+
 
 }
