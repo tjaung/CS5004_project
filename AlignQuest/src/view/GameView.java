@@ -23,7 +23,7 @@ public class GameView extends JFrame {
   private JButton answerButton;
 
   private ImagePanel imagePanel;
-  private JPanel optionPanel;
+  private OptionPanel optionPanel;
   private JPanel descriptionPanel;
   private JPanel inventoryPanel;
 
@@ -39,13 +39,17 @@ public class GameView extends JFrame {
     // build panels
     this.imagePanel = new ImagePanel();
     this.optionPanel = new OptionPanel();
+    this.descriptionPanel = new DescriptionPanel();
     this.add(this.imagePanel);
     this.add(this.optionPanel);
+    this.add(this.descriptionPanel);
 
-//    this.descriptionPanel = new DescriptionPanel();
+
 //    this.inventoryPanel = new InventoryPanel();
     // build menu bar
     this.setJMenuBar(this.buildMenu());
+
+    this.north = this.optionPanel.getNorth();
   }
 
   public JMenuBar buildMenu() {
@@ -67,22 +71,17 @@ public class GameView extends JFrame {
     return menuBar;
   }
 
-  public void buildOptions(JPanel panel) {
-    this.takeButton = createButton(null, "Take", "T");
-    this.examineButton = createButton(null, "Examine", "X");
-    this.answerButton = createButton(null, "Answer", "A");
 
-    panel.add(this.takeButton);
-    panel.add(this.examineButton);
-    panel.add(this.answerButton);
-  }
 
-  public void setEventHandler(VisualController visualController) {
-    this.setActionListener((ActionListener) visualController);
+
+
+  public void setEventHandler(VisualController controller) {
+    this.setActionListener((ActionListener) controller);
   }
 
   public void setActionListener(ActionListener controller) {
-
+    this.north.addActionListener(controller);
+    //this.south.addActionListener(controller);
   }
 
   public void display() {

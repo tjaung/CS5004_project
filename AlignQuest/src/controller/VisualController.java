@@ -25,6 +25,14 @@ public class VisualController implements ActionListener {
   @Override
   public void actionPerformed(ActionEvent e) {
     switch (e.getActionCommand()) {
+      case "N": {
+        System.out.println("You moved north");
+        break;
+      }
+      case "S": {
+        System.out.println();
+        break;
+      }
 
     }
   }

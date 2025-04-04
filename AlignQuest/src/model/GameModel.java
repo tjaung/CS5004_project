@@ -312,10 +312,8 @@ public class GameModel {
       return e.getMessage();
     }
   }
-  // should Model directly have methods for element interaction or should it call
-  // the elements who have methods to interact with each other
 
-
-
-
+  public String toString() {
+    return "";
+  }
 }

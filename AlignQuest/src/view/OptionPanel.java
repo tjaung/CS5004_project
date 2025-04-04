@@ -20,13 +20,20 @@ public class OptionPanel extends JPanel {
 
   public OptionPanel() {
     super();
-
     this.movePanel = new JPanel();
     this.actionPanel = new JPanel();
-    buildDirections(this.movePanel);
-    buildOptions(this.actionPanel);
     this.add(movePanel);
     this.add(actionPanel);
+    this.buildDirections(this.movePanel);
+    this.buildActions(this.actionPanel);
+  }
+
+  public JPanel getMovePanel() {
+    return this.movePanel;
+  }
+
+  public void addButton() {
+
   }
 
   public void buildDirections(JPanel panel) {
@@ -41,7 +48,7 @@ public class OptionPanel extends JPanel {
     panel.add(this.west);
   }
 
-  public void buildOptions(JPanel panel) {
+  public void buildActions(JPanel panel) {
     this.takeButton = createButton(null, "Take", "T");
     this.examineButton = createButton(null, "Examine", "X");
     this.answerButton = createButton(null, "Answer", "A");
@@ -50,4 +57,10 @@ public class OptionPanel extends JPanel {
     panel.add(this.examineButton);
     panel.add(this.answerButton);
   }
+
+  public JButton getNorth() {
+    return this.north;
+  }
+
+
 }
