@@ -15,7 +15,8 @@ public class GameModel {
   RoomModel roomModel; // database
   Player player;
   // inventory is contained within player
-
+  private String string;
+  private String imagePath;
 
   /**
    * Constructor for the GameModel class.
@@ -24,6 +25,8 @@ public class GameModel {
     this.roomModel = new RoomModel(gameFileName);
     this.player = new Player();
     this.player.setCurrentRoom(this.roomModel.currentRoom);
+    this.string = this.roomModel.getCurrentRoom().toString();
+    this.imagePath = this.roomModel.getCurrentRoom().getPicture();
   }
 
   /**
@@ -100,6 +103,8 @@ public class GameModel {
         }
         break;
     }
+    this.setString("You moved " + s + "\n" +
+            this.roomModel.getCurrentRoom().toString());
   }
 
   /**
@@ -313,7 +318,11 @@ public class GameModel {
     }
   }
 
+  public void setString(String newStr) {
+    this.string = newStr;
+  }
+
   public String toString() {
-    return "";
+    return this.string;
   }
 }
