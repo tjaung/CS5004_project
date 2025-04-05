@@ -15,10 +15,10 @@ public class DescriptionPanel extends JPanel{
         
     }
 
-    public void setDescription(String description) throws Exception{
+    public void setDescription() throws Exception{
         try {
             this.descriptionPanel.removeAll();
-            this.descriptionText = new JLabel(description);
+            this.descriptionText = new JLabel();
             this.descriptionPanel.add(this.descriptionText);
         }
         catch (Exception ex) {

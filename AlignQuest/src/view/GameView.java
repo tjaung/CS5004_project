@@ -55,6 +55,8 @@ public class GameView extends JFrame {
     this.south = this.optionPanel.getSouth();
     this.east = this.optionPanel.getEast();
     this.west = this.optionPanel.getWest();
+    this.examineButton = this.optionPanel.getExamine();
+    this.takeButton = this.optionPanel.getTakeButton();
 
   }
 
@@ -90,6 +92,8 @@ public class GameView extends JFrame {
     this.south.addActionListener(controller);
     this.east.addActionListener(controller);
     this.west.addActionListener(controller);
+    this.examineButton.addActionListener(controller);
+    this.takeButton.addActionListener(controller);
   }
 
   public void display() {
@@ -100,6 +104,10 @@ public class GameView extends JFrame {
 
   public ImagePanel getImagePanel() {
     return this.imagePanel;
+  }
+
+  public void updateDesc(String newDesc) {
+    // update the this.description panel string
   }
 
 

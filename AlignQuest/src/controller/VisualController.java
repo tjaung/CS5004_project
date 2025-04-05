@@ -4,8 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+import javax.swing.*;
+
+import gameelements.IRoomElement;
+import gameelements.Item;
 import model.GameModel;
 import view.GameView;
+import view.PopUp;
 
 public class VisualController implements ActionListener {
   GameModel model;
@@ -24,13 +29,17 @@ public class VisualController implements ActionListener {
    */
   @Override
   public void actionPerformed(ActionEvent e) {
-    switch (e.getActionCommand()) {
+
+    PopUp Popup = new PopUp();
+    String action = e.getActionCommand();
+    System.out.println(action);
+    switch (action) {
       case "N":
       case "S":
       case "E":
       case "W": {
         try {
-          this.model.move(e.getActionCommand());
+          this.model.move(action);
           System.out.println(this.model.getString());
 
 //          this.view.updateDesc(this.model.getString());
@@ -40,9 +49,34 @@ public class VisualController implements ActionListener {
           System.out.println(error.getMessage());
 //          this.view.showError(e);
         }
-
         break;
       }
+      case "X":
+        IRoomElement choice = Popup.openListPopUp(this.model.getRoomModel().getCurrentRoom().getElements());
+        Popup.openDescPopUp(choice);
+        break;
+
+      case "T":
+        try {
+          IRoomElement takeItem = Popup.openListPopUp(this.model.getRoomModel().getCurrentRoom().getItems());
+          this.model.takeItem((Item) takeItem);
+          Popup.confirmPopUp("You have added " + takeItem.getName() + " to your inventory.");
+        } catch (Exception error) {
+          Popup.confirmPopUp(error.getMessage());
+        }
+
+//
+//        String picPath = this.model.getRoomModel().getCurrentRoom().getPicture();
+//        String imgPath = "../AlignQuest/resources/resources/images/" + picPath;
+//        ImageIcon imgIcon = new ImageIcon(imgPath);
+//        JOptionPane.showConfirmDialog(
+//                null,
+//                "Examine button",
+//                  "OK",
+//                  JOptionPane.DEFAULT_OPTION,
+//                JOptionPane.QUESTION_MESSAGE,
+//                  imgIcon);
+//        break;
 
     }
   }
