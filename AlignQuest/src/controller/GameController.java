@@ -126,7 +126,7 @@ public class GameController {
 
         case "-":
           // pull data from resources if available
-          String res = this.model.loadGame();
+          String res = this.model.loadGame("save");
           // if found, run through parser
           // load world with new data
           this.view.print(res + "\n");

@@ -2,7 +2,10 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 
@@ -102,6 +105,20 @@ public class VisualController implements ActionListener {
         try {
           String name = PopUp.inputPopUp("Save file name:");
           this.model.saveGame(name);
+        }
+        catch (Exception error) {
+          PopUp.confirmPopUp(error.getMessage());
+        }
+
+      case "-":
+        try {
+          File saveDirectory = new File("../AlignQuest/saves/");
+          File[] saveFiles = saveDirectory.listFiles();
+          List<String> saves = new ArrayList<>();
+          for (File file : saveFiles) {
+            saves.add(file.getName());
+          }
+          String selection = PopUp.openSaveList(saves);
         }
         catch (Exception error) {
           PopUp.confirmPopUp(error.getMessage());

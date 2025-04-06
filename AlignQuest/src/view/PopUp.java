@@ -92,4 +92,19 @@ public class PopUp implements PopUpInterface{
             JOptionPane.QUESTION_MESSAGE,
             imgIcon);
   }
+
+  public static String openSaveList(List<String> saves) {
+    if (saves.isEmpty()) {
+      confirmPopUp("There is nothing to see here.");
+    }
+    List<String> options = new ArrayList<String>();
+    for (String file: saves){
+      options.add(file);
+    }
+    Object[] inputOptions = options.toArray();
+    Object value = JOptionPane.showInputDialog(null,"",
+            "",JOptionPane.QUESTION_MESSAGE,null,inputOptions,inputOptions[0]);
+    int index = options.indexOf(value);
+    return saves.get(index);
+  }
 }
