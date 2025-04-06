@@ -104,11 +104,13 @@ public class VisualController implements ActionListener {
       case "+":
         try {
           String name = PopUp.inputPopUp("Save file name:");
-          this.model.saveGame(name);
+          String message = this.model.saveGame(name);
+          PopUp.confirmPopUp(message);
         }
         catch (Exception error) {
           PopUp.confirmPopUp(error.getMessage());
         }
+        break;
 
       case "-":
         try {
@@ -123,6 +125,7 @@ public class VisualController implements ActionListener {
         catch (Exception error) {
           PopUp.confirmPopUp(error.getMessage());
         }
+        break;
 
     }
   }
