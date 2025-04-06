@@ -28,7 +28,7 @@ public class GameView extends JFrame {
   private ImagePanel imagePanel;
   private OptionPanel optionPanel;
   private JPanel descriptionPanel;
-  private JPanel inventoryPanel;
+  private InventoryPanel inventoryPanel;
 
   public GameView(String caption) {
     // setup frame
@@ -61,6 +61,7 @@ public class GameView extends JFrame {
     this.examineButton = this.optionPanel.getExamine();
     this.takeButton = this.optionPanel.getTakeButton();
     this.answerButton = this.optionPanel.getAnswerButton();
+    this.useButton = this.inventoryPanel.getUse();
 
   }
 
@@ -99,6 +100,7 @@ public class GameView extends JFrame {
     this.examineButton.addActionListener(controller);
     this.takeButton.addActionListener(controller);
     this.answerButton.addActionListener(controller);
+    this.useButton.addActionListener(controller);
 
     this.exit.addActionListener(controller);
     this.save.addActionListener(controller);
@@ -114,6 +116,14 @@ public class GameView extends JFrame {
 
   public ImagePanel getImagePanel() {
     return this.imagePanel;
+  }
+
+  public void updateImage(String imgPath) throws Exception {
+    try {
+      this.imagePanel.setImage(imgPath);
+    } catch (Exception e) {
+      this.imagePanel.setImage("generic_item.png");
+    }
   }
 
   public void updateDesc(String newDesc) {

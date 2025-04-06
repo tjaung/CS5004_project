@@ -90,7 +90,11 @@ public class Room {
      * @return desc - string of the room desc.
      */
     public String getDescription() {
-        return description;
+        if(this.getPuzzle() != null && this.getPuzzle().isActive()) {
+            return this.getPuzzle().getDescription();
+        } else {
+            return this.description;
+        }
     }
 
     /**
@@ -163,7 +167,13 @@ public class Room {
      * @return  picture.
      */
     public String getPicture() {
-        return picture;
+        if(this.getPuzzle() != null
+                && this.getPuzzle().isActive()
+                && this.getPuzzle().getPicture() != null) {
+            return this.getPuzzle().getPicture();
+        } else {
+            return this.picture;
+        }
     }
 
     /**

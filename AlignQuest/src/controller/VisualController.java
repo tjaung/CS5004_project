@@ -3,6 +3,8 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.*;
 
@@ -45,7 +47,7 @@ public class VisualController implements ActionListener {
           System.out.println(this.model.getString());
 
 //          this.view.updateDesc(this.model.getString());
-//          this.view.updateImg();
+          this.view.updateImage(this.model.getRoomModel().getCurrentRoom().getPicture());
         }
         catch (Exception error) {
           System.out.println(error.getMessage());
@@ -76,11 +78,11 @@ public class VisualController implements ActionListener {
       // it is incorrect, display that. If it is correct, display a success message.
       case "A":
         try {
-          String answer = Popup.inputPopUp("Enter your answer:");
+          String answer = PopUp.inputPopUp("Enter your answer:");
           this.model.answerRiddle(answer);
-          Popup.confirmPopUp("SUCCESS! You solved this puzzle with the answer " + answer);
+          PopUp.confirmPopUp("SUCCESS! You solved this puzzle with the answer " + answer);
         } catch (Exception error) {
-          Popup.confirmPopUp(error.getMessage());
+          PopUp.confirmPopUp(error.getMessage());
         }
         break;
 
@@ -88,11 +90,21 @@ public class VisualController implements ActionListener {
       // This can either be on a monster or a puzzle.
       case "U":
         try {
-          System.out.println("use item");
+          // bad casting method from item to IRoomElement back to item :(
+          List<IRoomElement> items = this.model.getPlayer().getInventory().getItems().stream()
+                  .map(subType -> (IRoomElement) subType)
+                  .toList();
+          IRoomElement item = PopUp.openListPopUp(items);
+          Item useItem = (Item) item;
+          this.model.useItem(useItem);
+          PopUp.confirmPopUp(useItem.getWhenUsed());
+          // update image if we need to
+          this.view.updateImage(this.model.getRoomModel().getCurrentRoom().getPicture());
         }
         catch (Exception error) {
-          Popup.confirmPopUp(error.getMessage());
+          PopUp.confirmPopUp(error.getMessage());
         }
+      break;
       case "Q":
 
 
