@@ -29,8 +29,6 @@ public class VisualController implements ActionListener {
    */
   @Override
   public void actionPerformed(ActionEvent e) {
-
-    PopUp Popup = new PopUp();
     String action = e.getActionCommand();
     System.out.println(action);
     switch (action) {
@@ -52,18 +50,20 @@ public class VisualController implements ActionListener {
         break;
       }
       case "X":
-        IRoomElement choice = Popup.openListPopUp(this.model.getRoomModel().getCurrentRoom().getElements());
-        Popup.openDescPopUp(choice);
+        IRoomElement choice = PopUp.openListPopUp(this.model.getRoomModel().getCurrentRoom().getElements());
+        PopUp.openDescPopUp(choice);
         break;
 
       case "T":
         try {
-          IRoomElement takeItem = Popup.openListPopUp(this.model.getRoomModel().getCurrentRoom().getItems());
+          IRoomElement takeItem = PopUp.openListPopUp(this.model.getRoomModel().getCurrentRoom().getItems());
           this.model.takeItem((Item) takeItem);
-          Popup.confirmPopUp("You have added " + takeItem.getName() + " to your inventory.");
+          PopUp.confirmPopUp("You have added " + takeItem.getName() + " to your inventory.");
         } catch (Exception error) {
-          Popup.confirmPopUp(error.getMessage());
+          PopUp.confirmPopUp(error.getMessage());
         }
+
+      case "Q":
 
 //
 //        String picPath = this.model.getRoomModel().getCurrentRoom().getPicture();

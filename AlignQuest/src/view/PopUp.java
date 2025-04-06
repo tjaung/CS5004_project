@@ -79,4 +79,8 @@ public class PopUp implements PopUpInterface{
             "Confirm",
             JOptionPane.DEFAULT_OPTION);
   }
+
+  public void quitPopUp() {
+    
+  }
 }
