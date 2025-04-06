@@ -118,7 +118,9 @@ public class VisualController implements ActionListener {
           File[] saveFiles = saveDirectory.listFiles();
           List<String> saves = new ArrayList<>();
           for (File file : saveFiles) {
-            saves.add(file.getName());
+            if (!file.getName().contains(".gitignore")) {
+              saves.add(file.getName());
+            }
           }
           String selection = PopUp.openSaveList(saves);
         }

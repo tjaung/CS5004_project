@@ -105,6 +105,11 @@ public class PopUp implements PopUpInterface{
     Object value = JOptionPane.showInputDialog(null,"",
             "",JOptionPane.QUESTION_MESSAGE,null,inputOptions,inputOptions[0]);
     int index = options.indexOf(value);
-    return saves.get(index);
+    try {
+      return saves.get(index);
+    }
+    catch (Exception error) {
+      return "";
+    }
   }
 }
