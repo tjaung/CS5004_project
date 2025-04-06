@@ -295,12 +295,12 @@ public class GameModel {
       /**
    * Saves the game
    */
-  public String saveGame() {
+  public String saveGame(String name) {
     String playerStr = this.player.parsePlayerToJSON();
     String invStr = this.player.getInventory().parseInventoryToJSON();
     String roomStr = this.roomModel.parseRoomsToJSON();
     String jsonStr = "{" + playerStr + invStr + roomStr + "}";
-    String response = SaveFiles.saveToJSON(jsonStr);
+    String response = SaveFiles.saveToJSON(jsonStr, name);
     return response;
   }
 

@@ -120,7 +120,7 @@ public class GameController {
           break;
 
         case "+":
-          String response = this.model.saveGame();
+          String response = this.model.saveGame("save");
           this.view.print(response + "\n");
           break;
 

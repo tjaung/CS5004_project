@@ -96,6 +96,17 @@ public class VisualController implements ActionListener {
       case "Q":
         PopUp.quitPopUp(this.model.getPlayer().getName(), this.model.getPlayer().getScore());
         System.exit(0);
+        break;
+
+      case "+":
+        try {
+          String name = PopUp.inputPopUp("Save file name:");
+          this.model.saveGame(name);
+        }
+        catch (Exception error) {
+          PopUp.confirmPopUp(error.getMessage());
+        }
+
     }
   }
 
