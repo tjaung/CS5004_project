@@ -57,6 +57,7 @@ public class GameView extends JFrame {
     this.west = this.optionPanel.getWest();
     this.examineButton = this.optionPanel.getExamine();
     this.takeButton = this.optionPanel.getTakeButton();
+    this.answerButton = this.optionPanel.getAnswerButton();
 
   }
 
@@ -94,6 +95,7 @@ public class GameView extends JFrame {
     this.west.addActionListener(controller);
     this.examineButton.addActionListener(controller);
     this.takeButton.addActionListener(controller);
+    this.answerButton.addActionListener(controller);
   }
 
   public void display() {

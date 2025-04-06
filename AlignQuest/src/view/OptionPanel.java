@@ -82,5 +82,9 @@ public class OptionPanel extends JPanel {
     return this.takeButton;
   }
 
+  public JButton getAnswerButton() {
+    return this.answerButton;
+  }
+
 
 }

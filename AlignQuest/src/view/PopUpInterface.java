@@ -13,21 +13,29 @@ public interface PopUpInterface {
   /**
    * This method returns the input.
    */
-  public String inputPopUp(String desc);
+  public static String inputPopUp(String desc) {
+    return null;
+  }
 
   /**
    * This method returns item in the inventory.
    */
-  public IRoomElement openListPopUp (List<IRoomElement> items);
+  public static IRoomElement openListPopUp(List<IRoomElement> items) {
+    return null;
+  }
 
   /**
    * This method tells you a description of the item.
    */
-  public void openDescPopUp(IRoomElement input);
+  public static void openDescPopUp(IRoomElement input) {
+
+  }
 
   /**
    * This method confirms if you want to add an item.
    */
-  public void confirmPopUp(String message);
+  public static void confirmPopUp(String message) {
+
+  }
 
 }
