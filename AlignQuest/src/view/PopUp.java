@@ -79,7 +79,17 @@ public class PopUp implements PopUpInterface{
             JOptionPane.DEFAULT_OPTION);
   }
 
-  public void quitPopUp() {
-    
+  public static void quitPopUp(String name, int score) {
+    String basePath = "../AlignQuest/resources/resources/images/";
+    String defaultImg = "nighty_night.png";
+    ImageIcon imgIcon = new ImageIcon(basePath + defaultImg);
+    JOptionPane.showConfirmDialog(
+            null,
+            "Status for " + name + "\nThanks for playing!\n"
+            + "Your score is " + score,
+            "Game Over!",
+            JOptionPane.DEFAULT_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            imgIcon);
   }
 }

@@ -76,11 +76,11 @@ public class VisualController implements ActionListener {
       // it is incorrect, display that. If it is correct, display a success message.
       case "A":
         try {
-          String answer = Popup.inputPopUp("Enter your answer:");
+          String answer = PopUp.inputPopUp("Enter your answer:");
           this.model.answerRiddle(answer);
-          Popup.confirmPopUp("SUCCESS! You solved this puzzle with the answer " + answer);
+          PopUp.confirmPopUp("SUCCESS! You solved this puzzle with the answer " + answer);
         } catch (Exception error) {
-          Popup.confirmPopUp(error.getMessage());
+          PopUp.confirmPopUp(error.getMessage());
         }
         break;
 
@@ -91,11 +91,11 @@ public class VisualController implements ActionListener {
           System.out.println("use item");
         }
         catch (Exception error) {
-          Popup.confirmPopUp(error.getMessage());
+          PopUp.confirmPopUp(error.getMessage());
         }
       case "Q":
-
-
+        PopUp.quitPopUp(this.model.getPlayer().getName(), this.model.getPlayer().getScore());
+        System.exit(0);
     }
   }
 
