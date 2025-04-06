@@ -29,8 +29,6 @@ public class VisualController implements ActionListener {
    */
   @Override
   public void actionPerformed(ActionEvent e) {
-
-    PopUp Popup = new PopUp();
     String action = e.getActionCommand();
     System.out.println(action);
     switch (action) {
@@ -58,18 +56,18 @@ public class VisualController implements ActionListener {
       // Examine command: User picks from a list popup of all of the game elements in the currrent room.
       // They can choose one to view, where they will get a desc popup of picture and text desc.
       case "X":
-        IRoomElement choice = Popup.openListPopUp(this.model.getRoomModel().getCurrentRoom().getElements());
-        Popup.openDescPopUp(choice);
+        IRoomElement choice = PopUp.openListPopUp(this.model.getRoomModel().getCurrentRoom().getElements());
+        PopUp.openDescPopUp(choice);
         break;
       // Take command: Shows popup of items available to take. User chooses an item and controller calls model
       // to add it to the inventory. If successful, send success message, else catch error and display it.
       case "T":
         try {
-          IRoomElement takeItem = Popup.openListPopUp(this.model.getRoomModel().getCurrentRoom().getItems());
+          IRoomElement takeItem = PopUp.openListPopUp(this.model.getRoomModel().getCurrentRoom().getItems());
           this.model.takeItem((Item) takeItem);
-          Popup.confirmPopUp("You have added " + takeItem.getName() + " to your inventory.");
+          PopUp.confirmPopUp("You have added " + takeItem.getName() + " to your inventory.");
         } catch (Exception error) {
-          Popup.confirmPopUp(error.getMessage());
+          PopUp.confirmPopUp(error.getMessage());
         }
         break;
       // Answer command: Specific to solving riddle puzzles. If there is a riddle puzzle, the user
@@ -95,6 +93,8 @@ public class VisualController implements ActionListener {
         catch (Exception error) {
           Popup.confirmPopUp(error.getMessage());
         }
+      case "Q":
+
 
     }
   }

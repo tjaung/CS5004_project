@@ -21,6 +21,9 @@ public class GameView extends JFrame {
   private JButton takeButton;
   private JButton dropButton;
   private JButton answerButton;
+  private JMenuItem exit;
+  private JMenuItem save;
+  private JMenuItem load;
 
   private ImagePanel imagePanel;
   private OptionPanel optionPanel;
@@ -68,7 +71,12 @@ public class GameView extends JFrame {
     JMenuItem load = new JMenuItem("Load");
     JMenuItem exit = new JMenuItem("Exit");
 
-    exit.addActionListener((event) -> System.exit(0));
+    this.exit = exit;
+    this.save = save;
+    this.load = load;
+    this.exit.setActionCommand("Q");
+    this.save.setActionCommand("S");
+    this.load.setActionCommand("L");
 
     menu.add(save);
     menu.add(load);
@@ -76,13 +84,8 @@ public class GameView extends JFrame {
 
     menuBar.add(menu);
 
-
     return menuBar;
   }
-
-
-
-
 
   public void setEventHandler(VisualController controller) {
     this.setActionListener((ActionListener) controller);
@@ -96,6 +99,11 @@ public class GameView extends JFrame {
     this.examineButton.addActionListener(controller);
     this.takeButton.addActionListener(controller);
     this.answerButton.addActionListener(controller);
+
+    this.exit.addActionListener(controller);
+    this.save.addActionListener(controller);
+    this.load.addActionListener(controller);
+
   }
 
   public void display() {
