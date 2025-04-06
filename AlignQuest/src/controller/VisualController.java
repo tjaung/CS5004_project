@@ -2,9 +2,12 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 
@@ -106,7 +109,37 @@ public class VisualController implements ActionListener {
         }
       break;
       case "Q":
+        PopUp.quitPopUp(this.model.getPlayer().getName(), this.model.getPlayer().getScore());
+        System.exit(0);
+        break;
 
+      case "+":
+        try {
+          String name = PopUp.inputPopUp("Save file name:");
+          String message = this.model.saveGame(name);
+          PopUp.confirmPopUp(message);
+        }
+        catch (Exception error) {
+          PopUp.confirmPopUp(error.getMessage());
+        }
+        break;
+
+      case "-":
+        try {
+          File saveDirectory = new File("../AlignQuest/saves/");
+          File[] saveFiles = saveDirectory.listFiles();
+          List<String> saves = new ArrayList<>();
+          for (File file : saveFiles) {
+            if (!file.getName().contains(".gitignore")) {
+              saves.add(file.getName());
+            }
+          }
+          String selection = PopUp.openSaveList(saves);
+        }
+        catch (Exception error) {
+          PopUp.confirmPopUp(error.getMessage());
+        }
+        break;
 
     }
   }

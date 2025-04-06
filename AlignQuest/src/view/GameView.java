@@ -76,8 +76,8 @@ public class GameView extends JFrame {
     this.save = save;
     this.load = load;
     this.exit.setActionCommand("Q");
-    this.save.setActionCommand("S");
-    this.load.setActionCommand("L");
+    this.save.setActionCommand("+");
+    this.load.setActionCommand("-");
 
     menu.add(save);
     menu.add(load);
