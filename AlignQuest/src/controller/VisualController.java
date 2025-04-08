@@ -80,6 +80,15 @@ public class VisualController implements ActionListener {
           PopUp.confirmPopUp(error.getMessage());
         }
         break;
+      case "I":
+        try {
+          IRoomElement item = PopUp.openListPopUp(this.model.getRoomModel().getCurrentRoom().getElements());
+          PopUp.openDescPopUp(item);
+          break;
+        } catch (Exception error){
+          PopUp.confirmPopUp(error.getMessage());
+        }
+        break;
       // Answer command: Specific to solving riddle puzzles. If there is a riddle puzzle, the user
       // can call this command to get an input popup. The input is sent to the puzzle to see if
       // the answer is correct to unlock the path. If there is no puzzle, display that popup. If
