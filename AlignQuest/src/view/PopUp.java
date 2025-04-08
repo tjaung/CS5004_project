@@ -82,18 +82,30 @@ public class PopUp implements PopUpInterface{
             JOptionPane.DEFAULT_OPTION);
   }
 
-  public static void quitPopUp(String name, int score) {
+  public static void quitPopUp(String name, int score, String byeMessage) {
     String basePath = "../AlignQuest/resources/resources/images/";
     String defaultImg = "nighty_night.png";
     ImageIcon imgIcon = new ImageIcon(basePath + defaultImg);
-    JOptionPane.showConfirmDialog(
-            null,
-            "Status for " + name + "\nThanks for playing!\n"
-            + "Your score is " + score,
-            "Game Over!",
-            JOptionPane.DEFAULT_OPTION,
-            JOptionPane.QUESTION_MESSAGE,
-            imgIcon);
+    if (byeMessage != null) {
+      JOptionPane.showConfirmDialog(
+              null,
+              byeMessage + "\nThanks for playing!\n"
+                      + "Your score is " + score,
+              "Game Over!",
+              JOptionPane.DEFAULT_OPTION,
+              JOptionPane.QUESTION_MESSAGE,
+              imgIcon);
+    }
+    else {
+      JOptionPane.showConfirmDialog(
+              null,
+              "Status for " + name + "\nThanks for playing!\n"
+                      + "Your score is " + score,
+              "Game Over!",
+              JOptionPane.DEFAULT_OPTION,
+              JOptionPane.QUESTION_MESSAGE,
+              imgIcon);
+    }
   }
 
   public static String openSaveList(List<String> saves) {
