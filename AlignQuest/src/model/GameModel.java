@@ -111,7 +111,8 @@ public class GameModel {
 //    this.setString("You moved " + s + "\n" +
 //            this.roomModel.currentRoom.toString());
     // print room description in the panel
-    this.setString(this.roomModel.currentRoom.getDescription());
+    this.setString(this.roomModel.currentRoom.toString());
+    //this.setString(this.roomModel.currentRoom.printItems());
   }
 
   /**
