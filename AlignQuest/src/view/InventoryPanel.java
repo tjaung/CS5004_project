@@ -1,28 +1,37 @@
 package view;
 
+import static javax.swing.BoxLayout.*;
 import static view.CreateButton.createButton;
 
+import gameelements.IRoomElement;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class InventoryPanel extends JPanel {
 
   private JButton inspect;
   private JButton use;
   private JButton drop;
-  private JPanel inventoryPanel;
+  private JPanel subPanel;
+  private List<IRoomElement> item;
 
   public InventoryPanel() {
+    super();
     this.inspect = createButton(null, "Inspect", "I");
     this.use = createButton(null, "Use", "U");
     this.drop = createButton(null, "Drop", "D");
-    this.inventoryPanel = new JPanel();
+    this.subPanel = new JPanel();
+    this.item = new ArrayList<>();
     createPanel();
   }
 
@@ -30,17 +39,25 @@ public class InventoryPanel extends JPanel {
     JLabel inventoryLabel = new JLabel("Inventory");
     inventoryLabel.setFont(new Font("Arial", Font.BOLD, 16));
     inventoryLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-    this.inventoryPanel.setLayout(new BoxLayout(this.inventoryPanel, BoxLayout.Y_AXIS));
+    this.setLayout(new BoxLayout(this, Y_AXIS));
+    this.setPreferredSize(new Dimension(10, 10));
     inspect.setAlignmentX(Component.CENTER_ALIGNMENT);
     use.setAlignmentX(Component.CENTER_ALIGNMENT);
     drop.setAlignmentX(Component.CENTER_ALIGNMENT);
-    this.inventoryPanel.add(inventoryLabel);
-    this.inventoryPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-    this.inventoryPanel.add(inspect);
-    this.inventoryPanel.add(use);
-    this.inventoryPanel.add(drop);
-    this.add(this.inventoryPanel);
+    subPanel.setLayout(new BoxLayout(subPanel, Y_AXIS));
+    subPanel.setPreferredSize(new Dimension(10, 10));
+    JScrollPane scrollPane = new JScrollPane(subPanel);
+    scrollPane.setAlignmentX(Component.CENTER_ALIGNMENT);
+    scrollPane.setMaximumSize(new Dimension(200, 300));
+    this.add(inventoryLabel);
+    this.add(Box.createRigidArea(new Dimension(10, 10)));
+    this.add(inspect);
+    this.add(use);
+    this.add(drop);
+    this.add(Box.createRigidArea(new Dimension(10, 10)));
+    this.add(scrollPane);
   }
+
 
   public JButton getInspect() {
     return inspect;
@@ -54,7 +71,48 @@ public class InventoryPanel extends JPanel {
     return drop;
   }
 
-  public JPanel getInventoryPanel() {
-    return this.inventoryPanel;
+  public JPanel getSubPanel() {
+    return subPanel;
+  }
+
+
+
+  private void clearPanel(JPanel subPanel){
+    for (Component component : subPanel.getComponents()) {
+      if (component instanceof JLabel) {
+        ((JLabel) component).setText("");
+      }
+    }
+    subPanel.revalidate();
+    subPanel.repaint();
+  }
+
+  public void updatePanel(List<IRoomElement> items) {
+    item = setItem(items);
+    item = this.getItem();
+    clearPanel(subPanel);
+    subPanel.removeAll();
+    subPanel.setLayout(new BoxLayout(subPanel, Y_AXIS));
+    subPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    for (IRoomElement item : items) {
+      JLabel itemLabel = new JLabel(item.getName());
+      itemLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+      itemLabel.setFont(new Font("Arial", Font.BOLD, 15));
+      subPanel.add(itemLabel);
+    }
+    subPanel.revalidate();
+    subPanel.repaint();
+  }
+
+
+
+
+  public List<IRoomElement> getItem() {
+    return item;
+  }
+
+  public List<IRoomElement> setItem(List<IRoomElement> item) {
+    this.item = item;
+    return item;
   }
 }
