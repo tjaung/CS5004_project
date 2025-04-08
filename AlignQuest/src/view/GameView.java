@@ -106,6 +106,10 @@ public class GameView extends JFrame {
     return this.imagePanel;
   }
 
+  public InventoryPanel getInventoryPanel(){
+    return (InventoryPanel) this.inventoryPanel;
+  }
+
   public void updateDesc(String newDesc) {
     // update the this.description panel string
   }
