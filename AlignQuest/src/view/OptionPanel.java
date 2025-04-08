@@ -48,6 +48,7 @@ public class OptionPanel extends JPanel {
     c.gridx = 1;
     c.gridy = 0;
     panel.add(this.north, c);
+
     this.south = createButton("../AlignQuest/resources/resources/images/south.png", "", "S");
     c.fill = GridBagConstraints.HORIZONTAL;
     c.weightx = 0.5;
@@ -55,6 +56,7 @@ public class OptionPanel extends JPanel {
     c.gridx = 1;
     c.gridy = 2;
     panel.add(this.south, c);
+
     this.east = createButton("../AlignQuest/resources/resources/images/east.png", "", "E");
     c.fill = GridBagConstraints.HORIZONTAL;
     c.weightx = 0.5;
@@ -62,6 +64,7 @@ public class OptionPanel extends JPanel {
     c.gridx = 2;
     c.gridy = 1;
     panel.add(this.east, c);
+
     this.west = createButton("../AlignQuest/resources/resources/images/west.png", "", "W");
     c.fill = GridBagConstraints.HORIZONTAL;
     c.weightx = 0.5;

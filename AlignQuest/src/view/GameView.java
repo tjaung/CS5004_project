@@ -8,10 +8,6 @@ import controller.VisualController;
 
 import static view.CreateButton.createButton;
 
-
-// REFACTOR buildDirection to a method that builds a button based on the string name and includes functionality
-// CALL this method 4 times
-
 public class GameView extends JFrame {
   private JButton north, south, east, west;
   // private JButton inventory;
@@ -135,6 +131,4 @@ public class GameView extends JFrame {
   public void updateDesc(String newDesc) {
     // update the this.description panel string
   }
-
-
 }
