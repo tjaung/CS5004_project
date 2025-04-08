@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.*;
+
 import javax.swing.*;
 import javax.swing.text.html.Option;
 
@@ -24,7 +26,9 @@ public class OptionPanel extends JPanel {
     this.actionPanel = new JPanel();
     this.add(movePanel);
     this.add(actionPanel);
-    this.buildDirections(this.movePanel);
+    this.movePanel.setLayout(new GridBagLayout());
+    GridBagConstraints c = new GridBagConstraints();
+    this.buildDirections(this.movePanel, c);
     this.buildActions(this.actionPanel);
   }
 
@@ -36,16 +40,35 @@ public class OptionPanel extends JPanel {
 
   }
 
-  public void buildDirections(JPanel panel) {
+  public void buildDirections(JPanel panel, GridBagConstraints c) {
     this.north = createButton("../AlignQuest/resources/resources/images/north.png", "", "N");
+    c.fill = GridBagConstraints.HORIZONTAL;
+    c.weightx = 0.5;
+    c.weighty = 0.5;
+    c.gridx = 1;
+    c.gridy = 0;
+    panel.add(this.north, c);
     this.south = createButton("../AlignQuest/resources/resources/images/south.png", "", "S");
+    c.fill = GridBagConstraints.HORIZONTAL;
+    c.weightx = 0.5;
+    c.weighty = 0.5;
+    c.gridx = 1;
+    c.gridy = 2;
+    panel.add(this.south, c);
     this.east = createButton("../AlignQuest/resources/resources/images/east.png", "", "E");
+    c.fill = GridBagConstraints.HORIZONTAL;
+    c.weightx = 0.5;
+    c.weighty = 0.5;
+    c.gridx = 2;
+    c.gridy = 1;
+    panel.add(this.east, c);
     this.west = createButton("../AlignQuest/resources/resources/images/west.png", "", "W");
-
-    panel.add(this.north);
-    panel.add(this.south);
-    panel.add(this.east);
-    panel.add(this.west);
+    c.fill = GridBagConstraints.HORIZONTAL;
+    c.weightx = 0.5;
+    c.weighty = 0.5;
+    c.gridx = 0;
+    c.gridy = 1;
+    panel.add(this.west, c);
   }
 
   public void buildActions(JPanel panel) {

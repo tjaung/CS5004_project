@@ -47,7 +47,8 @@ public class Inventory {
 
     /**
      * Getter for items.
-     * @return  the list of items in the Inventory.
+     *
+     * @return the list of items in the Inventory.
      */
     public List<Item> getItems() {
         return items; 

@@ -295,24 +295,23 @@ public class GameModel {
       /**
    * Saves the game
    */
-  public String saveGame() {
+  public String saveGame(String name) {
     String playerStr = this.player.parsePlayerToJSON();
     String invStr = this.player.getInventory().parseInventoryToJSON();
     String roomStr = this.roomModel.parseRoomsToJSON();
     String jsonStr = "{" + playerStr + invStr + roomStr + "}";
-    String response = SaveFiles.saveToJSON(jsonStr);
+    String response = SaveFiles.saveToJSON(jsonStr, name);
     return response;
   }
 
    /**
    * Loads the game
    */
-  public String loadGame() {
+  public String loadGame(String name) {
     // check for save data
-    String path = "../FinalProject/src/resources/save.json";
     try {
-      this.roomModel = new RoomModel(path);
-      String strJson = Parser.readJsonFile(path);
+      this.roomModel = new RoomModel(name);
+      String strJson = Parser.readJsonFile(name);
       JSONObject json = Parser.parseJsonString(strJson);
       this.player = Parser.parsePlayer(json, this.roomModel.getRoomList());
       return "Save data loaded successfully";

@@ -13,8 +13,8 @@ public class SaveFiles {
    *
    * @param jsonStr string of game data
    */
-  public static String saveToJSON(String jsonStr) {
-    String path = "../FinalProject/src/resources/save.json";
+  public static String saveToJSON(String jsonStr, String name) {
+    String path = "../AlignQuest/saves/" + name + ".json";
     try (FileWriter writer = new FileWriter(path))
     {
       writer.write(jsonStr);
