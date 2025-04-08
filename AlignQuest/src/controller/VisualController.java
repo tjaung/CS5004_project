@@ -81,6 +81,28 @@ public class VisualController implements ActionListener {
           PopUp.confirmPopUp(error.getMessage());
         }
         break;
+      case "D":
+        try{
+          List<Item> invItems = this.model.getPlayer().getInventory().getItems();
+          List<IRoomElement> items = new ArrayList<IRoomElement>();
+          for(Item item: invItems) {
+            IRoomElement i = (IRoomElement) item;
+            items.add(i);
+          }
+          IRoomElement dropItem = PopUp.openListPopUp(items);
+          this.model.dropItem((Item) dropItem);
+          PopUp.confirmPopUp("You dropped the item " + dropItem.getName());
+          // update inv panel with new items
+          List<Item> newInvItems = this.model.getPlayer().getInventory().getItems();
+          List<IRoomElement> newItems = new ArrayList<IRoomElement>();
+          for(Item item: newInvItems) {
+            IRoomElement i = (IRoomElement) item;
+            newItems.add(i);
+          }
+          this.view.getInventoryPanel().updatePanel(newItems);
+        } catch (Exception error) {
+          PopUp.confirmPopUp(error.getMessage());
+        }
       // Answer command: Specific to solving riddle puzzles. If there is a riddle puzzle, the user
       // can call this command to get an input popup. The input is sent to the puzzle to see if
       // the answer is correct to unlock the path. If there is no puzzle, display that popup. If
