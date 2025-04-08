@@ -62,6 +62,7 @@ public class GameView extends JFrame {
     this.takeButton = this.optionPanel.getTakeButton();
     this.answerButton = this.optionPanel.getAnswerButton();
     this.useButton = this.inventoryPanel.getUse();
+    this.dropButton = this.inventoryPanel.getDrop();
 
   }
 
@@ -101,6 +102,7 @@ public class GameView extends JFrame {
     this.takeButton.addActionListener(controller);
     this.answerButton.addActionListener(controller);
     this.useButton.addActionListener(controller);
+    this.dropButton.addActionListener(controller);
 
     this.exit.addActionListener(controller);
     this.save.addActionListener(controller);

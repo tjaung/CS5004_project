@@ -15,6 +15,7 @@ import gameelements.IRoomElement;
 import gameelements.Item;
 import model.GameModel;
 import view.GameView;
+import view.InventoryPanel;
 import view.PopUp;
 
 public class VisualController implements ActionListener {
@@ -93,6 +94,28 @@ public class VisualController implements ActionListener {
         }
         break;
 
+      case "D":
+        try{
+          List<Item> invItems = this.model.getPlayer().getInventory().getItems();
+          List<IRoomElement> items = new ArrayList<IRoomElement>();
+          for(Item item: invItems) {
+            IRoomElement i = (IRoomElement) item;
+            items.add(i);
+          }
+          IRoomElement dropItem = PopUp.openListPopUp(items);
+          this.model.dropItem((Item) dropItem);
+          PopUp.confirmPopUp("You dropped the item " + dropItem.getName());
+          // update inv panel with new items
+          List<Item> newInvItems = this.model.getPlayer().getInventory().getItems();
+          List<IRoomElement> newItems = new ArrayList<IRoomElement>();
+          for(Item item: newInvItems) {
+            IRoomElement i = (IRoomElement) item;
+            newItems.add(i);
+          }
+          this.view.getInventoryPanel().updatePanel(newItems);
+        } catch (Exception error) {
+          PopUp.confirmPopUp(error.getMessage());
+        }
       // Use command: User specifies an item in their inventory that they want to use.
       // This can either be on a monster or a puzzle.
       case "U":
