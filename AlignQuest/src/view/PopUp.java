@@ -38,8 +38,11 @@ public class PopUp implements PopUpInterface{
     Object[] inputOptions = options.toArray();
     Object value = JOptionPane.showInputDialog(null,"",
             "",JOptionPane.QUESTION_MESSAGE,null,inputOptions,inputOptions[0]);
-    int index = options.indexOf(value);
-    return items.get(index);
+    if (value != null) {
+      int index = options.indexOf(value);
+      return items.get(index);
+    }
+    return null;
   }
 
   /**

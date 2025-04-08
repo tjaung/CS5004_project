@@ -219,7 +219,6 @@ public class GameModel {
   /**
    * Clears a room 
    */
-
   public void clearRoom(Room room) {
     if (this.roomModel.getCurrentRoom().getN() < 0) {
       this.roomModel.getCurrentRoom().setN(this.roomModel.getCurrentRoom().getN() * -1);
@@ -318,6 +317,10 @@ public class GameModel {
     } catch (Exception e) {
       return e.getMessage();
     }
+  }
+
+  public void endTurn() {
+
   }
 
   public void setString(String newStr) {

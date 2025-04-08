@@ -51,6 +51,7 @@ public class VisualController implements ActionListener {
 
 //          this.view.updateDesc(this.model.getString());
           this.view.updateImage(this.model.getRoomModel().getCurrentRoom().getPicture());
+          // process turn or endTurn()
         }
         catch (Exception error) {
           System.out.println(error.getMessage());
@@ -62,15 +63,20 @@ public class VisualController implements ActionListener {
       // They can choose one to view, where they will get a desc popup of picture and text desc.
       case "X":
         IRoomElement choice = PopUp.openListPopUp(this.model.getRoomModel().getCurrentRoom().getElements());
-        PopUp.openDescPopUp(choice);
+        if (choice != null) {
+          PopUp.openDescPopUp(choice);
+        }
         break;
       // Take command: Shows popup of items available to take. User chooses an item and controller calls model
       // to add it to the inventory. If successful, send success message, else catch error and display it.
       case "T":
         try {
           IRoomElement takeItem = PopUp.openListPopUp(this.model.getRoomModel().getCurrentRoom().getItems());
-          this.model.takeItem((Item) takeItem);
-          PopUp.confirmPopUp("You have added " + takeItem.getName() + " to your inventory.");
+          if (takeItem != null) {
+            this.model.takeItem((Item) takeItem);
+            PopUp.confirmPopUp("You have added " + takeItem.getName() + " to your inventory.");
+            //process turn
+          }
         } catch (Exception error) {
           PopUp.confirmPopUp(error.getMessage());
         }
@@ -82,8 +88,11 @@ public class VisualController implements ActionListener {
       case "A":
         try {
           String answer = PopUp.inputPopUp("Enter your answer:");
-          this.model.answerRiddle(answer);
-          PopUp.confirmPopUp("SUCCESS! You solved this puzzle with the answer " + answer);
+          if (answer != null) {
+            this.model.answerRiddle(answer);
+            PopUp.confirmPopUp("SUCCESS! You solved this puzzle with the answer " + answer);
+            //process turn
+          }
         } catch (Exception error) {
           PopUp.confirmPopUp(error.getMessage());
         }
@@ -103,6 +112,7 @@ public class VisualController implements ActionListener {
           PopUp.confirmPopUp(useItem.getWhenUsed());
           // update image if we need to
           this.view.updateImage(this.model.getRoomModel().getCurrentRoom().getPicture());
+          // process turn
         }
         catch (Exception error) {
           PopUp.confirmPopUp(error.getMessage());
