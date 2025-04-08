@@ -71,6 +71,10 @@ public class VisualController implements ActionListener {
           IRoomElement takeItem = PopUp.openListPopUp(this.model.getRoomModel().getCurrentRoom().getItems());
           this.model.takeItem((Item) takeItem);
           PopUp.confirmPopUp("You have added " + takeItem.getName() + " to your inventory.");
+          List<IRoomElement> newInv = this.model.getPlayer().getInventory().getItems().stream()
+              .map(subType -> (IRoomElement) subType)
+              .toList();
+          this.view.getInventoryPanel().updatePanel(newInv);
         } catch (Exception error) {
           PopUp.confirmPopUp(error.getMessage());
         }
