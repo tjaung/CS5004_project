@@ -118,6 +118,10 @@ public class GameView extends JFrame {
     return this.imagePanel;
   }
 
+  public InventoryPanel getInventoryPanel() {
+    return this.inventoryPanel;
+  }
+
   public void updateImage(String imgPath) throws Exception {
     try {
       this.imagePanel.setImage(imgPath);
