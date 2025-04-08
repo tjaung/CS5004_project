@@ -42,7 +42,7 @@ public class VisualController implements ActionListener {
           this.model.move(action);
           System.out.println(this.model.getString());
 
-//          this.view.updateDesc(this.model.getString());
+          this.view.updateDesc(this.model.getString());
 //          this.view.updateImg();
         }
         catch (Exception error) {
@@ -84,8 +84,10 @@ public class VisualController implements ActionListener {
   public void go() throws Exception {
     String imgPath = this.model.getRoomModel().getCurrentRoom().getPicture();
     this.view.getImagePanel().setImage(imgPath);
+    String descriptionPath = this.model.getRoomModel().getCurrentRoom().getDescription();
+    this.view.getDescriptionPanel().setDescription(descriptionPath);
     this.view.display();
-    // this.view.updateDesc(this.model.getString());
+    this.view.updateDesc(this.model.getString());
     // this.view.updateImage(this.model.getImage());
   }
 }

@@ -24,7 +24,7 @@ public class GameView extends JFrame {
 
   private ImagePanel imagePanel;
   private OptionPanel optionPanel;
-  private JPanel descriptionPanel;
+  private DescriptionPanel descriptionPanel;
   private JPanel inventoryPanel;
 
   public GameView(String caption) {
@@ -106,8 +106,10 @@ public class GameView extends JFrame {
     return this.imagePanel;
   }
 
-  public void updateDesc(String newDesc) {
+  public DescriptionPanel getDescriptionPanel() { return this.descriptionPanel; }
+  public void updateDesc(String newDesc) throws Exception {
     // update the this.description panel string
+    this.descriptionPanel.setDescription(newDesc);
   }
 
 
