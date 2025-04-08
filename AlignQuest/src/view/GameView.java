@@ -21,11 +21,14 @@ public class GameView extends JFrame {
   private JButton takeButton;
   private JButton dropButton;
   private JButton answerButton;
+  private JMenuItem exit;
+  private JMenuItem save;
+  private JMenuItem load;
 
   private ImagePanel imagePanel;
   private OptionPanel optionPanel;
   private JPanel descriptionPanel;
-  private JPanel inventoryPanel;
+  private InventoryPanel inventoryPanel;
 
   public GameView(String caption) {
     // setup frame
@@ -57,6 +60,8 @@ public class GameView extends JFrame {
     this.west = this.optionPanel.getWest();
     this.examineButton = this.optionPanel.getExamine();
     this.takeButton = this.optionPanel.getTakeButton();
+    this.answerButton = this.optionPanel.getAnswerButton();
+    this.useButton = this.inventoryPanel.getUse();
 
   }
 
@@ -67,7 +72,12 @@ public class GameView extends JFrame {
     JMenuItem load = new JMenuItem("Load");
     JMenuItem exit = new JMenuItem("Exit");
 
-    exit.addActionListener((event) -> System.exit(0));
+    this.exit = exit;
+    this.save = save;
+    this.load = load;
+    this.exit.setActionCommand("Q");
+    this.save.setActionCommand("+");
+    this.load.setActionCommand("-");
 
     menu.add(save);
     menu.add(load);
@@ -75,13 +85,8 @@ public class GameView extends JFrame {
 
     menuBar.add(menu);
 
-
     return menuBar;
   }
-
-
-
-
 
   public void setEventHandler(VisualController controller) {
     this.setActionListener((ActionListener) controller);
@@ -94,6 +99,13 @@ public class GameView extends JFrame {
     this.west.addActionListener(controller);
     this.examineButton.addActionListener(controller);
     this.takeButton.addActionListener(controller);
+    this.answerButton.addActionListener(controller);
+    this.useButton.addActionListener(controller);
+
+    this.exit.addActionListener(controller);
+    this.save.addActionListener(controller);
+    this.load.addActionListener(controller);
+
   }
 
   public void display() {
@@ -106,8 +118,16 @@ public class GameView extends JFrame {
     return this.imagePanel;
   }
 
-  public InventoryPanel getInventoryPanel(){
-    return (InventoryPanel) this.inventoryPanel;
+  public InventoryPanel getInventoryPanel() {
+    return this.inventoryPanel;
+  }
+
+  public void updateImage(String imgPath) throws Exception {
+    try {
+      this.imagePanel.setImage(imgPath);
+    } catch (Exception e) {
+      this.imagePanel.setImage("generic_item.png");
+    }
   }
 
   public void updateDesc(String newDesc) {

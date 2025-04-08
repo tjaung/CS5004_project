@@ -17,18 +17,19 @@ public class PopUp implements PopUpInterface{
    *
    * @param desc
    */
-  @Override
-  public String inputPopUp(String desc) {
+  public static String inputPopUp(String desc) {
     return JOptionPane.showInputDialog(desc);
   }
 
   /**
    * This method returns item in the inventory.
+   *
+   * @param items list<Room elements> to display
+   * @return single room element
    */
-  @Override
-  public IRoomElement openListPopUp(List<IRoomElement> items) {
-    if (items.size() == 0) {
-      this.confirmPopUp("There is nothing to see here.");
+  public static IRoomElement openListPopUp(List<IRoomElement> items) {
+    if (items.isEmpty()) {
+      confirmPopUp("There is nothing to see here.");
     }
     List<String> options = new ArrayList<String>();
     for (IRoomElement item: items){
@@ -44,8 +45,7 @@ public class PopUp implements PopUpInterface{
   /**
    * This method tells you a description of the item.
    */
-  @Override
-  public void openDescPopUp(IRoomElement input) {
+  public static void openDescPopUp(IRoomElement input) {
     String basePath = "../AlignQuest/resources/resources/images/";
     String defaultImg = "generic_item.png";
 
@@ -72,11 +72,44 @@ public class PopUp implements PopUpInterface{
   /**
    * This method confirms if you want to add an item.
    */
-  @Override
-  public void confirmPopUp(String message) {
+  public static void confirmPopUp(String message) {
     JOptionPane.showConfirmDialog(null,
             message=message,
             "Confirm",
             JOptionPane.DEFAULT_OPTION);
+  }
+
+  public static void quitPopUp(String name, int score) {
+    String basePath = "../AlignQuest/resources/resources/images/";
+    String defaultImg = "nighty_night.png";
+    ImageIcon imgIcon = new ImageIcon(basePath + defaultImg);
+    JOptionPane.showConfirmDialog(
+            null,
+            "Status for " + name + "\nThanks for playing!\n"
+            + "Your score is " + score,
+            "Game Over!",
+            JOptionPane.DEFAULT_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            imgIcon);
+  }
+
+  public static String openSaveList(List<String> saves) {
+    if (saves.isEmpty()) {
+      confirmPopUp("There is nothing to see here.");
+    }
+    List<String> options = new ArrayList<String>();
+    for (String file: saves){
+      options.add(file);
+    }
+    Object[] inputOptions = options.toArray();
+    Object value = JOptionPane.showInputDialog(null,"",
+            "",JOptionPane.QUESTION_MESSAGE,null,inputOptions,inputOptions[0]);
+    int index = options.indexOf(value);
+    try {
+      return saves.get(index);
+    }
+    catch (Exception error) {
+      return "";
+    }
   }
 }
