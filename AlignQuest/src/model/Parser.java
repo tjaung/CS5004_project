@@ -84,7 +84,7 @@ public class Parser {
       int value = itemJson.getInt("value");
       String whenUsed = itemJson.getString("when_used");
       String description = itemJson.getString("description");
-      String picture = itemJson.isNull("picture") ? null : itemJson.getString("picture");
+      String picture = itemJson.isNull("picture") ? "generic_item.png" : itemJson.getString("picture");
 
       // create concrete item instance
       Item item = new Item(weight,value,name,maxUses,usesRemaining,whenUsed,description,picture);
@@ -123,7 +123,7 @@ public class Parser {
       String target = monsterJson.optString("target");
       boolean canAttack = monsterJson.has("can_attack") && monsterJson.getBoolean("can_attack");
       String attack = monsterJson.getString("attack");
-      String picture = monsterJson.isNull("picture") ? null : monsterJson.getString("picture");
+      String picture = monsterJson.isNull("picture") ? "generic_monster.png" : monsterJson.getString("picture");
       int health = monsterJson.has("health") ? monsterJson.getInt("health") : 0;
 
       // create concrete instance of monster
@@ -162,7 +162,7 @@ public class Parser {
       String description = puzzleJson.getString("description");
       String effects = puzzleJson.getString("effects");
       String target = puzzleJson.getString("target");
-      String picture = puzzleJson.isNull("picture") ? null : puzzleJson.getString("picture");
+      String picture = puzzleJson.isNull("picture") ? "generic_puzzle.png" : puzzleJson.getString("picture");
       gameelements.Puzzle puzzle = new gameelements.Puzzle(
               name,
               affects_targets,
@@ -328,7 +328,7 @@ public class Parser {
       int S = roomJson.getInt("S");
       int E = roomJson.getInt("E");
       int W = roomJson.getInt("W");
-      String picture = roomJson.isNull("picture") ? null : roomJson.getString("picture");
+      String picture = roomJson.isNull("picture") ? "generic_location.png" : roomJson.getString("picture");
 
       // query correct game elements for each room
       List<IRoomElement> puzzle = getRoomGameElements(roomJson, "puzzle", puzzles);

@@ -289,14 +289,18 @@ public class Room {
      * @return
      */
     public String toString() {
-        String out = this.getDescription();
+        String desc = this.getDescription();
+        String items = this.getItems().stream()
+                .map(item -> item.getName())
+                .collect(Collectors.joining(", "));
+        String itemString = items != null ? "\nItems you see in this room: " + items : "";
         // if puzzle in room, only return puzzle effect
         if (this.getPuzzle() != null) {
             if (this.getPuzzle().isActive()) {
                 return this.getPuzzle().getEffects().concat("\n");
             }
             else {
-                return out;
+                return desc + itemString;
             }
         }
         // if monster in room print both room desc and monster effect
@@ -305,12 +309,12 @@ public class Room {
                 return this.getMonster().getEffects().concat("\n");
             }
             else {
-                return out;
+                return desc + itemString;
             }
         }
         // just print room desc
         else {
-            return out;
+            return desc +itemString;
         }
 
     }
