@@ -310,8 +310,11 @@ public class GameModel {
     // check for save data
     try {
       this.roomModel = new RoomModel(name);
+      System.out.println(name);
       String strJson = Parser.readJsonFile(name);
+      System.out.println(strJson);
       JSONObject json = Parser.parseJsonString(strJson);
+
       this.player = Parser.parsePlayer(json, this.roomModel.getRoomList());
       return "Save data loaded successfully";
     } catch (Exception e) {

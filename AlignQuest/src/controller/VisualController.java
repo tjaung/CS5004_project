@@ -35,7 +35,7 @@ public class VisualController implements ActionListener {
   @Override
   public void actionPerformed(ActionEvent e) {
     String action = e.getActionCommand();
-    System.out.println(action);
+//    System.out.println(action);
     switch (action) {
       // Move commands: User presses a move buton, which will send them to the corresponding room.
       // If they are unable to move in a specified direction (room does not exist, or room blocked),
@@ -51,6 +51,7 @@ public class VisualController implements ActionListener {
 
 //          this.view.updateDesc(this.model.getString());
           this.view.updateImage(this.model.getRoomModel().getCurrentRoom().getPicture());
+          System.out.println(this.model.getRoomModel().getCurrentRoom().toString());
           // process turn or endTurn()
         }
         catch (Exception error) {
@@ -169,6 +170,9 @@ public class VisualController implements ActionListener {
             }
           }
           String selection = PopUp.openSaveList(saves);
+          String res = this.model.loadGame("../AlignQuest/saves/" + selection);
+          PopUp.confirmPopUp(res);
+          this.view = new GameView("Align Quest");
         }
         catch (Exception error) {
           PopUp.confirmPopUp(error.getMessage());
