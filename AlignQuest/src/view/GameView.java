@@ -24,7 +24,7 @@ public class GameView extends JFrame {
   private JMenuItem exit;
   private JMenuItem save;
   private JMenuItem load;
-
+  private JButton inspectButton;
   private ImagePanel imagePanel;
   private OptionPanel optionPanel;
   private DescriptionPanel descriptionPanel;
@@ -63,7 +63,7 @@ public class GameView extends JFrame {
     this.answerButton = this.optionPanel.getAnswerButton();
     this.useButton = this.inventoryPanel.getUse();
     this.dropButton = this.inventoryPanel.getDrop();
-
+    this.inspectButton = this.inventoryPanel.getInspect();
   }
 
   public JMenuBar buildMenu() {
@@ -100,6 +100,7 @@ public class GameView extends JFrame {
     this.west.addActionListener(controller);
     this.examineButton.addActionListener(controller);
     this.takeButton.addActionListener(controller);
+    this.inspectButton.addActionListener(controller);
     this.answerButton.addActionListener(controller);
     this.useButton.addActionListener(controller);
     this.dropButton.addActionListener(controller);
