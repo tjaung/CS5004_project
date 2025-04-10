@@ -12,7 +12,7 @@ public class ImagePanel extends JPanel {
   public ImagePanel() {
     super();
     JPanel imgPanel = new JPanel();
-    imgPanel.setBackground(Color.blue);
+//    imgPanel.setBackground(Color.blue);
     this.imgPanel = imgPanel;
     this.img = new JLabel();
     this.add(this.imgPanel);

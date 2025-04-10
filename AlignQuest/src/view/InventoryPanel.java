@@ -37,7 +37,7 @@ public class InventoryPanel extends JPanel {
 
   public void createPanel() {
     JLabel inventoryLabel = new JLabel("Inventory");
-    inventoryLabel.setFont(new Font("Arial", Font.BOLD, 16));
+//    inventoryLabel.setFont(new Font("Arial", Font, 16));
     inventoryLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
     this.setLayout(new BoxLayout(this, Y_AXIS));
     this.setPreferredSize(new Dimension(10, 10));
@@ -48,12 +48,19 @@ public class InventoryPanel extends JPanel {
     subPanel.setPreferredSize(new Dimension(10, 10));
     JScrollPane scrollPane = new JScrollPane(subPanel);
     scrollPane.setAlignmentX(Component.CENTER_ALIGNMENT);
-    scrollPane.setMaximumSize(new Dimension(200, 300));
+    scrollPane.setMaximumSize(new Dimension(200, 275));
     this.add(inventoryLabel);
     this.add(Box.createRigidArea(new Dimension(10, 10)));
-    this.add(inspect);
-    this.add(use);
-    this.add(drop);
+    // add subpanel for buttons
+    JPanel buttonPanel = new JPanel();
+    buttonPanel.setLayout(new BoxLayout(buttonPanel, X_AXIS));
+    buttonPanel.setPreferredSize(new Dimension(10, 10));
+    buttonPanel.add(inspect);
+    buttonPanel.add(use);
+    buttonPanel.add(drop);
+    this.add(buttonPanel);
+//    this.add(use);
+//    this.add(drop);
     this.add(Box.createRigidArea(new Dimension(10, 10)));
     this.add(scrollPane);
   }
@@ -97,7 +104,7 @@ public class InventoryPanel extends JPanel {
     for (IRoomElement item : items) {
       JLabel itemLabel = new JLabel(item.getName());
       itemLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-      itemLabel.setFont(new Font("Arial", Font.BOLD, 15));
+//      itemLabel.setFont(new Font("Arial", Font.BOLD, 15));
       subPanel.add(itemLabel);
     }
     subPanel.revalidate();
