@@ -269,8 +269,9 @@ public class Parser {
       String answer = eleJson.getString("solution");
       // solution condition 1: it's a pw and needs a string solution
       if(answer.startsWith("'") && answer.endsWith("'")) {
+        String formatted_solution = answer.substring(1, answer.length() - 1);
         // create a new empty item that holds the string solution
-        solution = new Item(0,0, answer, 1,1,"", "", "");
+        solution = new Item(0,0, formatted_solution, 1,1,"", "", "");
         itemList.add(solution);
       }
       // solution condition 2: it's an item puzzle and it needs a specific item

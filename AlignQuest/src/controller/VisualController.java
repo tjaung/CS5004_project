@@ -91,7 +91,7 @@ public class VisualController implements ActionListener {
     }
   }
 
-  // Examine command: User picks from a list popup of all of the game elements in the currrent room.
+  // Examine command: User picks from a list popup of all the game elements in the currrent room.
   // They can choose one to view, where they will get a desc popup of picture and text desc.
   private void examine() {
     List<IRoomElement> roomElements = this.model.getRoomModel().getCurrentRoom().getElements();
@@ -115,7 +115,7 @@ public class VisualController implements ActionListener {
       );
       this.view.getInventoryPanel().updatePanel(newInv);
     } catch (Exception error) {
-      PopUp.confirmPopUp(error.getMessage());
+//      PopUp.confirmPopUp(error.getMessage());
     }
   }
 
@@ -126,7 +126,7 @@ public class VisualController implements ActionListener {
       IRoomElement item = PopUp.openListPopUp(itemsArr);
       PopUp.openDescPopUp(item);
     } catch (Exception error) {
-      PopUp.confirmPopUp(error.getMessage());
+//      PopUp.confirmPopUp(error.getMessage());
     }
   }
 
@@ -140,6 +140,8 @@ public class VisualController implements ActionListener {
       if (answer != null) {
         this.model.answerRiddle(answer);
         PopUp.confirmPopUp("SUCCESS! You solved this puzzle with the answer " + answer);
+        this.view.updateImage(this.model.getRoomModel().getCurrentRoom().getPicture());
+        this.view.updateDesc(this.model.getString());
         //process turn
       }
     } catch (Exception error) {
@@ -163,7 +165,7 @@ public class VisualController implements ActionListener {
       );
       this.view.getInventoryPanel().updatePanel(newInv);
     } catch (Exception error) {
-      PopUp.confirmPopUp(error.getMessage());
+//      PopUp.confirmPopUp(error.getMessage());
     }
   }
 
@@ -174,11 +176,18 @@ public class VisualController implements ActionListener {
       List<Item> invItems = this.model.getPlayer().getInventory().getItems();
       List<IRoomElement> items = this.castItemToRoomElement(invItems);
       IRoomElement item = PopUp.openListPopUp(items);
+      if(item == null) {
+        return;
+      }
       Item useItem = (Item) item;
+
       this.model.useItem(useItem);
+
       PopUp.confirmPopUp(useItem.getWhenUsed());
+
       // update image if we need to
       this.view.updateImage(this.model.getRoomModel().getCurrentRoom().getPicture());
+      this.view.updateDesc(this.model.getString());
       // process turn
     } catch (Exception error) {
       PopUp.confirmPopUp(error.getMessage());
