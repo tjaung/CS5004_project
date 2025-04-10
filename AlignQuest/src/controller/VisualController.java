@@ -49,9 +49,10 @@ public class VisualController implements ActionListener {
         try {
           this.model.move(action);
           System.out.println(this.model.getString());
-
-//          this.view.updateDesc(this.model.getString());
+          // Update views image and description
+          this.view.updateDesc(this.model.getString());
           this.view.updateImage(this.model.getRoomModel().getCurrentRoom().getPicture());
+          // process turn or endTurn()
         }
         catch (Exception error) {
           System.out.println(error.getMessage());
@@ -63,7 +64,9 @@ public class VisualController implements ActionListener {
       // They can choose one to view, where they will get a desc popup of picture and text desc.
       case "X":
         IRoomElement choice = PopUp.openListPopUp(this.model.getRoomModel().getCurrentRoom().getElements());
-        PopUp.openDescPopUp(choice);
+        if (choice != null) {
+          PopUp.openDescPopUp(choice);
+        }
         break;
       // Take command: Shows popup of items available to take. User chooses an item and controller calls model
       // to add it to the inventory. If successful, send success message, else catch error and display it.
@@ -86,6 +89,26 @@ public class VisualController implements ActionListener {
           PopUp.openDescPopUp(item);
           break;
         } catch (Exception error){
+      case "D":
+        try{
+          List<Item> invItems = this.model.getPlayer().getInventory().getItems();
+          List<IRoomElement> items = new ArrayList<IRoomElement>();
+          for(Item item: invItems) {
+            IRoomElement i = (IRoomElement) item;
+            items.add(i);
+          }
+          IRoomElement dropItem = PopUp.openListPopUp(items);
+          this.model.dropItem((Item) dropItem);
+          PopUp.confirmPopUp("You dropped the item " + dropItem.getName());
+          // update inv panel with new items
+          List<Item> newInvItems = this.model.getPlayer().getInventory().getItems();
+          List<IRoomElement> newItems = new ArrayList<IRoomElement>();
+          for(Item item: newInvItems) {
+            IRoomElement i = (IRoomElement) item;
+            newItems.add(i);
+          }
+          this.view.getInventoryPanel().updatePanel(newItems);
+        } catch (Exception error) {
           PopUp.confirmPopUp(error.getMessage());
         }
         break;
@@ -96,8 +119,11 @@ public class VisualController implements ActionListener {
       case "A":
         try {
           String answer = PopUp.inputPopUp("Enter your answer:");
-          this.model.answerRiddle(answer);
-          PopUp.confirmPopUp("SUCCESS! You solved this puzzle with the answer " + answer);
+          if (answer != null) {
+            this.model.answerRiddle(answer);
+            PopUp.confirmPopUp("SUCCESS! You solved this puzzle with the answer " + answer);
+            //process turn
+          }
         } catch (Exception error) {
           PopUp.confirmPopUp(error.getMessage());
         }
@@ -139,6 +165,7 @@ public class VisualController implements ActionListener {
           PopUp.confirmPopUp(useItem.getWhenUsed());
           // update image if we need to
           this.view.updateImage(this.model.getRoomModel().getCurrentRoom().getPicture());
+          // process turn
         }
         catch (Exception error) {
           PopUp.confirmPopUp(error.getMessage());
@@ -183,8 +210,10 @@ public class VisualController implements ActionListener {
   public void go() throws Exception {
     String imgPath = this.model.getRoomModel().getCurrentRoom().getPicture();
     this.view.getImagePanel().setImage(imgPath);
+    String descriptionPath = this.model.getRoomModel().getCurrentRoom().getDescription();
+    this.view.getDescriptionPanel().setDescription(descriptionPath);
     this.view.display();
-    // this.view.updateDesc(this.model.getString());
+    this.view.updateDesc(this.model.getString());
     // this.view.updateImage(this.model.getImage());
   }
 }

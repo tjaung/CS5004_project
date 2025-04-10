@@ -27,7 +27,7 @@ public class GameView extends JFrame {
   private JButton inspectButton;
   private ImagePanel imagePanel;
   private OptionPanel optionPanel;
-  private JPanel descriptionPanel;
+  private DescriptionPanel descriptionPanel;
   private InventoryPanel inventoryPanel;
 
   public GameView(String caption) {
@@ -104,6 +104,7 @@ public class GameView extends JFrame {
     this.answerButton.addActionListener(controller);
     this.useButton.addActionListener(controller);
     this.dropButton.addActionListener(controller);
+
     this.exit.addActionListener(controller);
     this.save.addActionListener(controller);
     this.load.addActionListener(controller);
@@ -120,6 +121,9 @@ public class GameView extends JFrame {
     return this.imagePanel;
   }
 
+  public DescriptionPanel getDescriptionPanel() { return this.descriptionPanel; }
+  public void updateDesc(String newDesc) throws Exception {
+
   public InventoryPanel getInventoryPanel() {
     return this.inventoryPanel;
   }
@@ -134,6 +138,7 @@ public class GameView extends JFrame {
 
   public void updateDesc(String newDesc) {
     // update the this.description panel string
+    this.descriptionPanel.setDescription(newDesc);
   }
 
 

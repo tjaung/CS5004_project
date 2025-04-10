@@ -16,6 +16,7 @@ public class GameModel {
   Player player;
   private String string;
   private String imagePath;
+  private String descriptionPath;
   // inventory is contained within player
 
 
@@ -28,6 +29,7 @@ public class GameModel {
     this.player.setCurrentRoom(this.roomModel.currentRoom);
     this.string = this.roomModel.getCurrentRoom().toString();
     this.imagePath = this.roomModel.getCurrentRoom().getPicture();
+    this.descriptionPath = this.roomModel.getCurrentRoom().getDescription();
   }
 
   /**
@@ -106,8 +108,11 @@ public class GameModel {
         break;
     }
     // this.roomModel.currentRoom.toString()
-    this.setString("You moved " + s + "\n" +
-            this.roomModel.currentRoom.toString());
+//    this.setString("You moved " + s + "\n" +
+//            this.roomModel.currentRoom.toString());
+    // print room description in the panel
+    this.setString(this.roomModel.currentRoom.toString());
+    //this.setString(this.roomModel.currentRoom.printItems());
   }
 
   /**
@@ -219,7 +224,6 @@ public class GameModel {
   /**
    * Clears a room 
    */
-
   public void clearRoom(Room room) {
     if (this.roomModel.getCurrentRoom().getN() < 0) {
       this.roomModel.getCurrentRoom().setN(this.roomModel.getCurrentRoom().getN() * -1);
@@ -318,6 +322,10 @@ public class GameModel {
     } catch (Exception e) {
       return e.getMessage();
     }
+  }
+
+  public void endTurn() {
+
   }
 
   public void setString(String newStr) {
