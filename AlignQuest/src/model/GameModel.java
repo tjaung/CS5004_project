@@ -163,7 +163,6 @@ public class GameModel {
   public void useItem(Item item) {
     if (this.player.getInventory().hasItem(item)) {
       if (item.getUsesRemaining() > 0) {
-        item.setUsesRemaining(item.getUsesRemaining() - 1);
         Monster roomMonster = this.roomModel.getCurrentRoom().getMonster();
         Puzzle roomPuzzle = this.roomModel.getCurrentRoom().getPuzzle();
         Boolean isMonsterUsed = false;
@@ -183,6 +182,7 @@ public class GameModel {
           throw new IllegalArgumentException("There is nothing to use this on.\n");
         }
         else {
+          item.setUsesRemaining(item.getUsesRemaining() - 1);
           this.endTurn();
           this.setString(this.roomModel.getCurrentRoom().toString());
         }

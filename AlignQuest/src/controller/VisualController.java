@@ -74,6 +74,9 @@ public class VisualController implements ActionListener {
   }
 
   public void go() throws Exception {
+    String playerName = PopUp.inputPopUp("Enter your name: ");
+    this.model.getPlayer().setName(playerName);
+
     String imgPath = this.model.getRoomModel().getCurrentRoom().getPicture();
     this.view.getImagePanel().setImage(imgPath);
     String descriptionPath = this.model.getRoomModel().getCurrentRoom().getDescription();

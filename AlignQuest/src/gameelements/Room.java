@@ -293,7 +293,7 @@ public class Room {
         String items = this.getItems().stream()
                 .map(item -> item.getName())
                 .collect(Collectors.joining(", "));
-        String itemString = items != null ? "\nItems you see in this room: " + items : "";
+        String itemString = this.getItems().size() != 0 ? "\nItems you see in this room: " + items : "";
         // if puzzle in room, only return puzzle effect
         if (this.getPuzzle() != null) {
             if (this.getPuzzle().isActive()) {
