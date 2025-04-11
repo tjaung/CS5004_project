@@ -133,6 +133,11 @@ public class GameView extends JFrame {
 
   public void updateDesc(String newDesc, boolean keepPrevious) throws Exception {
     // update the this.description panel string
-    this.descriptionPanel.setDescription(newDesc);
+    if (!keepPrevious) {
+      this.descriptionPanel.setDescription(newDesc);
+    }
+    else if (keepPrevious) {
+      this.descriptionPanel.appendDescription(newDesc);
+    }
   }
 }

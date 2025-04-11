@@ -62,7 +62,11 @@ public class VisualController implements ActionListener {
       case "-": this.loadGame();
         break;
     }
-    this.view.updateDesc(this.model.getEndTurnMessage(), true);
+    try {
+      this.view.updateDesc(this.model.getEndTurnMessage(), true);
+    } catch (Exception ex) {
+      throw new RuntimeException(ex);
+    }
     if (this.model.isGameOver()) {
       PopUp.quitPopUp(this.model.getPlayer().getName(), this.model.getPlayer().getScore(), this.model.endGame());
       System.exit(0);
@@ -75,7 +79,7 @@ public class VisualController implements ActionListener {
     String descriptionPath = this.model.getRoomModel().getCurrentRoom().getDescription();
     this.view.getDescriptionPanel().setDescription(descriptionPath);
     this.view.display();
-    this.view.updateDesc(this.model.getString());
+    this.view.updateDesc(this.model.getString(), false);
     // this.view.updateImage(this.model.getImage());
   }
 
@@ -88,7 +92,7 @@ public class VisualController implements ActionListener {
       this.model.move(action);
       System.out.println(this.model.getString());
       // Update views image and description
-      this.view.updateDesc(this.model.getString());
+      this.view.updateDesc(this.model.getString(), false);
       this.view.updateImage(this.model.getRoomModel().getCurrentRoom().getPicture());
       // process turn or endTurn()
     } catch (Exception error) {
@@ -119,6 +123,7 @@ public class VisualController implements ActionListener {
               this.model.getPlayer().getInventory().getItems()
       );
       this.view.getInventoryPanel().updatePanel(newInv);
+      this.view.updateDesc(this.model.getString(), false);
     } catch (Exception error) {
 //      PopUp.confirmPopUp(error.getMessage());
     }
@@ -146,7 +151,7 @@ public class VisualController implements ActionListener {
         this.model.answerRiddle(answer);
         PopUp.confirmPopUp("SUCCESS! You solved this puzzle with the answer " + answer);
         this.view.updateImage(this.model.getRoomModel().getCurrentRoom().getPicture());
-        this.view.updateDesc(this.model.getString());
+        this.view.updateDesc(this.model.getString(), false);
         //process turn
       }
     } catch (Exception error) {
@@ -192,7 +197,7 @@ public class VisualController implements ActionListener {
 
       // update image if we need to
       this.view.updateImage(this.model.getRoomModel().getCurrentRoom().getPicture());
-      this.view.updateDesc(this.model.getString());
+      this.view.updateDesc(this.model.getString(), false);
       // process turn
     } catch (Exception error) {
       PopUp.confirmPopUp(error.getMessage());

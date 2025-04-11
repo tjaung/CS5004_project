@@ -119,7 +119,7 @@ public class GameModel {
 //    this.setString("You moved " + s + "\n" +
 //            this.roomModel.currentRoom.toString());
     // print room description in the panel
-    this.setString(this.roomModel.currentRoom.toString());
+    //this.setString(this.roomModel.currentRoom.toString());
     //this.setString(this.roomModel.currentRoom.printItems());
   }
 
@@ -131,6 +131,7 @@ public class GameModel {
     if (this.roomModel.getCurrentRoom().hasItem(item)) {
       this.getPlayer().getInventory().addItem(item);
       this.roomModel.getCurrentRoom().removeItem(item);
+      this.setString(this.roomModel.currentRoom.toString());
     }
     else {
       throw new IllegalArgumentException("There is no item with that name in the current room.\n");
@@ -146,6 +147,7 @@ public class GameModel {
     if (this.player.getInventory().hasItem(item)) {
       this.player.getInventory().dropItem(item);
       this.roomModel.getCurrentRoom().addItem((Item) item);
+      this.setString(this.roomModel.getCurrentRoom().toString());
     }
     else {
       throw new IllegalArgumentException("You don't have a ".concat(item.getName().concat(".\n")));
@@ -177,6 +179,9 @@ public class GameModel {
         if (!isMonsterUsed && !isPuzzleUsed) {
           throw new IllegalArgumentException("There is nothing to use this on.\n");
         }
+        else {
+          this.setString(this.roomModel.getCurrentRoom().toString());
+        }
       } else {
         throw new IllegalArgumentException(item.getName().concat(" is out of uses.\n"));
       }
@@ -200,6 +205,7 @@ public class GameModel {
         puzzle.setActive(false);
         this.player.addPuzzle(puzzle);
         clearRoom(this.roomModel.getCurrentRoom());
+        this.setString(this.roomModel.getCurrentRoom().toString());
       } else {
         throw new IllegalArgumentException("It had no effect.\n");
       }
@@ -303,11 +309,12 @@ public class GameModel {
    * Applies damage.
    */
   public boolean takeDamage() {
-    if (this.roomModel.getCurrentRoom().getMonster() != null) {
+    if ((this.roomModel.getCurrentRoom().getMonster() != null) && this.roomModel.getCurrentRoom().getMonster().isActive()) {
       this.player.setHealth(this.player.getHealth() + this.roomModel.getCurrentRoom().getMonster().getDamage());
       return true;
     }
     else {
+      this.setEndTurnMessage("");
       return false;
     }
   }
@@ -368,7 +375,7 @@ public class GameModel {
   }
 
   public String getString() {
-    return this.roomModel.getCurrentRoom().toString();
+    return this.string;
   }
 
   public boolean isGameOver() {

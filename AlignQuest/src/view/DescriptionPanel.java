@@ -19,6 +19,13 @@ public class DescriptionPanel extends JPanel{
         this.add(this.descriptionPanel);
     }
 
+    public void appendDescription(String newDescription) {
+        if (newDescription == null) {
+            return;
+        }
+        this.descriptionText.append(newDescription);
+    }
+
     public void setDescription(String description) throws Exception{
         try {
             this.descriptionPanel.removeAll();
