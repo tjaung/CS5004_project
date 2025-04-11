@@ -89,6 +89,8 @@ public class GameView extends JFrame {
     this.setActionListener((ActionListener) controller);
   }
 
+  // can this be passed on by using frame composition? buttons added to frame, frame sets actionlistener
+  // to view which sits its own listener to be the controller
   public void setActionListener(ActionListener controller) {
     this.north.addActionListener(controller);
     this.south.addActionListener(controller);
@@ -128,7 +130,7 @@ public class GameView extends JFrame {
     }
   }
 
-  public void updateDesc(String newDesc) {
+  public void updateDesc(String newDesc, boolean keepPrevious) {
     // update the this.description panel string
   }
 }

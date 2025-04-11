@@ -30,7 +30,7 @@ public class VisualController implements ActionListener {
   /**
    * Invoked when an action occurs.
    *
-   * @param e the event to be processed
+   * @param e the event to be processed.
    */
   @Override
   public void actionPerformed(ActionEvent e) {
@@ -59,7 +59,8 @@ public class VisualController implements ActionListener {
         }
         break;
       }
-      // Examine command: User picks from a list popup of all of the game elements in the currrent room.
+
+      // Examine command: User picks from a list popup of all of the game elements in the current room.
       // They can choose one to view, where they will get a desc popup of picture and text desc.
       case "X":
         IRoomElement choice = PopUp.openListPopUp(this.model.getRoomModel().getCurrentRoom().getElements());
@@ -67,6 +68,7 @@ public class VisualController implements ActionListener {
           PopUp.openDescPopUp(choice);
         }
         break;
+
       // Take command: Shows popup of items available to take. User chooses an item and controller calls model
       // to add it to the inventory. If successful, send success message, else catch error and display it.
       case "T":
@@ -84,8 +86,9 @@ public class VisualController implements ActionListener {
           PopUp.confirmPopUp(error.getMessage());
         }
         break;
+
       case "D":
-        try{
+        try {
           List<Item> invItems = this.model.getPlayer().getInventory().getItems();
           List<IRoomElement> items = new ArrayList<IRoomElement>();
           for(Item item: invItems) {
@@ -107,6 +110,7 @@ public class VisualController implements ActionListener {
           PopUp.confirmPopUp(error.getMessage());
         }
         break;
+
       // Answer command: Specific to solving riddle puzzles. If there is a riddle puzzle, the user
       // can call this command to get an input popup. The input is sent to the puzzle to see if
       // the answer is correct to unlock the path. If there is no puzzle, display that popup. If
@@ -144,8 +148,9 @@ public class VisualController implements ActionListener {
           PopUp.confirmPopUp(error.getMessage());
         }
       break;
+
       case "Q":
-        PopUp.quitPopUp(this.model.getPlayer().getName(), this.model.getPlayer().getScore());
+        PopUp.quitPopUp(this.model.getPlayer().getName(), this.model.getPlayer().getScore(), "");
         System.exit(0);
         break;
 
@@ -177,6 +182,11 @@ public class VisualController implements ActionListener {
         }
         break;
 
+    }
+    this.view.updateDesc(this.model.getEndTurnMessage(), true);
+    if (this.model.isGameOver()) {
+      PopUp.quitPopUp(this.model.getPlayer().getName(), this.model.getPlayer().getScore(), this.model.endGame());
+      System.exit(0);
     }
   }
 
