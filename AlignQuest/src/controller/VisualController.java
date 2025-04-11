@@ -31,7 +31,7 @@ public class VisualController implements ActionListener {
   /**
    * Invoked when an action occurs.
    *
-   * @param e the event to be processed
+   * @param e the event to be processed.
    */
   @Override
   public void actionPerformed(ActionEvent e) {
@@ -61,6 +61,11 @@ public class VisualController implements ActionListener {
         break;
       case "-": this.loadGame();
         break;
+    }
+    this.view.updateDesc(this.model.getEndTurnMessage(), true);
+    if (this.model.isGameOver()) {
+      PopUp.quitPopUp(this.model.getPlayer().getName(), this.model.getPlayer().getScore(), this.model.endGame());
+      System.exit(0);
     }
   }
 
@@ -195,7 +200,7 @@ public class VisualController implements ActionListener {
   }
 
   private void quitGame() {
-    PopUp.quitPopUp(this.model.getPlayer().getName(), this.model.getPlayer().getScore());
+    PopUp.quitPopUp(this.model.getPlayer().getName(), this.model.getPlayer().getScore(), "");
     System.exit(0);
   }
 

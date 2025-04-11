@@ -18,6 +18,8 @@ public class GameModel {
   Player player;
   private String string;
   private String imagePath;
+  private String endTurnMessage;
+  private boolean gameOver;
   private String descriptionPath;
   // inventory is contained within player
 
@@ -31,6 +33,7 @@ public class GameModel {
     this.player.setCurrentRoom(this.roomModel.currentRoom);
     this.string = this.roomModel.getCurrentRoom().toString();
     this.imagePath = this.roomModel.getCurrentRoom().getPicture();
+    this.endTurnMessage = "";
     this.descriptionPath = this.roomModel.getCurrentRoom().getDescription();
   }
 
@@ -110,6 +113,9 @@ public class GameModel {
         break;
     }
     // this.roomModel.currentRoom.toString()
+    this.setString("You moved " + s + "\n" +
+            this.roomModel.currentRoom.toString());
+    this.endTurn();
 //    this.setString("You moved " + s + "\n" +
 //            this.roomModel.currentRoom.toString());
     // print room description in the panel
@@ -129,6 +135,7 @@ public class GameModel {
     else {
       throw new IllegalArgumentException("There is no item with that name in the current room.\n");
     }
+    this.endTurn();
   }
 
   /**
@@ -143,6 +150,7 @@ public class GameModel {
     else {
       throw new IllegalArgumentException("You don't have a ".concat(item.getName().concat(".\n")));
     }
+    this.endTurn();
   }
 
   /**
@@ -176,6 +184,7 @@ public class GameModel {
     else {
       throw new IllegalArgumentException("You don't have a ".concat(item.getName().concat(".\n")));
     }
+    this.endTurn();
   }
 
 
@@ -198,6 +207,7 @@ public class GameModel {
     else {
       throw new IllegalArgumentException("There is no question here to answer.\n");
     }
+    this.endTurn();
   }
 
    /**
@@ -292,29 +302,17 @@ public class GameModel {
   /**
    * Applies damage.
    */
-  public void takeDamage() {
+  public boolean takeDamage() {
     if (this.roomModel.getCurrentRoom().getMonster() != null) {
       this.player.setHealth(this.player.getHealth() + this.roomModel.getCurrentRoom().getMonster().getDamage());
+      return true;
     }
     else {
-      throw new NoSuchElementException("");
+      return false;
     }
   }
 
-    /**
-   * Answer.
-   */
-  public void answer() {}
-
-  
-    /**
-   * is the target valid
-   */
-  public boolean validTarget() {
-    return true;
-  }
-
-      /**
+  /**
    * Saves the game
    */
   public String saveGame(String name) {
@@ -342,8 +340,27 @@ public class GameModel {
     }
   }
 
+  /**
+   * Processes any changes to the model that should occur whenever a turn ends.
+   * Updates the endTurnMessage if appropriate.
+   */
   public void endTurn() {
+    if (this.takeDamage()) {
+      this.setEndTurnMessage(this.getRoomModel().getCurrentRoom().getMonster().getAttack());
+    }
+    if (this.gameOver()) {
+      String byeMessage = this.endGame();
+    }
+  }
 
+  public void setEndTurnMessage(String newMessage) {
+    this.endTurnMessage = newMessage;
+  }
+
+  public String getEndTurnMessage() {
+    // checks if player takes dmg
+    // checks if game is over or player quits
+    return this.endTurnMessage;
   }
 
   public void setString(String newStr) {
@@ -354,5 +371,7 @@ public class GameModel {
     return this.roomModel.getCurrentRoom().toString();
   }
 
-
+  public boolean isGameOver() {
+    return gameOver;
+  }
 }
