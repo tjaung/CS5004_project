@@ -1,0 +1,11 @@
+Inventory.hasItem could be replaced with Inventory.getItems().contains
+Shouldn't parse<GameElement>toJSON be moved out to the parser/reverseParser and use getters to get the appropriate info?
+Enum for directions? this could dramatically simplify the move commands.
+allow player to type in full word commands
+standardize strings and errors!!
+the lists of elements in Room
+adopt command pattern for switch statement
+merge JSON system to only use one jar file
+
+
+model needs a toString to describe its state that can be passed to the view
