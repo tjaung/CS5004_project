@@ -67,7 +67,7 @@ public class VisualController implements ActionListener {
     } catch (Exception ex) {
       throw new RuntimeException(ex);
     }
-    if (this.model.isGameOver()) {
+    if (this.model.gameOver()) {
       PopUp.quitPopUp(this.model.getPlayer().getName(), this.model.getPlayer().getScore(), this.model.endGame());
       System.exit(0);
     }
