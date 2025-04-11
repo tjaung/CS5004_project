@@ -20,10 +20,10 @@ public class GameView extends JFrame {
   private JMenuItem exit;
   private JMenuItem save;
   private JMenuItem load;
-
+  private JButton inspectButton;
   private ImagePanel imagePanel;
   private OptionPanel optionPanel;
-  private JPanel descriptionPanel;
+  private DescriptionPanel descriptionPanel;
   private InventoryPanel inventoryPanel;
 
   public GameView(String caption) {
@@ -59,7 +59,7 @@ public class GameView extends JFrame {
     this.answerButton = this.optionPanel.getAnswerButton();
     this.useButton = this.inventoryPanel.getUse();
     this.dropButton = this.inventoryPanel.getDrop();
-
+    this.inspectButton = this.inventoryPanel.getInspect();
   }
 
   public JMenuBar buildMenu() {
@@ -98,6 +98,7 @@ public class GameView extends JFrame {
     this.west.addActionListener(controller);
     this.examineButton.addActionListener(controller);
     this.takeButton.addActionListener(controller);
+    this.inspectButton.addActionListener(controller);
     this.answerButton.addActionListener(controller);
     this.useButton.addActionListener(controller);
     this.dropButton.addActionListener(controller);
@@ -110,13 +111,13 @@ public class GameView extends JFrame {
 
   public void display() {
     this.setVisible(true);
-    //this.imagePanel.setVisible(true);
-    //this.optionPanel.setVisible(true);
   }
 
   public ImagePanel getImagePanel() {
     return this.imagePanel;
   }
+
+  public DescriptionPanel getDescriptionPanel() { return this.descriptionPanel; }
 
   public InventoryPanel getInventoryPanel() {
     return this.inventoryPanel;
@@ -130,7 +131,8 @@ public class GameView extends JFrame {
     }
   }
 
-  public void updateDesc(String newDesc, boolean keepPrevious) {
+  public void updateDesc(String newDesc, boolean keepPrevious) throws Exception {
     // update the this.description panel string
+    this.descriptionPanel.setDescription(newDesc);
   }
 }

@@ -171,6 +171,9 @@ public class Room {
                 && this.getPuzzle().isActive()
                 && this.getPuzzle().getPicture() != null) {
             return this.getPuzzle().getPicture();
+        } else if (this.getMonster() != null
+                && this.getMonster().isActive()) {
+            return this.getMonster().getPicture();
         } else {
             return this.picture;
         }
@@ -286,24 +289,32 @@ public class Room {
      * @return
      */
     public String toString() {
+        String desc = this.getDescription();
+        String items = this.getItems().stream()
+                .map(item -> item.getName())
+                .collect(Collectors.joining(", "));
+        String itemString = items != null ? "\nItems you see in this room: " + items : "";
+        // if puzzle in room, only return puzzle effect
         if (this.getPuzzle() != null) {
             if (this.getPuzzle().isActive()) {
                 return this.getPuzzle().getEffects().concat("\n");
             }
             else {
-                return this.getDescription();
+                return desc + itemString;
             }
         }
+        // if monster in room print both room desc and monster effect
         else if (this.getMonster() != null) {
             if (this.getMonster().isActive()) {
                 return this.getMonster().getEffects().concat("\n");
             }
             else {
-                return this.getDescription();
+                return desc + itemString;
             }
         }
+        // just print room desc
         else {
-            return this.getDescription();
+            return desc +itemString;
         }
 
     }
@@ -322,6 +333,7 @@ public class Room {
      */
     public void removeItem(Item item) {
         this.items.remove(item);
+        this.elements.remove(item);
     }
 
     /**
