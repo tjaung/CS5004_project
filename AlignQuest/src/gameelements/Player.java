@@ -22,7 +22,7 @@ public class Player {
    * Constructor. 
    */
   public Player() {
-    this.health = 100;
+    this.health = 15;
     this.inventory = new Inventory(10, 0, "./");
     this.solvedPuzzles = new ArrayList<>();
     this.defeatedMonsters = new ArrayList<>();
