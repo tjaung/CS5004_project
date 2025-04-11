@@ -113,8 +113,6 @@ public class GameView extends JFrame {
 
   public void display() {
     this.setVisible(true);
-    //this.imagePanel.setVisible(true);
-    //this.optionPanel.setVisible(true);
   }
 
   public ImagePanel getImagePanel() {

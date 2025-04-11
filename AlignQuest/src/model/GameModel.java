@@ -5,7 +5,9 @@ import org.json.JSONObject;
 import java.util.NoSuchElementException;
 
 import gameelements.Item;
+import gameelements.Monster;
 import gameelements.Player;
+import gameelements.Puzzle;
 import gameelements.Room;
 
 /**
@@ -150,11 +152,22 @@ public class GameModel {
     if (this.player.getInventory().hasItem(item)) {
       if (item.getUsesRemaining() > 0) {
         item.setUsesRemaining(item.getUsesRemaining() - 1);
-        if (this.roomModel.getCurrentRoom().getMonster() != null) {
+        Monster roomMonster = this.roomModel.getCurrentRoom().getMonster();
+        Puzzle roomPuzzle = this.roomModel.getCurrentRoom().getPuzzle();
+        Boolean isMonsterUsed = false;
+        Boolean isPuzzleUsed = false;
+
+        // if monster in room and active use on monster
+        if (roomMonster != null && roomMonster.isActive()) {
           attackMonster(item);
-        }
-        else if (this.roomModel.getCurrentRoom().getPuzzle() != null) {
+          isMonsterUsed = true;
+        } // if puzzle in room and active
+        else if (roomPuzzle != null && roomPuzzle.isActive()) {
           solvePuzzle(item);
+          isPuzzleUsed = true;
+        }
+        if (!isMonsterUsed && !isPuzzleUsed) {
+          throw new IllegalArgumentException("There is nothing to use this on.\n");
         }
       } else {
         throw new IllegalArgumentException(item.getName().concat(" is out of uses.\n"));
@@ -171,10 +184,12 @@ public class GameModel {
    * Solves a puzzle by answering with the correct solution.
    */
   public void answerRiddle(String answer) {
-    if (this.roomModel.getCurrentRoom().getPuzzle() != null && this.roomModel.getCurrentRoom().getPuzzle().isActive()) {
-      if (answer.equalsIgnoreCase(this.roomModel.getCurrentRoom().getPuzzle().getSolution().getName())) {
-        this.roomModel.getCurrentRoom().getPuzzle().setActive(false);
-        this.player.addPuzzle(this.roomModel.getCurrentRoom().getPuzzle());
+    Puzzle puzzle = this.roomModel.getCurrentRoom().getPuzzle();
+
+    if (puzzle != null && puzzle.isActive()) {
+      if (answer.equalsIgnoreCase(puzzle.getSolution().getName())) {
+        puzzle.setActive(false);
+        this.player.addPuzzle(puzzle);
         clearRoom(this.roomModel.getCurrentRoom());
       } else {
         throw new IllegalArgumentException("It had no effect.\n");
@@ -189,10 +204,12 @@ public class GameModel {
    * Solves a puzzle using an item as the solution.
    */
   public void solvePuzzle(Item item) {
-    if (this.roomModel.getCurrentRoom().getPuzzle() != null && this.roomModel.getCurrentRoom().getPuzzle().isActive()) {
-      if (item.equals(this.roomModel.getCurrentRoom().getPuzzle().getSolution())) {
-        this.roomModel.getCurrentRoom().getPuzzle().setActive(false);
-        this.player.addPuzzle(this.roomModel.getCurrentRoom().getPuzzle());
+    Puzzle puzzle = this.roomModel.getCurrentRoom().getPuzzle();
+
+    if (puzzle != null && puzzle.isActive()) {
+      if (item.equals(puzzle.getSolution())) {
+       puzzle.setActive(false);
+        this.player.addPuzzle(puzzle);
         clearRoom(this.roomModel.getCurrentRoom());
       } else {
         throw new IllegalArgumentException("It had no effect.\n");
@@ -207,10 +224,11 @@ public class GameModel {
    * Attacks a monster using an item.
    */
   public void attackMonster(Item item) {
-    if (this.roomModel.getCurrentRoom().getMonster() != null && this.roomModel.getCurrentRoom().getMonster().isActive()) {
-      if (item.equals(this.roomModel.getCurrentRoom().getMonster().getSolution())) {
-        this.roomModel.getCurrentRoom().getMonster().setActive(false);
-        this.player.addMonster(this.roomModel.getCurrentRoom().getMonster());
+    Monster monster = this.roomModel.getCurrentRoom().getMonster();
+    if (monster != null && monster.isActive()) {
+      if (item.equals(monster.getSolution())) {
+        monster.setActive(false);
+        this.player.addMonster(monster);
         clearRoom(this.roomModel.getCurrentRoom());
       } else {
         throw new IllegalArgumentException("It had no effect.\n");
@@ -333,7 +351,7 @@ public class GameModel {
   }
 
   public String getString() {
-    return this.string;
+    return this.roomModel.getCurrentRoom().toString();
   }
 
 

@@ -14,8 +14,7 @@ public class DescriptionPanel extends JPanel{
     public DescriptionPanel() {
         super();
         JLabel l = new JLabel("Description");
-        this.descriptionPanel = new JPanel();
-
+        this.descriptionPanel = new JPanel(new BorderLayout());
         this.descriptionPanel.add(l);
         this.add(this.descriptionPanel);
     }
@@ -23,14 +22,11 @@ public class DescriptionPanel extends JPanel{
     public void setDescription(String description) throws Exception{
         try {
             this.descriptionPanel.removeAll();
-            this.descriptionText = new JTextArea(description, 20, 20);
-
-            //this.descriptionText.setHorizontalAlignment(SwingConstants.CENTER);
-
-            //this.descriptionText.setPreferredSize(new Dimension(this.width, this.height));
-            //JPanel panel = new JPanel(new BorderLayout());
-            //this.descriptionText.setPreferredSize(new Dimension(200,200));
-
+            this.descriptionText = new JTextArea(description, 20, 30);
+            this.descriptionText.setLineWrap(true);
+            this.descriptionText.setWrapStyleWord(true);
+            this.descriptionText.setEditable(false); // Prevents user editing
+            this.descriptionText.setMargin( new Insets(10,10,10,10) );
             this.descriptionPanel.add(this.descriptionText);
             // force refresh on img panel
             this.descriptionPanel.revalidate();
