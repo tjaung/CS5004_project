@@ -322,7 +322,6 @@ public class GameModel {
   public boolean takeDamage() {
     if ((this.roomModel.getCurrentRoom().getMonster() != null) && this.roomModel.getCurrentRoom().getMonster().isActive()) {
       this.player.setHealth(this.player.getHealth() + this.roomModel.getCurrentRoom().getMonster().getDamage());
-      System.out.println(this.player.getHealth() + "\n");
       return true;
     }
     else {
@@ -365,7 +364,11 @@ public class GameModel {
    */
   public void endTurn() {
     if (this.takeDamage()) {
-      this.setEndTurnMessage(this.getRoomModel().getCurrentRoom().getMonster().getAttack());
+      this.setEndTurnMessage(this.roomModel.getCurrentRoom().getMonster().getName().concat(" ").concat(
+              this.getRoomModel().getCurrentRoom().getMonster().getAttack()).concat(
+              "\nPlayer takes ").concat(String.valueOf(this.roomModel.getCurrentRoom().getMonster().getDamage())).concat(
+                 " damage!"
+      ));
     }
     if (this.gameOver()) {
       String byeMessage = this.endGame();
