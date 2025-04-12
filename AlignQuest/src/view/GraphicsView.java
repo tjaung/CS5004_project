@@ -3,8 +3,10 @@ package view;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import java.util.List;
 
 import controller.VisualController;
+import gameelements.IRoomElement;
 
 public class GraphicsView extends JFrame {
   private JButton north, south, east, west;
@@ -137,5 +139,16 @@ public class GraphicsView extends JFrame {
     else if (keepPrevious) {
       this.descriptionPanel.appendDescription(newDesc);
     }
+  }
+
+  public void displayMessage(String message) {
+    JOptionPane.showConfirmDialog(null,
+            message,
+            "Confirm",
+            JOptionPane.DEFAULT_OPTION);
+  }
+
+  public IRoomElement makeChoice(List<IRoomElement> items) {
+    return PopUp.openListPopUp(items);
   }
 }

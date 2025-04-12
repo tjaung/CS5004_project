@@ -87,13 +87,12 @@ public class VisualController implements ActionListener, IController {
   private void movePlayer(String action) {
     try {
       this.model.move(action);
-      System.out.println(this.model.getString());
       // Update views image and description
       this.view.updateDesc(this.model.getString(), false);
       this.view.updateImage(this.model.getRoomModel().getCurrentRoom().getPicture());
       // process turn or endTurn()
     } catch (Exception error) {
-      System.out.println(error.getMessage());
+      this.view.displayMessage(error.getMessage());
     }
   }
 
@@ -112,17 +111,17 @@ public class VisualController implements ActionListener, IController {
   private void takeItem() {
     try {
       List<IRoomElement> items = this.model.getRoomModel().getCurrentRoom().getItems();
-      IRoomElement takeItem = PopUp.openListPopUp(items);
+      IRoomElement takeItem = this.view.makeChoice(items);
       this.model.takeItem((Item) takeItem);
       // popup confirmation
-      PopUp.confirmPopUp("You have added " + takeItem.getName() + " to your inventory.");
+      this.view.displayMessage("You have added " + takeItem.getName() + " to your inventory.");
       List<IRoomElement> newInv = this.castItemToRoomElement(
               this.model.getPlayer().getInventory().getItems()
       );
       this.view.getInventoryPanel().updatePanel(newInv);
       this.view.updateDesc(this.model.getString(), false);
     } catch (Exception error) {
-//      PopUp.confirmPopUp(error.getMessage());
+        this.view.displayMessage(error.getMessage());;
     }
   }
 
