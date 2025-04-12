@@ -12,7 +12,7 @@ public class GameEngineApp {
   private GameModel model;
   private VisualController controller;
 
-  public GameEngineApp(String gameFileName) throws Exception {
+  public GameEngineApp(String gameFileName, Boolean graphicsMode) throws Exception {
     GameModel model = new GameModel(gameFileName);
     GameView view = new GameView("Align Quest");
     this.controller = new VisualController(model, view);
@@ -27,8 +27,22 @@ public class GameEngineApp {
 
   public static void main(String [] args) throws Exception {
     // smoke tests - first send synthetic data via a string
+    String fileName = args[0];
+    GameEngineApp gameEngineApp;
+    // graphics mode
+    if (args[1] == "graphics") {
+      gameEngineApp = new GameEngineApp("../AlignQuest/".concat(fileName), true);
+    }
+    // text mode
+    else if (args[1] == "text") {
+      gameEngineApp = new GameEngineApp("../AlignQuest/".concat(fileName), false);
+    }
+    // batch mode
+    else {
+      gameEngineApp = new GameEngineApp("../AlignQuest/".concat(fileName), false);
+    }
     String s = "Sir Mix-A-Lot\nT NOTEBOOK\nN\nT HAIR CLIPPERS\nT KEY\nD NOTEBOOK\nQuit";
-    GameEngineApp gameEngineApp = new GameEngineApp("../AlignQuest/align_quest_game_elements.json");
+    //GameEngineApp gameEngineApp = new GameEngineApp("../AlignQuest/align_quest_game_elements.json", false);
     gameEngineApp.start();
   }
 }
