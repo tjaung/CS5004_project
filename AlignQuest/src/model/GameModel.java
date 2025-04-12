@@ -23,7 +23,6 @@ public class GameModel {
   private String descriptionPath;
   // inventory is contained within player
 
-
   /**
    * Constructor for the GameModel class.
    */
@@ -44,7 +43,6 @@ public class GameModel {
   public Player getPlayer() {
     return player;
   }
-
 
   /**
    * Gets the room model for the game
@@ -72,6 +70,7 @@ public class GameModel {
           throw new IllegalArgumentException("The path is blocked\n");
         }
         break;
+
       case "S":
         if (this.getRoomModel().getCurrentRoom().getS() > 0) {
           this.getPlayer().setCurrentRoom(this.getRoomModel().queryRoom(this.getRoomModel().getCurrentRoom().getS()));
@@ -85,6 +84,7 @@ public class GameModel {
           throw new IllegalArgumentException("The path is blocked\n");
         }
         break;
+
       case "E":
         if (this.getRoomModel().getCurrentRoom().getE() > 0) {
           this.getPlayer().setCurrentRoom(this.getRoomModel().queryRoom(this.getRoomModel().getCurrentRoom().getE()));
@@ -98,6 +98,7 @@ public class GameModel {
           throw new IllegalArgumentException("The path is blocked\n");
         }
         break;
+
       case "W":
         if (this.getRoomModel().getCurrentRoom().getW() > 0) {
           this.getPlayer().setCurrentRoom(this.getRoomModel().queryRoom(this.getRoomModel().getCurrentRoom().getW()));
@@ -198,8 +199,6 @@ public class GameModel {
     this.endTurn();
   }
 
-
-  
   /**
    * Solves a puzzle by answering with the correct solution.
    */
