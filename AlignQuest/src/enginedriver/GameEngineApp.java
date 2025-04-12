@@ -2,11 +2,9 @@ package enginedriver;
 
 //import org.json.simple.JSONObject;
 
-import controller.GameController;
 import controller.VisualController;
 import model.GameModel;
-import view.GameView;
-import view.TextView;
+import view.GraphicsView;
 
 public class GameEngineApp {
   private GameModel model;
@@ -14,7 +12,7 @@ public class GameEngineApp {
 
   public GameEngineApp(String gameFileName, Boolean graphicsMode) throws Exception {
     GameModel model = new GameModel(gameFileName);
-    GameView view = new GameView("Align Quest");
+    GraphicsView view = new GraphicsView("Align Quest");
     this.controller = new VisualController(model, view);
 
   }

@@ -3,26 +3,20 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.*;
 
 import gameelements.IRoomElement;
 import gameelements.Item;
 import model.GameModel;
-import view.GameView;
-import view.InventoryPanel;
+import view.GraphicsView;
 import view.PopUp;
 
 public class VisualController implements ActionListener {
   GameModel model;
-  GameView view;
+  GraphicsView view;
 
-  public VisualController(GameModel model, GameView view) {
+  public VisualController(GameModel model, GraphicsView view) {
     this.model = model;
     this.view = view;
     this.view.setEventHandler(this);

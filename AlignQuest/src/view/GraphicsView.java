@@ -6,9 +6,7 @@ import javax.swing.*;
 
 import controller.VisualController;
 
-import static view.CreateButton.createButton;
-
-public class GameView extends JFrame {
+public class GraphicsView extends JFrame {
   private JButton north, south, east, west;
   // private JButton inventory;
   private JButton lookButton;
@@ -26,7 +24,7 @@ public class GameView extends JFrame {
   private DescriptionPanel descriptionPanel;
   private InventoryPanel inventoryPanel;
 
-  public GameView(String caption) {
+  public GraphicsView(String caption) {
     // setup frame
     super(caption);
 
