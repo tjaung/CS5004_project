@@ -12,7 +12,7 @@ import model.GameModel;
 import view.GraphicsView;
 import view.PopUp;
 
-public class VisualController implements ActionListener {
+public class VisualController implements ActionListener, IController {
   GameModel model;
   GraphicsView view;
 

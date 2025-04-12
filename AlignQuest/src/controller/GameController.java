@@ -8,7 +8,7 @@ import gameelements.Item;
 import model.GameModel;
 import view.TextView;
 
-public class GameController {
+public class GameController implements IController{
   private GameModel model;
   private GameCommandReader in;
   private TextView view;
