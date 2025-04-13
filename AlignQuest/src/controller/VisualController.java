@@ -77,10 +77,9 @@ public class VisualController implements ActionListener, IController {
     this.view.getDescriptionPanel().setDescription(descriptionPath);
     this.view.display();
     this.view.updateDesc(this.model.getString(), false);
-    // this.view.updateImage(this.model.getImage());
   }
 
-  // Move commands: User presses a move buton, which will send them to the corresponding room.
+  // Move commands: User presses a move button, which will send them to the corresponding room.
   // If they are unable to move in a specified direction (room does not exist, or room blocked),
   // They will not move and an error will be displayed. These messages should be in the description
   // panel.
@@ -159,18 +158,17 @@ public class VisualController implements ActionListener, IController {
       List<IRoomElement> items = this.castItemToRoomElement(
               this.model.getPlayer().getInventory().getItems()
       );
-      IRoomElement dropItem = PopUp.openListPopUp(items);
+      IRoomElement dropItem = this.view.makeChoice(items);
       this.model.dropItem((Item) dropItem);
-
       //Popups
-      PopUp.confirmPopUp("You dropped the item " + dropItem.getName());
+      this.view.displayMessage("You dropped the item " + dropItem.getName());
       // update inv panel with new items
       List<IRoomElement> newInv = this.castItemToRoomElement(
               this.model.getPlayer().getInventory().getItems()
       );
       this.view.getInventoryPanel().updatePanel(newInv);
     } catch (Exception error) {
-//      PopUp.confirmPopUp(error.getMessage());
+        this.view.displayMessage(error.getMessage());
     }
   }
 
