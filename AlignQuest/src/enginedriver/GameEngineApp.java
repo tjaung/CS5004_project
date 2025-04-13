@@ -1,9 +1,5 @@
 package enginedriver;
 
-//import org.json.simple.JSONObject;
-
-import org.w3c.dom.Text;
-
 import controller.GameController;
 import controller.IController;
 import controller.VisualController;
@@ -43,19 +39,16 @@ public class GameEngineApp {
     else {
       String fileName = args[0];
       // graphics mode
-      if (args[1] == "graphics") {
+      if (args[1].startsWith( "-graphics")) {
         gameEngineApp = new GameEngineApp("../AlignQuest/".concat(fileName), true);
       }
       // text mode
-      else if (args[1] == "text") {
+      else if (args[1].startsWith("-text")) {
         gameEngineApp = new GameEngineApp("../AlignQuest/".concat(fileName), false);
       }
-      // batch mode
       else {
         gameEngineApp = new GameEngineApp("../AlignQuest/".concat(fileName), false);
       }
-      String s = "Sir Mix-A-Lot\nT NOTEBOOK\nN\nT HAIR CLIPPERS\nT KEY\nD NOTEBOOK\nQuit";
-      //GameEngineApp gameEngineApp = new GameEngineApp("../AlignQuest/align_quest_game_elements.json", false);
     }
     gameEngineApp.start();
   }

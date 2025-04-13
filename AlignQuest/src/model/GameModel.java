@@ -2,8 +2,6 @@ package model;
 
 import org.json.JSONObject;
 
-import java.util.NoSuchElementException;
-
 import gameelements.Item;
 import gameelements.Monster;
 import gameelements.Player;
