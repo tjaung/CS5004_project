@@ -1,15 +1,11 @@
 # CS5004 Project
 
 # User Instructions
-  We are assuming the tester knows where to place a json file for their testing and that their own test functions know where this is. If not, a sample Main class has been provided in /FinalProject/src/. This sample Main class will look for a json file in /FinalProject/src/resources/. Note that this is also where save files will be created and loaded from. The required .jar files can be found in the Library package at /FinalProject/src/Library. Diagrams are included in the Diagrams folder at /FinalProject/Diagrams. It may be helpful to zoom in on the diagrams within the files.
+  The primary .jar file can be found in the AlignQuest folder, which is where the sample align quest game elements json is. Any alternate game json file can be placed loosely in the AlignQuest folder like that to be played. Save games are still stored in the AlignQuest/saves/ folder and any images should be in AlignQuest/resources/.
 
 ### Overview:
-  Our team has revamped our high level design since last week to adhere to the MVC paradigm. Control flow is handled by the 'GameController' class in the textUI package. This is the controller in the MVC paradigm and it uses the 'GameView' class to implement the view of the MVC paradigm. Input is handled by 'GameCommandReader.' The 'GameModel' class in the model package represents the model for the MVC paradigm. It has a 'Player' and 'RoomModel' which collectively make up the database of the model. Game elements such as Room, Monster, Puzzle, Item, etc remain similar to the previous design and are contained in the gameelements package for organization purposes. Parsing JSON data and writing to JSON files is handled by the 'Parser' and 'ReverseParser' classes within the model package.
-  
-  The overall flow of the program in simple terms involves the controller taking input from the user, making a request from the model, and then telling the view the appropriate message to display. The model handles requests by using its built in logic to determine if they are allowed by the rules and/or state of the database. If they are, the appropriate changes to the database are made. If not, an exception is raised that tells the controller what went wrong so that it can tell the view what to display. Once told to 'go' the controller will continue this cycle until the player presses (q) to quit, all rooms are cleared, or they run out of health. An appropriate message will be displayed before the game ends. 
 
-  
-
+  Our team made minimal changes to the design paradigm since last week. An interface was created for controllers to adhere to, but the model mostly continues to function as it did, and the only major change is the addition of the graphical view. The game engine driver now contains the main method that allows for access from the command line or within an IDE. The graphical view was of course implemented in swing and made use of four primary panels in the main frame to create a layout similar to the example. Pop ups using the JOptionPane are used for various purposes such as messages to the player, the end game screen, and asking the player for input. A create button class enables any other class in the view package to easily create a button to add into a panel. The GraphicsView class inherits from the JFrame class, allowing it to use its methods and function as the main frame of the game. Popups are managed by this view class, which passes any input back to the controller if necessary.
 
 ### Collaborators:
 
