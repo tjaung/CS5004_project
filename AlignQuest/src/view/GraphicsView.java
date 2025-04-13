@@ -155,4 +155,8 @@ public class GraphicsView extends JFrame {
   public void displayDescription(IRoomElement item) {
     PopUp.openDescPopUp(item);
   }
+
+  public String getInput(String text) {
+    return PopUp.inputPopUp(text);
+  }
 }

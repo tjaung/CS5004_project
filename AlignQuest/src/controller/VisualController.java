@@ -142,16 +142,15 @@ public class VisualController implements ActionListener, IController {
   // it is incorrect, display that. If it is correct, display a success message.
   private void answerRiddle() {
     try {
-      String answer = PopUp.inputPopUp("Enter your answer:");
+      String answer = this.view.getInput("Enter your answer:");
       if (answer != null) {
         this.model.answerRiddle(answer);
-        PopUp.confirmPopUp("SUCCESS! You solved this puzzle with the answer " + answer);
+        this.view.displayMessage("SUCCESS! You solved this puzzle with the answer " + answer);
         this.view.updateImage(this.model.getRoomModel().getCurrentRoom().getPicture());
         this.view.updateDesc(this.model.getString(), false);
-        //process turn
       }
     } catch (Exception error) {
-      PopUp.confirmPopUp(error.getMessage());
+      this.view.displayMessage(error.getMessage());
     }
   }
 
