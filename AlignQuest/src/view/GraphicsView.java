@@ -159,4 +159,8 @@ public class GraphicsView extends JFrame {
   public String getInput(String text) {
     return PopUp.inputPopUp(text);
   }
+
+  public String getSave(List<String> saves) {
+    return PopUp.openSaveList(saves);
+  }
 }

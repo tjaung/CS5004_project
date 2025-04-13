@@ -204,11 +204,11 @@ public class VisualController implements ActionListener, IController {
 
   private void saveGame() {
     try {
-      String name = PopUp.inputPopUp("Save file name:");
+      String name = this.view.getInput("Save file name:");
       String message = this.model.saveGame(name);
-      PopUp.confirmPopUp(message);
+      this.view.displayMessage(message);
     } catch (Exception error) {
-      PopUp.confirmPopUp(error.getMessage());
+      this.view.displayMessage(error.getMessage());
     }
   }
 
@@ -222,9 +222,9 @@ public class VisualController implements ActionListener, IController {
           saves.add(file.getName());
         }
       }
-      String selection = PopUp.openSaveList(saves);
+      String selection = this.view.getSave(saves);
     } catch (Exception error) {
-      PopUp.confirmPopUp(error.getMessage());
+      this.view.displayMessage(error.getMessage());
     }
   }
 
