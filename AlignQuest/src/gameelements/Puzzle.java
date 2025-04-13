@@ -123,4 +123,8 @@ public class Puzzle implements IRoomElement{
   public void setActive(boolean bool) {
     this.active = bool;
   }
+
+  public int getWeight() {
+    return 0;
+  }
 }

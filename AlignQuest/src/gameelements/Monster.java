@@ -272,5 +272,9 @@ public class Monster implements IRoomElement {
     public String getName() {
         return name;
     }
+
+    public int getWeight() {
+        return 0;
+    }
 }
 

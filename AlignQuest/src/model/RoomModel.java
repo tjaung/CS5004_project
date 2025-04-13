@@ -4,6 +4,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+import gameelements.Player;
 import gameelements.Room;
 
 /**
@@ -13,11 +14,11 @@ public class RoomModel {
   List<Room> roomList;
   Room currentRoom;
 
-  public RoomModel(String gameFileName) throws Exception{
+  public RoomModel(String gameFileName, Player player) throws Exception{
     // parse local json file to create world
     String initialJSON = Parser.readJsonFile(gameFileName);
     JSONObject JSON = Parser.parseJsonString(initialJSON);
-    this.roomList = Parser.parseRooms(JSON);
+    this.roomList = Parser.parseRooms(JSON, player);
     // initialize current room as room 1
     this.currentRoom = this.roomList.stream()
             .filter(room -> room.getRoomNumber() == 1)

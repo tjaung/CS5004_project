@@ -27,8 +27,9 @@ public class GameModel {
    * Constructor for the GameModel class.
    */
   public GameModel(String gameFileName) throws Exception {
-    this.roomModel = new RoomModel(gameFileName);
+
     this.player = new Player();
+    this.roomModel = new RoomModel(gameFileName, this.player);
     this.player.setCurrentRoom(this.roomModel.currentRoom);
     this.string = this.roomModel.getCurrentRoom().toString();
     this.imagePath = this.roomModel.getCurrentRoom().getPicture();
@@ -347,10 +348,17 @@ public class GameModel {
   public String loadGame(String name) {
     // check for save data
     try {
-      this.roomModel = new RoomModel(name);
+
       String strJson = Parser.readJsonFile(name);
       JSONObject json = Parser.parseJsonString(strJson);
-      this.player = Parser.parsePlayer(json, this.roomModel.getRoomList());
+      this.player = Parser.parsePlayer(json);
+      this.roomModel = new RoomModel(name, this.player);
+      this.setString("");
+      this.player.setCurrentRoom(this.roomModel.roomList.stream()
+              .filter(room -> room.getRoomNumber() == this.player.getRoomNumber())
+              .findFirst()
+              .get());
+      this.roomModel.setCurrentRoom(this.player.getCurrentRoom());
       return "Save data loaded successfully";
     } catch (Exception e) {
       return e.getMessage();

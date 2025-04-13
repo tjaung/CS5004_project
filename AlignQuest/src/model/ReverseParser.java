@@ -164,7 +164,12 @@ public class ReverseParser {
     puzzleObject.put("active", puzzle.isActive());
     puzzleObject.put("affects_target", puzzle.affects_target());
     puzzleObject.put("affects_player", puzzle.affects_player());
-    puzzleObject.put("solution", puzzle.getSolution().getName());
+    if (puzzle.getSolution().getWeight() == 0) {
+      puzzleObject.put("'" + "solution", puzzle.getSolution().getName() + "'");
+    }
+    else {
+      puzzleObject.put("solution", puzzle.getSolution().getName());
+    }
     puzzleObject.put("value", puzzle.getValue());
     puzzleObject.put("effects", puzzle.getEffects());
     puzzleObject.put("target", puzzle.getTarget());
@@ -196,7 +201,12 @@ public class ReverseParser {
     monsterObject.put("active", monster.isActive());
     monsterObject.put("affects_target", monster.affectsTarget());
     monsterObject.put("affects_player", monster.affectsPlayer());
-    monsterObject.put("solution", monster.getSolution().getName());
+    if (monster.getSolution().getWeight() == 0) {
+      monsterObject.put("'" + "solution", monster.getSolution().getName() + "'");
+    }
+    else {
+      monsterObject.put("solution", monster.getSolution().getName());
+    }
     monsterObject.put("value", monster.getValue());
     monsterObject.put("description", monster.getDescription());
     monsterObject.put("effects", monster.getEffects());

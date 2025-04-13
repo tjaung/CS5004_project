@@ -100,7 +100,7 @@ public class Parser {
    * @param monsterArray array from json data
    * @return list of all monsters
    */
-  public static List<IRoomElement> parseMonster(JSONArray monsterArray, List<IRoomElement> itemList) {
+  public static List<IRoomElement> parseMonster(JSONArray monsterArray, List<IRoomElement> itemList, Player player) {
     if (monsterArray == null || itemList == null){
       throw new IllegalArgumentException("One or more arguments is null");
     }
@@ -115,7 +115,7 @@ public class Parser {
       boolean active = monsterJson.getBoolean("active");
       boolean affectsTarget = monsterJson.getBoolean("affects_target");
       boolean affectsPlayer = monsterJson.getBoolean("affects_player");
-      IRoomElement solution = getSolution(monsterJson, itemList);
+      IRoomElement solution = getSolution(monsterJson, itemList, player);
       int value = monsterJson.getInt("value");
       String description = monsterJson.optString("description");
       String effects = monsterJson.optString("effects");
@@ -141,7 +141,7 @@ public class Parser {
    * @param itemList list of all items since some puzzles need items to solve
    * @return list of all puzzles
    */
-  public static List<IRoomElement> parsePuzzle(JSONArray puzzleArray, List<IRoomElement> itemList){
+  public static List<IRoomElement> parsePuzzle(JSONArray puzzleArray, List<IRoomElement> itemList, Player player){
     if (puzzleArray == null || itemList == null){
       throw new IllegalArgumentException("One or more arguments is null");
     }
@@ -156,7 +156,7 @@ public class Parser {
       boolean active = puzzleJson.getBoolean("active");
       boolean affects_targets = puzzleJson.getBoolean("affects_target");
       boolean affects_player = puzzleJson.getBoolean("affects_player");
-      IRoomElement solution = getSolution(puzzleJson, itemList);
+      IRoomElement solution = getSolution(puzzleJson, itemList, player);
 
       int value = puzzleJson.getInt("value");
       String description = puzzleJson.getString("description");
@@ -250,7 +250,9 @@ public class Parser {
                 .findFirst()
                 .orElse(null);
         // add queried element to output list
-        gameObjects.add(gameObject);
+        if (gameObject != null) {
+          gameObjects.add(gameObject);
+        }
       }
     }
     return gameObjects;
@@ -261,7 +263,7 @@ public class Parser {
    * helper function to query solutions
    * finds the solution based on input
    */
-  private static IRoomElement getSolution(JSONObject eleJson, List<IRoomElement> itemList) {
+  private static IRoomElement getSolution(JSONObject eleJson, List<IRoomElement> itemList, Player player) {
     // get the solution
     IRoomElement solution = null;
 
@@ -277,10 +279,18 @@ public class Parser {
       // solution condition 2: it's an item puzzle and it needs a specific item
       else {
         // query the item list
-        solution = itemList.stream()
-                .filter(item -> item.getName().toLowerCase().equals(answer.toLowerCase()))
-                .findFirst()
-                .get();
+        try {
+          solution = itemList.stream()
+                  .filter(item -> item.getName().toLowerCase().equals(answer.toLowerCase()))
+                  .findFirst()
+                  .get();
+        }
+        catch (Exception e) {
+          solution = player.getInventory().getItems().stream()
+                  .filter(item -> item.getName().toLowerCase().equals(answer.toLowerCase()))
+                  .findFirst()
+                  .get();
+        }
       }
     }
     return solution;
@@ -290,9 +300,10 @@ public class Parser {
    * Creates all the rooms and returns the list of rooms.
    *
    * @param jsonObject full json data
+   * @param player
    * @return list of all rooms with its game elements
    */
-  public static List<Room> parseRooms(JSONObject jsonObject){
+  public static List<Room> parseRooms(JSONObject jsonObject, Player player){
     if (jsonObject == null) {
       throw new IllegalArgumentException("JSON argument is null");
     }
@@ -308,7 +319,7 @@ public class Parser {
 
     // create list of puzzles
     JSONArray puzzleJson = jsonObject.getJSONArray("puzzles");
-    List<IRoomElement> puzzles = parsePuzzle(puzzleJson, items);
+    List<IRoomElement> puzzles = parsePuzzle(puzzleJson, items, player);
 
     // create list of fixtures
     JSONArray fixtureJson = jsonObject.getJSONArray("fixtures");
@@ -316,7 +327,7 @@ public class Parser {
 
     // create list of monsters
     JSONArray monsterJson = jsonObject.isNull("monsters") ? null : jsonObject.getJSONArray("monsters");
-    List<IRoomElement> monsters = monsterJson == null ? null : parseMonster(monsterJson, items);
+    List<IRoomElement> monsters = monsterJson == null ? null : parseMonster(monsterJson, items, player);
 
     // create rooms
     for(int i=0; i < roomArray.length(); i++){
@@ -347,7 +358,7 @@ public class Parser {
    * helper function to query players
    * finds the solution based on input
    */
-  public static Player parsePlayer(JSONObject jsonObject, List<Room> roomList) {
+  public static Player parsePlayer(JSONObject jsonObject) {
     if(jsonObject.isNull("player")) {
       return null;
     }
@@ -357,14 +368,15 @@ public class Parser {
     int health = playerJson.getInt("health");
     // query for current room
     int currRoomNumber = playerJson.getInt("currentRoom");
-    Room currentRoom = roomList.stream()
-            .filter(room -> room.getRoomNumber() == currRoomNumber)
-            .findFirst()
-            .get();
+//    Room currentRoom = roomList.stream()
+//            .filter(room -> room.getRoomNumber() == currRoomNumber)
+//            .findFirst()
+//            .get();
     Player player = new Player();
     player.setName(name);
     player.setScore(score);
     player.setHealth(health);
+    player.setRoomNumber(currRoomNumber);
 
     // get inventory
     JSONObject inventoryJson = (JSONObject) jsonObject.get("inventory");

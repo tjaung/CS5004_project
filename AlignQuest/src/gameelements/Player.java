@@ -16,7 +16,8 @@ public class Player {
   private Room currentRoom;         
   private Inventory inventory;     
   private List<Puzzle> solvedPuzzles;  
-  private List<Monster> defeatedMonsters; 
+  private List<Monster> defeatedMonsters;
+  private int roomNumber;
 
   /**
    * Constructor. 
@@ -176,6 +177,14 @@ public class Player {
     if(this.health < 70)
       return "Your health is LOW, and you're FATIGUED!\n";
     return "Your health is HIGH, and you're AWAKE!\n";
+  }
+
+  public void setRoomNumber(int number) {
+    this.roomNumber = number;
+  }
+
+  public int getRoomNumber() {
+    return this.roomNumber;
   }
 
 }

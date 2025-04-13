@@ -289,11 +289,14 @@ public class Room {
      * @return
      */
     public String toString() {
+        String itemString = "";
         String desc = this.getDescription();
-        String items = this.getItems().stream()
-                .map(item -> item.getName())
-                .collect(Collectors.joining(", "));
-        String itemString = this.getItems().size() != 0 ? "\nItems you see in this room: " + items : "";
+        if (this.items != null && !this.items.isEmpty()) {
+            String items = this.getItems().stream()
+                    .map(item -> item.getName())
+                    .collect(Collectors.joining(", "));
+            itemString = this.getItems().size() != 0 ? "\nItems you see in this room: " + items : "";
+        }
         // if puzzle in room, only return puzzle effect
         if (this.getPuzzle() != null) {
             if (this.getPuzzle().isActive()) {

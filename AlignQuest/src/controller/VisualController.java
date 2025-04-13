@@ -223,6 +223,18 @@ public class VisualController implements ActionListener, IController {
         }
       }
       String selection = this.view.getSave(saves);
+      selection = "../AlignQuest/saves/" + selection;
+      selection = this.model.loadGame(selection);
+      this.view.displayMessage(selection);
+
+      List<IRoomElement> newInv = this.castItemToRoomElement(
+              this.model.getPlayer().getInventory().getItems()
+      );
+      this.view.getInventoryPanel().updatePanel(newInv);
+
+      this.view.updateDesc(this.model.getString(), false);
+      this.view.updateImage(this.model.getRoomModel().getCurrentRoom().getPicture());
+
     } catch (Exception error) {
       this.view.displayMessage(error.getMessage());
     }
