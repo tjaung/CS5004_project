@@ -129,10 +129,10 @@ public class VisualController implements ActionListener, IController {
     try {
       List<Item> items = this.model.getPlayer().getInventory().getItems();
       List<IRoomElement> itemsArr = this.castItemToRoomElement(items);
-      IRoomElement item = PopUp.openListPopUp(itemsArr);
-      PopUp.openDescPopUp(item);
+      IRoomElement item = this.view.makeChoice(itemsArr);
+      this.view.displayDescription(item);
     } catch (Exception error) {
-//      PopUp.confirmPopUp(error.getMessage());
+      this.view.displayMessage(error.getMessage());
     }
   }
 
@@ -232,6 +232,7 @@ public class VisualController implements ActionListener, IController {
   }
 
   private List<IRoomElement> castItemToRoomElement(List<Item> itemList) {
+
     List<IRoomElement> roomElements = new ArrayList<IRoomElement>();
     for (Item item : itemList) {
       IRoomElement i = (IRoomElement) item;

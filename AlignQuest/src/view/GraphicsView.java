@@ -151,4 +151,8 @@ public class GraphicsView extends JFrame {
   public IRoomElement makeChoice(List<IRoomElement> items) {
     return PopUp.openListPopUp(items);
   }
+
+  public void displayDescription(IRoomElement item) {
+    PopUp.openDescPopUp(item);
+  }
 }

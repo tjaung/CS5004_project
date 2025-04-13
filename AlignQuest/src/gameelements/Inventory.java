@@ -51,7 +51,13 @@ public class Inventory {
      * @return the list of items in the Inventory.
      */
     public List<Item> getItems() {
-        return items; 
+
+        if (this.items.isEmpty()) {
+            throw new IllegalArgumentException("You don't have any items in your inventory.");
+        }
+        else {
+            return items;
+        }
     }
 
     /**
